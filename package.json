@@ -1,0 +1,27 @@
+{
+  "name": "app_movieAPI",
+  "version": "1.0.0",
+  "description": "created 23 February 2019\r part of Career Foundry Full-Stack Web Developer Course, AII assignment\r after completion of all 10 steps this will be a server-side building block for an RESTful API, created with\r JavaScript, Node.js, Express and MongoDB",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maraxai/app_movieAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maraxai/app_movieAPI/issues"
+  },
+  "homepage": "https://github.com/maraxai/app_movieAPI#readme"
+}
