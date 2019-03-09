@@ -9,5 +9,104 @@
 <body>
   <h1>MyFlix Movie App</h1>
   <p>Here you will find the documentation about the API that is used in this app.</p>
+  <p>Data structure of user record:
+    <code>
+      let Users = [<br>
+      {<br>
+      user: 'Mike',<br>
+      username: 'mikedietz',<br>
+      password: 'test8test',<br>
+      email: 'here@there.com',<br>
+      dob: '11.11.1919',<br>
+      favoriteMovies : [ 'War Room', 'Bird', 'Round Midnight' ]<br>
+      },<br>
+      ]<br>
+    </code>
+  </p>
+  <p>Data structure of movie record:
+    <code>
+      let Movies = [<br>
+      {<br>
+      user: 'Mike',<br>
+      username: 'mikedietz',<br>
+      password: 'test8test',<br>
+      email: 'here@there.com',<br>
+      dob: '11.11.1919',<br>
+      favoriteMovies : [ 'War Room', 'Bird', 'Round Midnight' ]<br>
+      },<br>
+      ]<br>
+    </code>
+  </p>
+  <p>
+    These are the (planned) GET, POST, PUT and DELETE requests:
+  </p>
+    <p>
+      <p>get the list of all movies: <code>app.get('/movies', (req, res) => {
+        res.json(Movies);});</code></p>
+      <p>get data of a movie selected by title: <code>app.get('/movies/:title', (req, res) => {
+        res.json(Movies.find((movie) => {
+          return movie.title === req.params.title;
+        }));
+      });</code></p>
+      <p>get genres by movie title: <code>
+      app.get('/movies/:title/genres', (req, res) => {
+        res.json(Movies.find((genres) => {
+          return genres.title === req.params.title;
+        }));
+      });</code></p>
+      <p>get data of director by name: <code>
+      app.get('/movies/directors/:name', (req, res) => {
+        res.json(Movies.find((director) => {
+          return director.name === req.params.name;
+      }));
+      });</code></p>
+      <p>get all users: <code>
+      app.get('/users', (req, res) => {
+        res.json(Users)
+      });</code></p>
+      <p>get a user data by name (name, id, username, password, email, dob) by id: <code>
+      app.get('/users/:name', (req, res) => {
+        res.json(Users.find((user) => {
+          return user.name === req.params.name;
+        }));
+        });</code></p>
+      <p>get a user data by id (name, id, username, password, email, dob) by id: <code>
+      app.get('/users/:id', (req, res) => {
+        res.json(Users.find((user) => {
+          return user.id === req.params.id;
+        }));
+        });</code></p>
+      <p>new user registration<code>
+      app.post('/users', (req, res) => {
+        let newUser = req.body;
+      if (!newUser.username || !newUser.password || !newUser.email || !newUser.dob) { const message = 'Information is not complete in request body';
+      res.status(400).send(message);
+      } else {
+      newUser.id = uuid.v4();
+      User.push(newUser);
+      res.status(201).send(newUser);
+      }
+      });</code></p>
+      <p>update user info (username, password, email, dob) by id: <code>
+      app.put('/users/:name', (req, res) => {
+      res.send('Put request will update user information of the user with id ' + res.params.name + '.');
+      });</code></p>
+      <p>add movie to list of favoriteMovies<code>
+      app.post('/user/favoriteMovies/:title', (req, res) => {
+      res.send('Post request will add the movie ' +  res.params.title + ' to the list of favorite movies.');
+      });</code></p>
+      <p>remove movie in list of favoriteMovies<code>
+      app.delete('/user/favoriteMovies/:title', (req, res) => {
+      res.send('Delete request will remove the movie ' + res.params.title + ' from the list of favorite movies.');
+      });</code></p>
+      <p>user de-registration<code>
+      app.delete('/user/:id', (req, res) => {
+      res.send('Delete request will delete the account of the user with the id ' + res.params.id + '.');
+      });</code></p>
+      
+    </p>
+
+
+
 </body>
 </html>
