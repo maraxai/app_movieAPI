@@ -4,24 +4,41 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const app = express();
 
+// body parser needed for POST request that use json files
 app.use(bodyParser.json());
 
+// morgan log of requests
 app.use(morgan('common'));
 
+// documentation of API placed in public/documentation.html file
 app.use(express.static('public'));
 
-// get the list of all movies
+// error handling
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
+
+////////////
+// REQUESTS
+////////////
+
+// routes to index.html on root level
+app.get('/', function(req, res) {
+  res.send(index.html);
+});
+
+// return json with all movies
 app.get('/movies', (req, res) => {
   res.json(Movies);
 });
 
-// get data of a movie selected by title
+// return json of a single movie selected by title
 app.get('/movies/:title', (req, res) => {
   res.json(Movies.find((movie) => {
     return movie.title === req.params.title;
   }));
 });
-
 
 // get movie genres by title
 app.get('/movies/:title/genres', (req, res) => {
@@ -79,14 +96,6 @@ app.post('/users', (req, res) => {
 }
 });
 
-  /* get a user data by id (name, id, username, password, email, dob) by id
-  app.get('/users/:id', (req, res) => {
-    res.json(Users.find((user) => {
-      return user.id === req.params.id;
-    }));
-    });
-*/
-
 // update user info (username, password, email, dob) by id
 app.put('/users/:name/:username/:password/:email', (req, res) => {
   let user = Users.find((user) => {
@@ -124,49 +133,44 @@ app.put('/users/:user/favoriteMovies/:title', (req, res) => {
   }
 });
 
+// delete a user from the user list
+app.delete('/users/:name', (req, res) => {
+  let user = Users.find((user) => { return user.name === req.params.name });
+  if (user) {
+    let newUsers = Users.filter(function(obj) {
+      return obj.name !== req.params.name });
+      Users = newUsers;
+      res.status(201).send('User ' + req.params.name + ' was deleted.')
+  }
+  else {
+    res.status(404).send('Did not work, keep trying.');
+  }
+});
+
 // remove movie in list of favoriteMovies
 app.delete('/users/:user/favoriteMovies/:title', (req, res) => {
   let user = Users.find((user) => {
     return user.name === req.params.name;
   });
   if (user) {
-    let movie = Movies.find(movie) {
-      return movie.title === req.params.title;
-      user.favoriteMovies.remove(title);
-    res.status(201).send('Delete request will remove the movie ' + req.params.title + ' from the list of favorite movies.');
+    let updMovie = Users.favoriteMovies.filter(function(obj) {
+      return obj.favoriteMovies !== req.params.title });
+      Users.favoriteMovies = updMovie;
+      res.status(201).send('Delete request will remove the movie ' + req.params.title + ' from the list of favorite movies.');
   }
   else {
     res.status(404).send('Keep trying! Deletion of movie from the favorites has not been successful!');
   }
 });
 
-// delete a user from the user list
-app.delete('/users/:name', (req, res) => {
-  let user = Users.find((user) => { return user.name === req.params.name });
-  if (user) {
-    Users.filter(function(obj) { return obj.name !== req.params.name });
-    res.status(201).send('User ' + req.params.name + ' was deleted.')
-  }
-  else {
-    res.status(404).send('Did not work, keep trying.')
-  }
-});
-
-/*// user de-registration
-app.delete('/users/:name', (req, res) => {
-  let user = Users.find((user) => {
-    return user.name === req.params.name;
-    if (user) {
-      Users.indexOf(req.params.name);
-    }
-res.send('Delete request will delete the account of the user with the id ' + req.params.id + '.');
-});
-});
-*/
+//let user = tempUsers.find((user) => { return user.name === req.params.name });
+//        let newFavoriteMovies = user.favoriteMovies.filter(obj => {return obj !== removeFavoriteMovie.movie;});
+//        user.favoriteMovies = newFavoriteMovies;
+//       res.status(201).send(newFavoriteMovies);
 
 //get all users
 app.get('/users', (req, res) => {
-  res.json(Users)
+  res.json(Users);
 });
 
 // get a user's data by name (name, id, username, password, email, dob)
@@ -321,5 +325,5 @@ favoriteMovies : ['Bird']
 ]
 
 app.listen(3000, () => {
-  console.log('Seems to work if you read this! this app is listening on port 3000.');
+  console.log('This app is listening on port 3000.');
 })
