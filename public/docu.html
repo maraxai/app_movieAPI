@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyFlix Movie App</title>
+    <style>
+      table {
+        border: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>For those who like to scroll! The following table is created by converting the JSON from Postman into HTML with a JSON-HTML converter.</h1>
+    <p>These requests and endpoints are used in this app. </p>
+      <table border=1>
+  			<thead>
+  				<tr>
+  					<th>info._postman_id</th>
+  					<th>info.name</th>
+  					<th>info.description</th>
+  					<th>info.schema</th>
+  					<th>item.0.name</th>
+  					<th>item.0.request.method</th>
+  					<th>item.0.request.header</th>
+  					<th>item.0.request.body.mode</th>
+  					<th>item.0.request.body.raw</th>
+  					<th>item.0.request.url.raw</th>
+  					<th>item.0.request.url.host.0</th>
+  					<th>item.0.request.url.port</th>
+  					<th>item.0.request.url.path.0</th>
+  					<th>item.0.request.description</th>
+  					<th>item.0.response</th>
+  					<th>item.1.name</th>
+  					<th>item.1.request.method</th>
+  					<th>item.1.request.header</th>
+  					<th>item.1.request.body.mode</th>
+  					<th>item.1.request.body.raw</th>
+  					<th>item.1.request.url.raw</th>
+  					<th>item.1.request.url.host.0</th>
+  					<th>item.1.request.url.port</th>
+  					<th>item.1.request.url.path.0</th>
+  					<th>item.1.request.url.path.1</th>
+  					<th>item.1.request.description</th>
+  					<th>item.1.response</th>
+  					<th>item.2.name</th>
+  					<th>item.2.request.method</th>
+  					<th>item.2.request.header</th>
+  					<th>item.2.request.body.mode</th>
+  					<th>item.2.request.body.raw</th>
+  					<th>item.2.request.url.raw</th>
+  					<th>item.2.request.url.host.0</th>
+  					<th>item.2.request.url.port</th>
+  					<th>item.2.request.url.path.0</th>
+  					<th>item.2.request.url.path.1</th>
+  					<th>item.2.request.url.path.2</th>
+  					<th>item.2.request.description</th>
+  					<th>item.2.response</th>
+  					<th>item.3.name</th>
+  					<th>item.3.request.method</th>
+  					<th>item.3.request.header</th>
+  					<th>item.3.request.body.mode</th>
+  					<th>item.3.request.body.raw</th>
+  					<th>item.3.request.url.raw</th>
+  					<th>item.3.request.description</th>
+  					<th>item.3.response</th>
+  					<th>item.4.name</th>
+  					<th>item.4.request.method</th>
+  					<th>item.4.request.header</th>
+  					<th>item.4.request.body.mode</th>
+  					<th>item.4.request.body.raw</th>
+  					<th>item.4.request.url.raw</th>
+  					<th>item.4.request.url.host.0</th>
+  					<th>item.4.request.url.port</th>
+  					<th>item.4.request.url.path.0</th>
+  					<th>item.4.request.url.path.1</th>
+  					<th>item.4.request.url.path.2</th>
+  					<th>item.4.request.description</th>
+  					<th>item.4.response</th>
+  					<th>item.5.name</th>
+  					<th>item.5.request.method</th>
+  					<th>item.5.request.header.0.key</th>
+  					<th>item.5.request.header.0.name</th>
+  					<th>item.5.request.header.0.value</th>
+  					<th>item.5.request.header.0.type</th>
+  					<th>item.5.request.body.mode</th>
+  					<th>item.5.request.body.raw</th>
+  					<th>item.5.request.url.raw</th>
+  					<th>item.5.request.url.host.0</th>
+  					<th>item.5.request.url.port</th>
+  					<th>item.5.request.url.path.0</th>
+  					<th>item.5.request.description</th>
+  					<th>item.5.response</th>
+  					<th>item.6.name</th>
+  					<th>item.6.request.method</th>
+  					<th>item.6.request.header</th>
+  					<th>item.6.request.body.mode</th>
+  					<th>item.6.request.body.raw</th>
+  					<th>item.6.request.url.raw</th>
+  					<th>item.6.request.url.host.0</th>
+  					<th>item.6.request.url.port</th>
+  					<th>item.6.request.url.path.0</th>
+  					<th>item.6.request.url.path.1</th>
+  					<th>item.6.request.url.path.2</th>
+  					<th>item.6.request.url.path.3</th>
+  					<th>item.6.request.url.path.4</th>
+  					<th>item.6.request.description</th>
+  					<th>item.6.response</th>
+  					<th>item.7.name</th>
+  					<th>item.7.request.method</th>
+  					<th>item.7.request.header</th>
+  					<th>item.7.request.body.mode</th>
+  					<th>item.7.request.body.raw</th>
+  					<th>item.7.request.url.raw</th>
+  					<th>item.7.request.url.host.0</th>
+  					<th>item.7.request.url.port</th>
+  					<th>item.7.request.url.path.0</th>
+  					<th>item.7.request.url.path.1</th>
+  					<th>item.7.request.url.path.2</th>
+  					<th>item.7.request.url.path.3</th>
+  					<th>item.7.request.description</th>
+  					<th>item.7.response</th>
+  					<th>item.8.name</th>
+  					<th>item.8.request.method</th>
+  					<th>item.8.request.header</th>
+  					<th>item.8.request.body.mode</th>
+  					<th>item.8.request.body.raw</th>
+  					<th>item.8.request.url.raw</th>
+  					<th>item.8.request.url.host.0</th>
+  					<th>item.8.request.url.port</th>
+  					<th>item.8.request.url.path.0</th>
+  					<th>item.8.request.url.path.1</th>
+  					<th>item.8.request.description</th>
+  					<th>item.8.response</th>
+  					<th>item.9.name</th>
+  					<th>item.9.request.method</th>
+  					<th>item.9.request.header</th>
+  					<th>item.9.request.body.mode</th>
+  					<th>item.9.request.body.raw</th>
+  					<th>item.9.request.url.raw</th>
+  					<th>item.9.request.url.host.0</th>
+  					<th>item.9.request.url.port</th>
+  					<th>item.9.request.url.path.0</th>
+  					<th>item.9.request.url.path.1</th>
+  					<th>item.9.request.url.path.2</th>
+  					<th>item.9.request.url.path.3</th>
+  					<th>item.9.request.description</th>
+  					<th>item.9.response</th>
+  					<th>item.10.name</th>
+  					<th>item.10.request.method</th>
+  					<th>item.10.request.header</th>
+  					<th>item.10.request.body.mode</th>
+  					<th>item.10.request.body.raw</th>
+  					<th>item.10.request.url.raw</th>
+  					<th>item.10.request.url.protocol</th>
+  					<th>item.10.request.url.host.0</th>
+  					<th>item.10.request.url.port</th>
+  					<th>item.10.request.url.path.0</th>
+  					<th>item.10.request.description</th>
+  					<th>item.10.response</th>
+  					<th>item.11.name</th>
+  					<th>item.11.request.method</th>
+  					<th>item.11.request.header</th>
+  					<th>item.11.request.body.mode</th>
+  					<th>item.11.request.body.raw</th>
+  					<th>item.11.request.url.raw</th>
+  					<th>item.11.request.description</th>
+  					<th>item.11.response</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>a6d850d5-0035-4cd9-a872-33718817c851</td>
+						<td>app_movieAPI</td>
+						<td>MyFlix is a movie app. Create a personal account and manage your list of your favorite movies. It's a RESTful API.</td>
+						<td>https://schema.getpostman.com/json/collection/v2.1.0/collection.json</td>
+						<td>list of all movies</td>
+						<td>GET</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>localhost:3000/movies</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>movies</td>
+						<td>this endpoint retrieves all data about all movies</td>
+						<td></td>
+						<td>data of one movie selected by title</td>
+						<td>GET</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>localhost:3000/movies/Bird</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>movies</td>
+						<td>Bird</td>
+						<td>this endpoint retrieves the data of a movie selected by title</td>
+						<td></td>
+						<td>genres of a movie, selected by title </td>
+						<td>GET</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>localhost:3000/movies/Bird/genres</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>movies</td>
+						<td>Bird</td>
+						<td>genres</td>
+						<td>the endpoint retrieves the movie's genres, select the movie by title</td>
+						<td></td>
+						<td>data of director by name</td>
+						<td>GET</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td></td>
+						<td>this endpoint retrieves a director's data (bio, dob, dod) by director's name</td>
+						<td></td>
+						<td>selected movie's description by movie's title</td>
+						<td>GET</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>localhost:3000/movies/Bird/description</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>movies</td>
+						<td>Bird</td>
+						<td>description</td>
+						<td>this endpoint retrieves the description of the movie which is selected by title</td>
+						<td></td>
+						<td>new user (name, username, password, email, dob)</td>
+						<td>POST</td>
+						<td>Content-Type</td>
+						<td>Content-Type</td>
+						<td>application/json</td>
+						<td>text</td>
+						<td>raw</td>
+						<td>{
+              "name": "x",
+              "username": "juanita",
+              "password": "juan_tanissimo",
+              "email": "juan@tan.es",
+              "dob": "22.11.1918",
+              "favoriteMovies" : ["War Room", "Full Of Grace"]
+              }
+            </td>
+						<td>localhost:3000/users</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>users</td>
+						<td>this endpoint will add a new user to the Users list - ID auto generated </td>
+						<td></td>
+						<td>update user information </td>
+						<td>PUT</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>localhost:3000/users/Mike/mykedeeds/updatedpassword/my@k.at</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>users</td>
+						<td>Mike</td>
+						<td>mykedeeds</td>
+						<td>updatedpassword</td>
+						<td>my@k.at</td>
+						<td>this endpoint updates selected user information (username, userpassword, email)</td>
+						<td></td>
+						<td>new movie to the list of favorites</td>
+						<td>PUT</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>localhost:3000/users/Mike/favoriteMovies/Corageous</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>users</td>
+						<td>Mike</td>
+						<td>favoriteMovies</td>
+						<td>Corageous</td>
+						<td>this endpoint will add a new movie to the list of a user's favorites</td>
+						<td></td>
+						<td>a user account </td>
+						<td>DELETE</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>localhost:3000/users/Mike</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>users</td>
+						<td>Mike</td>
+						<td>this enpoint deletes a user from the list</td>
+						<td></td>
+						<td>Delete a movie from selected user's favorites' list</td>
+						<td>DELETE</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>localhost:3000/users/Mike/favoriteMovies/Bird</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>users</td>
+						<td>Mike</td>
+						<td>favoriteMovies</td>
+						<td>Bird</td>
+						<td>this endpoint deletes a movie from the user's movielist</td>
+						<td></td>
+						<td>all registered users</td>
+						<td>GET</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td>http://localhost:3000/users</td>
+						<td>http</td>
+						<td>localhost</td>
+						<td>3000</td>
+						<td>users</td>
+						<td>this endpoints retrieves all data of all users</td>
+						<td></td>
+						<td>x</td>
+						<td>GET</td>
+						<td></td>
+						<td>raw</td>
+						<td></td>
+						<td></td>
+						<td>x</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+  </body>
+</html>

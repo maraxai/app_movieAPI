@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyFlix Movie App</title>
+    <h1>These requests and endpoints are used in this app.</h1>
+  <table>
+    <tr>
+      <td>
+      GET list of all movies(0)
+      localhost:3000/movies
+      this endpoint retrieves all data about all movies
+
+      Example Requestlist of all movies
+      var https = require('https');</td>
+      <td>
+        var options = {
+          'method': 'GET',
+          'hostname': 'localhost',
+          'path': '/movies',
+          'headers': {
+          }
+        };
+      </td>
+      <td></td>
+      <td>
+        GET data of one movie selected by title(0)
+        localhost:3000/movies/Bird
+        this endpoint retrieves the data of a movie selected by title
+
+        Example Requestdata of one movie selected by title
+        var https = require('https');
+      </td>
+      <td>
+        var options = {
+          'method': 'GET',
+          'hostname': 'localhost',
+          'path': '/movies/Bird',
+          'headers': {
+          }
+        };
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        GET genres of a movie, selected by title (0)
+        localhost:3000/movies/Bird/genres
+        the endpoint retrieves the movie's genres, select the movie by title
+
+        Example Requestgenres of a movie, selected by title
+        var https = require('https');
+      </td>
+      <td>
+        var options = {
+          'method': 'GET',
+          'hostname': 'localhost',
+          'path': '/movies/Bird/genres',
+          'headers': {
+          }
+        };
+      </td>
+      <td></td>
+      <td>
+        GET data of director by name(0)
+        this endpoint retrieves a director's data (bio, dob, dod) by director's name
+
+        Example Requestdata of director by name
+        GET selected movie's description by movie's title(0)
+        localhost:3000/movies/Bird/description
+        this endpoint retrieves the description of the movie which is selected by title
+
+        Example Requestselected movie's description by movie's title
+        var https = require('https');
+      </td>
+      <td>
+        var options = {
+          'method': 'GET',
+          'hostname': 'localhost',
+          'path': '/movies/Bird/description',
+          'headers': {
+          }
+        };
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        POST new user (name, username, password, email, dob)(0)
+        localhost:3000/users
+        this endpoint will add a new user to the Users list - ID auto generated
+      </td>
+      <td>
+        Headers
+        Content-Type	application/json
+        Bodyraw (application/json)
+        {
+        "name": "x",
+        "username": "juanita",
+        "password": "juan_tanissimo",
+        "email": "juan@tan.es",
+        "dob": "22.11.1918",
+        "favoriteMovies" : ["War Room", "Full Of Grace"]
+        }
+      </td>
+      <td></td>
+      <td>
+        Example Requestnew user (name, username, password, email, dob)
+        var https = require('https');
+
+      </td>
+      <td>
+        var options = {
+          'method': 'POST',
+          'hostname': 'localhost',
+          'path': '/users',
+          'headers': {
+            'Content-Type': 'application/json'
+          }
+        };
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        PUT update user information (0)
+        localhost:3000/users/Mike/mykedeeds/updatedpassword/my@k.at
+        this endpoint updates selected user information (username, userpassword, email)
+
+        Example Requestupdate user information
+        var https = require('https');
+
+      </td>
+      <td>
+        var options = {
+          'method': 'PUT',
+          'hostname': 'localhost',
+          'path': '/users/Mike/mykedeeds/updatedpassword/my@k.at',
+          'headers': {
+          }
+        };
+      </td>
+      <td></td>
+      <td>
+        PUT new movie to the list of favorites(0)
+        localhost:3000/users/Mike/favoriteMovies/Corageous
+        this endpoint will add a new movie to the list of a user's favorites
+
+        Example Requestnew movie to the list of favorites
+        var https = require('https');
+      </td>
+      <td>
+        var options = {
+          'method': 'PUT',
+          'hostname': 'localhost',
+          'path': '/users/Mike/favoriteMovies/Corageous',
+          'headers': {
+          }
+        };
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        DELETE a user account (0)
+        localhost:3000/users/Mike
+        this enpoint deletes a user from the list
+
+        Example Requesta user account
+        var https = require('https');
+
+      </td>
+      <td>
+        var options = {
+          'method': 'DELETE',
+          'hostname': 'localhost',
+          'path': '/users/Mike',
+          'headers': {
+          }
+        };
+      </td>
+      <td></td>
+      <td>DELETE Delete a movie from selected user's favorites' list(0)
+      localhost:3000/users/Mike/favoriteMovies/Bird
+      this endpoint deletes a movie from the user's movielist
+
+      Example RequestDelete a movie from selected user's favorites' list
+      var https = require('https');
+  </td>
+      <td>
+        var options = {
+          'method': 'DELETE',
+          'hostname': 'localhost',
+          'path': '/users/Mike/favoriteMovies/Bird',
+          'headers': {
+          }
+        };
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        GET all registered users(0)
+        http://localhost:3000/users
+        this endpoints retrieves all data of all users
+
+        Example Request all registered users
+        var http = require('http');
+
+      </td>
+      <td>
+        var options = {
+          'method': 'GET',
+          'hostname': 'localhost',
+          'path': '/users',
+          'headers': {
+          }
+        };
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+    <p>Data structure of movie record:
+        <code>
+          let Movies = [<br>
+          {<br>
+          user: 'Mike',<br>
+          username: 'mikedietz',<br>
+          password: 'test8test',<br>
+          email: 'here@there.com',<br>
+          dob: '11.11.1919',<br>
+          favoriteMovies : [ 'War Room', 'Bird', 'Round Midnight' ]<br>
+          },<br>
+        ]<br>
+      </code>
+    </p>
+  </body>
+</html>
