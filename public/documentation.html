@@ -51,9 +51,9 @@
         <td>JSON file, displaying data of selected movie</td>
       </tr>
       <tr class="odd">
-        <td>get genres by movie title </td>
+        <td>get genre by movie title </td>
         <td>GET</td>
-        <td>/movies/:title/genres<br>
+        <td>/movies/:title/genre<br>
           [<br>
             "biography",<br>
             "drama",<br>
@@ -82,39 +82,16 @@
           }
       </tr>
       <tr class="odd">
-        <td>get a user data by name (name, id, username, password, email, dob) by id </td>
+        <td>get user data by username (username, password, email, birthday) by id </td>
         <td>GET</td>
-        <td>/users/:name</td>
+        <td>/users/:username</td>
         <td>JSON file, displaying selected user's information<br>
           {<br>
-            "name": "",<br>
-            "id": ,<br>
             "username": "",<br>
             "password": "",<br>
             "email": "",<br>
-            "dob": "",<br>
-            "favoriteMovies": [<br>
-              "",<br>
-              "",<br>
-              ""<br>
-            ]<br>
-          }<br>
-        </td>
-      </tr>
-      <tr  class="even">
-        <td>get a user data by id (name, id, username, password, email, dob) by id</td>
-        <td>GET</td>
-        <td>/movies/:id</td>
-        <td>JSON file, displaying user data, selected by id</td>
-        <td>JSON file, displaying selected user's information<br>
-          {<br>
-            "name": "",<br>
-            "id": ,<br>
-            "username": "",<br>
-            "password": "",<br>
-            "email": "",<br>
-            "dob": "",<br>
-            "favoriteMovies": [<br>
+            "birthday": "",<br>
+            "favoritemovies": [<br>
               "",<br>
               "",<br>
               ""<br>
@@ -130,15 +107,15 @@
         <td>201 / 404</td>
       </tr>
       <tr  class="even">
-        <td>update user info (username, password, email, dob) by id</td>
+        <td>update user info (username, password, email, birthday) by id</td>
         <td>PUT</td>
-        <td>/users/:name/:username/:password/:email</td>
-        <td>message:<br>'Put request will update user information of the user with id ....'</td>
+        <td>/users/:username/:password/:email</td>
+        <td>message:<br>'Put request will update user information of the user seleced with username ....'</td>
       </tr>
       <tr  class="odd">
         <td>get a user's favorite list of movies</td>
         <td>GET</td>
-        <td>/users/fav-movies/:id</td>
+        <td>/users/favoritemovies/:id</td>
         <td>JSON file, displaying the user's favorite movie selection<br>
           [<br>
             "",<br>
@@ -151,7 +128,7 @@
       <tr class="even" >
         <td>add movie to list of user's list of favorite movies</td>
         <td>POST</td>
-        <td>/users/fav-movies/:id/:movie</td>
+        <td>/users/favoritemovies/:username/:movie</td>
         <td>message:<br>
           'Post request will add the movie ... to the list of favorite movies.'
         </td>
@@ -159,17 +136,17 @@
       <tr class="odd">
         <td>remove movie of list of user's list of favorite movies</td>
         <td>DELETE</td>
-        <td>/users/fav-movies/:id/:movie</td>
+        <td>/users/favoritemovies/:username/:movie</td>
         <td>message:<br>
-          'Delete request will remove the movie ' + res.params.title + ' from the list of favorite movies.'
+          'Delete request will remove the movie .... from the list of favorite movies.'
         </td>
       </tr>
       <tr class="even">
         <td>user de-registration</td>
         <td>DELETE</td>
-        <td>/users/:id</td>
+        <td>/users/:username</td>
         <td>message:<br>
-          'Delete request will delete the account of the user with the id ....'
+          'Delete request will delete the account of the user with the username ....'
         </td>
       </tr>
       <tr class="odd">
