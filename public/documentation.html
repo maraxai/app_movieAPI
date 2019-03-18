@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MyFlix Movie App</title>
+    <title>Movie App</title>
     <style>
       body {
         padding: 10px;
@@ -29,26 +29,69 @@
     </style>
   </head>
   <body>
-    <h1>These are the GET, POST, PUT and DELETE requests of this app.</h1>
-    <p>A RESTful API created with Node.js and Express.
-    <table>
+    <h3>A RESTful API in the RTE Node.js for the Express.js framework, with the ODM library Mongoose in combination with the database MongoDB.</h3>
+    <p>These are the GET, POST, PUT and DELETE requests of this app.<table>
       <tr>
         <th>Request</th>
         <th>Http Method</th>
         <th>Url</th>
+        <th>Request Body Data Format</th>
         <th>Response Body Data Format</th>
       </tr>
       <tr class="odd">
         <td>get the list of all movies </td>
         <td>GET</td>
         <td>/movies</td>
-        <td>JSON file, displaying all data of all movies</td>
+        <td></td>
+        <td>JSON file, displaying all data of all movies:<br>
+          [<br>
+          {<br>
+            "genre": {<br>
+              "name": " ",<br>
+              "description": " "<br>
+            },<br>
+            "director": {<br>
+              "name": " ",<br>
+              "bio": "<br>
+              "birth": "1970",<br>
+              "death": ""<br>
+            },<br>
+            "_id": "",<br>
+            "movieId": "",<br>
+            "title": "",<br>
+            "description": ".",<br>
+            "imagePath": "",<br>
+            "featured": <br>
+        },<br>
+        {},...<br>
+        ]<br>
+      </td>
       </tr>
       <tr>
         <td  class="even">get data of a movie selected by title </td>
         <td>GET</td>
         <td>/movies/:title</td>
-        <td>JSON file, displaying data of selected movie</td>
+        <td></td>
+        <td>JSON file, displaying data of selected movie:<br>
+          {<br>
+          "genre": {<br>
+            "name": " ",<br>
+            "description": " "<br>
+          },<br>
+          "director": {<br>
+            "name": " ",<br>
+            "bio": "<br>
+            "birth": "1970",<br>
+            "death": ""<br>
+          },<br>
+          "_id": "",<br>
+          "movieId": "",<br>
+          "title": "",<br>
+          "description": ".",<br>
+          "imagePath": "",<br>
+          "featured": <br>
+        }<br>
+        </td>
       </tr>
       <tr class="odd">
         <td>get genre by movie title </td>
@@ -60,42 +103,81 @@
             "music"<br>
           ]
         </td>
-        <td>JSON file, displaying genre of the selected movie</td>
-      </tr>
-      <tr  class="even">
-        <td>get a movie's description by title</td>
-        <td>GET</td>
-        <td>/movies/:title/description</td>
-        <td>JSON file, displaying movie's description
+        <td></td>
+        <td>JSON file, displaying genre of the selected movie:<br>
+          {<br>
+          "name": " ",<br>
+          "description": " "<br>
+          }<br>
         </td>
       </tr>
+      <tr  class="even">
+        <td>get a movie's description by title:</td>
+        <td>GET</td>
+        <td>/movies/:title/description</td>
+            <td></td>
+        <td>JSON file, displaying movie's description<br>
+          "[description of movie]"
+        </td>
+        </tr>
       <tr  class="odd">
         <td>get data of director by name</td>
         <td>GET</td>
         <td>/movies/directors/:name</td>
-        <td>JSON file, displaying selected director's bio<br>
+        <td></td>
+        <td>JSON file, displaying selected director's bio:<br>
           {<br>
           "name": "",<br>
           "bio": "",<br>
-          "yearOfBirth": ,<br>
-          "yearOfDeath": ,<br>
+          "birth": ,<br>
+          "death": ,<br>
           }
       </tr>
-      <tr class="odd">
-        <td>get user data by username (username, password, email, birthday) by id </td>
+      <tr class="even">
+        <td>get all users' data (username, password, email, birthday, favoritemovies)</td>
         <td>GET</td>
-        <td>/users/:username</td>
-        <td>JSON file, displaying selected user's information<br>
+        <td>/users/</td>
+        <td></td>
+        <td>JSON file, displaying all users' information:<br>
+          [<br>
           {<br>
             "username": "",<br>
             "password": "",<br>
             "email": "",<br>
             "birthday": "",<br>
-            "favoritemovies": [<br>
-              "",<br>
-              "",<br>
-              ""<br>
-            ]<br>
+            "favoritemovies": ["movie1", "movie2", ...]<br>
+          },<br>
+          {}, ...<br>
+          ]<br>
+        </td>
+      </tr>
+      <tr class="odd">
+        <td>get user data (username, password, email, birthday, favoritemovies) by username </td>
+        <td>GET</td>
+        <td>/users/:username</td>
+        <td></td>
+        <td>JSON file, displaying selected user's information:<br>
+          {<br>
+            "username": "",<br>
+            "password": "",<br>
+            "email": "",<br>
+            "birthday": "",<br>
+            "favoritemovies": ["movie1","movie2", ...]<br>
+          }<br>
+        </td>
+      </tr>
+      <tr class="even">
+        <td>get user data (username, password, email, birthday, favoritemovies) by id </td>
+        <td>GET</td>
+        <td>/users/:id</td>
+        <td></td>
+        <td>JSON file, displaying selected user's information:<br>
+          {<br>
+            "username": "",<br>
+            "password": "",<br>
+            "email": "",<br>
+            "birthday": "",<br>
+            "favoritemovies": ["movie1","movie2", ...]<br>
           }<br>
         </td>
       </tr>
@@ -103,53 +185,75 @@
         <td>new user registration</td>
         <td>POST</td>
         <td>/users</td>
-        <td>JSON file</td>
-        <td>201 / 404</td>
+        <td>JSON file:<br>
+          {<br>
+          "username": "",<br>
+          "password": "",<br>
+          "email": "",<br>
+          "birthday": "",<br>
+          "favoritemovies": []<br>
+          }<br>
+          </td>
+          <td>JSON file</td>
       </tr>
       <tr  class="even">
-        <td>update user info (username, password, email, birthday) by id</td>
+        <td>update user info (username, password, email, birthday) by username</td>
         <td>PUT</td>
-        <td>/users/:username/:password/:email</td>
-        <td>message:<br>'Put request will update user information of the user seleced with username ....'</td>
+        <td>/users/:username</td>
+        <td>JSON file:<br>
+          {<br>
+          "username": "",<br>
+          "password": "",<br>
+          "email": "",<br>
+          "birthday": "",<br>
+          "favoritemovies": []<br>
+          }<br>
+        </td>
+        <td>message:<br>
+          {<br>
+          "n": 1,<br>
+          "nModified": 1,<br>
+          "ok": 1<br>
+          }<br>
+        </td>
       </tr>
       <tr  class="odd">
         <td>get a user's favorite list of movies</td>
         <td>GET</td>
-        <td>/users/favoritemovies/:id</td>
-        <td>JSON file, displaying the user's favorite movie selection<br>
-          [<br>
-            "",<br>
-            "",<br>
-            ""<br>
-          ]<br>
-        </td>
+        <td>/users/favoritemovies/:username</td>
         <td></td>
+        <td>JSON file, displaying the user's favorite movie selection<br>
+          ["5c8b7e727c01607703ab6bd5"]
+        </td>
       </tr>
       <tr class="even" >
         <td>add movie to list of user's list of favorite movies</td>
         <td>POST</td>
         <td>/users/favoritemovies/:username/:movie</td>
         <td>message:<br>
-          'Post request will add the movie ... to the list of favorite movies.'
-        </td>
+        <td>'Post request will add the movie ... to the list of favorite movies.'</td>
       </tr>
       <tr class="odd">
+        <td>user de-registration</td>
+        <td>DELETE</td>
+        <td>/users/:username</td>
+        <td></td>
+        <td>message:<br>
+          'The account with the username: [username] is deleted.'
+        </td>
+      </tr>
+      <tr class="even">
         <td>remove movie of list of user's list of favorite movies</td>
         <td>DELETE</td>
         <td>/users/favoritemovies/:username/:movie</td>
+        <td></td>
         <td>message:<br>
           'Delete request will remove the movie .... from the list of favorite movies.'
         </td>
       </tr>
-      <tr class="even">
-        <td>user de-registration</td>
-        <td>DELETE</td>
-        <td>/users/:username</td>
-        <td>message:<br>
-          'Delete request will delete the account of the user with the username ....'
-        </td>
-      </tr>
       <tr class="odd">
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
