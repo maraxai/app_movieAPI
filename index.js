@@ -234,22 +234,40 @@ app.delete('/users/:username', function(req, res) {
 });
 
 // remove movie in list of favoriteMovies of a user selected by username (Mongoose)
-app.delete('/users/:username/favoritemovies/:movieid', function(req,res) {
-  Users.findOneAndDelete({username : req.params.username}, {
-    $pull: {[favoritemovies.movieid] : req.params.movieid}
+app.delete('/users/:username/favoritemovies/:id', function(req,res) {
+  Users.update({username : req.params.username}, {
+    $pull: {favoritemovies : req.params.id}
   },
   {new : true}, // returns updated document
-  function(err, updatedMovieList) {
+  function(err, updatedfavoritemovies) {
     if (err) {
       console.error(err);
       res.status(500).send('Error' + err);
     }
     else {
-      res.json(updatedMovieList)
+      res.json(updatedfavoritemovies)
     }
-  })
+  });
 });
 
+// remove movie in list of favoriteMovies of a user selected by username (Mongoose)
+/*app.delete('/users/:username/favoritemovies/:id', function(req,res) {
+  Users.findOneAndDelete({username : req.params.username}, {
+    $pull: {favoritemovies : req.params.ObjectId}
+  },
+  {new : true}, // returns updated document
+  function(err, updatedfavoritemovies) {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error' + err);
+    }
+    else {
+      res.json(updatedfavoritemovies)
+    }
+  });
+});
+
+*/
 app.listen(3000, () => {
   console.log('This app is listening on port 3000.');
 });

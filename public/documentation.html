@@ -229,9 +229,19 @@
       <tr class="even" >
         <td>add movie to list of user's list of favorite movies</td>
         <td>POST</td>
-        <td>/users/favoritemovies/:username/:movie</td>
-        <td>message:<br>
-        <td>'Post request will add the movie ... to the list of favorite movies.'</td>
+        <td>/users/:username/favoritemovies/:id</td>
+        <td><br>
+        <td>JSON file:<br>
+          {<br>
+          "favoritemovies": ["",""],<br>
+          "_id": "5c8f6380a8ef02387c2ead3b",<br>
+          "username": "huarona",<br>
+          "password": "qwerasdf",<br>
+          "email": "asdfqwer@sdf.se",<br>
+          "birthday": "2000-12-11T23:00:00.000Z",<br>
+          "__v": 0<br>
+          }
+        </td>
       </tr>
       <tr class="odd">
         <td>user de-registration</td>
@@ -245,10 +255,14 @@
       <tr class="even">
         <td>remove movie of list of user's list of favorite movies</td>
         <td>DELETE</td>
-        <td>/users/favoritemovies/:username/:movie</td>
+        <td>/users/favoritemovies/:username/:id</td>
         <td></td>
         <td>message:<br>
-          'Delete request will remove the movie .... from the list of favorite movies.'
+          {<br>
+          "n": 1,<br>
+          "nModified": 1,<br>
+          "ok": 1<br>
+          }<br>
         </td>
       </tr>
       <tr class="odd">
