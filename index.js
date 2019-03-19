@@ -2,7 +2,15 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
 const app = express();
+
+mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true});
 
 // body parser needed for POST request that use json files
 app.use(bodyParser.json());
@@ -19,322 +27,247 @@ app.use(function (err, req, res, next) {
   res.status(500).send('Something went wrong!');
 });
 
-////////////
-// REQUESTS
-////////////
+  ///////////////
+ // REQUESTS //
+//////////////
 
-// routes to index.html on root level
-app.get('/', function(req, res) {
-  res.send(index.html);
-});
+// MOVIES //
 
-// return json with all movies
-app.get('/movies', (req, res) => {
-  res.json(Movies);
-});
+// ?????routes to index.html on root level
+//app.get('/', function(req, res) {
+//  res.send(index.html);
+//});
 
-// return json of a single movie selected by title
-app.get('/movies/:title', (req, res) => {
-  res.json(Movies.find((movie) => {
-    return movie.title === req.params.title;
-  }));
-});
-
-// get movie genres by title
-app.get('/movies/:title/genres', (req, res) => {
-  let movie = Movies.find((movie) => {
-    return movie.title === req.params.title;
+// return json with all movies (mongoose)
+app.get('/movies', function(req, res) {
+  Movies.find()
+  .then(function(movies) {
+  res.status(201).json(movies);
+  })
+  .catch(function(err) {
+    console.log(err);
+    res.status(500),send('Error ' + err);
   });
-
-  if (movie) {
-    let genresArray = Object(movie.genres);
-    console.log(genresArray);
-    res.status(201).send(genresArray);
-  }
-  else {
-    res.status(404).send('Genres of ' + req.params.title + ' were not found.');
-  }
 });
 
-// get movie description by title
-app.get('/movies/:title/description', (req, res) => {
-  let movie = Movies.find((movie) => {
-    return movie.title === req.params.title;
+// return json of a single movie selected by title (mongoose)
+app.get('/movies/:title', function(req, res) {
+  Movies.findOne({title: req.params.title})
+  .then(function(movie) {
+    res.json(movie);
+  })
+  .catch(function(movie) {
+    console.error(err);
+    res.status(500).send('Error ' + err);
   });
-if (movie) {
-  let description = movie.description;
-  res.status(201).send(description);
-}
-else {
-  res.status(404).send('No description available for the movie ' + req.params.title);
-}
 });
 
-// get data of director by name
-app.get('/movies/directors/:name', (req, res) => {
-  let movie = Movies.find((movie) => {
-    return movie.director.name === req.params.name;
-});
-
-  if (movie) {
-    let director = Object(movie.director);
-    res.status(201).send(director);
-  }
-  else {
-    res.status(404).send('No information available about ' + req.params.name + '.');
-  }
-});
-
-// get a user's list of favorite movies by id
-app.get('/users/fav-movies/:id', (req,res) => {
-  let findCorrectUser = Users.find((user) => {
-    return user.id === parseInt(req.params.id);
+// get movie's genre by title (mongoose)
+app.get('/movies/:title/genre', function(req, res) {
+  Movies.findOne({title: req.params.title})
+  .then(function(movie) {
+    res.json(movie.genre);
+  })
+  .catch(function(movie) {
+    console.error(err);
+    res.status(500).send('There is an error with your request. Please check the ' + req.params.title + '.');
   });
-  if (findCorrectUser) {
-    let usersFavMovies = findCorrectUser.favoriteMovies;
-    res.json(usersFavMovies);
-  }
 });
 
-// new user registration
-app.post('/users', (req, res) => {
-  let newUser = req.body;
-  if (!newUser.username || !newUser.password || !newUser.email || !newUser.dob) { const message = 'Information is not complete in request body';
-  res.status(400).send(message);
-} else {
-  newUser.id = uuid.v4();
-  Users.push(newUser);
-  res.status(201).send(newUser);
-}
-});
-
-// update user info (username, password, email, dob) by id
-app.put('/users/:name/:username/:password/:email', (req, res) => {
-  let user = Users.find((user) => {
-    return user.name === req.params.name;
+// get movie description by title (mongoose)
+app.get('/movies/:title/description', function(req, res) {
+  Movies.findOne({title: req.params.title})
+  .then(function(movie) {
+    res.json(movie.description);
+  })
+  .catch(function(movie) {
+    console.error(err);
+    res.status(500).send('There is an error with your request. Please check the ' + req.params.title + '.');
   });
-  if (user) {
-    user.username = req.params.username;
-    user.password = req.params.password;
-    user.email = req.params.email;
-    res.status(201).send(''+ req.params.name + '\'s information is updated.');
-  } else {
-    res.status(404).send('The user with the name ' + req.params.name + ' has not been found.');
-  }
 });
 
-// add movie to the list of favoriteMovies of a user identified by id
-app.put('/users/fav-movies/:id/:movie', (req, res) => {
-  let correctUser = Users.find((user) => {
-    return user.id === parseInt(req.params.id);
+// get data of director by name (mongoose)
+app.get('/movies/directors/:name', function(req, res) {
+  Movies.findOne({'director.name': req.params.name})
+  .then(function(movie) {
+    res.json(movie.director);
+  })
+  .catch(function(err) {
+    res.status(500).send('There is an error with your request. Please check your entry ' + req.params.name + '.');
   });
-  if (correctUser) {
-    correctUser.favoriteMovies.push(req.params.movie);
-    res.status(201).send(req.params.movie + " was added.");
-  } else {
-    res.status(404).send("So sorry, but the favorite movies couldn't get updated.");
-  }
 });
 
-// delete a user from the user list
-app.delete('/users/:name', (req, res) => {
-  let user = Users.find((user) => {
-    return user.name === req.params.name;
+
+// USERS //
+
+//get all users (mongoose)
+app.get('/users', function(req, res) {
+  Users.find()
+  .then(function(users) {
+    res.status(201).json(users);
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send('Error ' + err);
   });
-  if (user) {
-    let newUsers = Users.filter(function(obj) {
-      return obj.name !== req.params.name;
-    });
-      Users = newUsers;
-      res.status(201).send('User ' + req.params.name + ' was deleted.');
-  }
-  else {
-    res.status(404).send('Did not work, keep trying.');
-  }
 });
 
-// remove movie in list of favoriteMovies
-app.delete('/users/fav-movies/:id/:movie', (req,res) => {
-  let correctUser = Users.find((user) => {
-    return user.id === parseInt(req.params.id);
+// get a user's data by username (name, id, username, password, email, dob)
+app.get('/users/:username', function(req, res) {
+  Users.findOne({username: req.params.username})
+  .then(function(user){
+    res.json(user);
+  })
+  .catch(function(err){
+    console.error(err);
+    res.status(500).send('Error: ' + err);
   });
-  if (correctUser) {
-    console.log("Before removing existing movie", correctUser.favoriteMovies);
-    let favMovies = correctUser.favoriteMovies;
-    let getIndex = favMovies.indexOf(req.params.movie);
-    // If the movie is included (-1 means, not part of our array. An array starts with position 0)
-    if (getIndex !== -1) {
-    // More information: https://medium.freecodecamp.org/lets-explore-slice-splice-spread-syntax-in-javascript-e242a6f21e60
-      favMovies.splice(getIndex, 1);
+});
+
+// get a user's data by id
+app.get('/users/:id', function(req, res) {
+  Users.findById({_id: req.params.id})
+  .then(function(user){
+    res.json(user);
+  })
+  .catch(function(err){
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+// new user registration (mongoose)
+app.post('/users', function(req, res) {
+  Users.findOne({username: req.body.username})
+  .then(function(user) {
+    if(user) {
+      return res.status(400).send('The username ' + req.body.username + ' already exists.');
     }
-    console.log("After removing existing movie", correctUser.favoriteMovies);
-    res.status(201).send(req.params.movie + " was deleted.");
-  } else {
-    res.status(404).send("Sorry, couldn't delete the movie.");
-  }
+    else {
+      Users
+      .create({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        birthday: req.body.birthday,
+        favoritemovies: req.body.favoritemovies
+      })
+      .then(function(user) {
+        res.status(201).json(user)
+      })
+      .catch(function(error){
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      })
+    }
+  })
+  .catch(function(error) {
+    console.error(error);
+    res.status(500).send('Error: ' + error);
+  });
 });
 
-//get all users
-app.get('/users', (req, res) => {
-  res.json(Users);
+// update user info (username, password, email, dob) by id (Mongoose)
+app.put('/users/:username', function(req, res) {
+  Users.update({username : req.params.username}, {$set:
+  {
+    username : req.body.username,
+    password : req.body.password,
+    email : req.body.email,
+    birthday : req.body.birthday
+  }},
+  {new : true}, //This line makes sure that the updated document is returned
+  function(err, updatedUser) {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    }
+    else {
+      res.json(updatedUser)
+    }
+  })
 });
 
-// get a user's data by name (name, id, username, password, email, dob)
-app.get('/users/:name', (req, res) => {
-  res.json(Users.find((user) => {
-    return user.name === req.params.name;
-  }));
+// get a user's list of favorite movies by username (mongoose)
+app.get('/users/:username/favoritemovies', function(req,res) {
+  Users.findOne({username: req.params.username})
+  .then(function(user) {
+    res.json(user.favoritemovies);
+  })
+  .catch(function(err) {
+    res.status(500).send('There is an error with your request. Please check your entry ' + req.params.username + '.')
+  });
 });
 
-// get a user's data by id (name, id, username, password, email, dob)
-app.get('/users/:id', (req, res) => {
-  res.json(Users.find((user) => {
-    console.log(req.params);
-    return user.id === parseInt(req.params.id);
-  }));
+// add movie by id to a user's list of favorite movies (Mongoose)
+app.put('/users/:username/favoritemovies/:id', function(req, res) {
+  Users.findOneAndUpdate({username : req.params.username}, {
+    $push: {favoritemovies : req.params.id}
+  },
+  {new : true}, // returns updated document
+  function(err, updatedlist) {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error' + err);
+    }
+    else {
+      res.json(updatedlist)
+    }
+  });
 });
 
-let Movies = [
-{
-title: 'War Room',
-description: 'The family-friendly movie explores the transformational role prayer plays in the lives of the Jordan family. Tony and Elizabeth Jordan, a middle-class couple who seemingly have it all – great jobs, a beautiful daughter, their dream home. But appearances can be deceiving. In reality, the Jordan\'s marriage has become a war zone and their daughter is collateral damage. With the help of Miss Clara, an older, wiser woman, Elizabeth discovers she can start fighting for her family instead of against them. Through a newly energized faith, Elizabeth and Tony\'s real enemy doesn\'t have a prayer.',
-genres: ['drama', 'romance'],
-director: {
-  name: 'Alex Kendrick',
-  bio: 'former associate pastor at Sherwood Baptist Church, in Albany, Georgia, founded Sherwood Pictures, which produced Flywheel (2003), Facing the Giants (2006), Fireproof (2008), and Courageous (2011). Co-author of several best-selling books, including The Love Dare. Author of New York Times Best Seller The Resolution for Men and The Battle Plan for Prayer. Again with his brother, also appeared on the New York Times Best Seller list. In 2013, he founded Kendrick Brothers Productions with his brothers, Stephen and Shannon.',
-  yearOfBirth: 1970,
-  yearOfDeath: '',
-},
-imageUrl: 'img/warRoom.jpg'
-},
-{
-title: 'Facing the Giants',
-description: 'A losing coach with an underdog football team faces their giants of fear and failure on and off the field to surprising results.',
-genres: ['drama'],
-director: {
-  name: 'Alex Kendrick',
-  bio: 'former associate pastor at Sherwood Baptist Church, in Albany, Georgia, founded Sherwood Pictures, which produced Flywheel (2003), Facing the Giants (2006), Fireproof (2008), and Courageous (2011). Co-author of several best-selling books, including The Love Dare. Author of New York Times Best Seller The Resolution for Men and The Battle Plan for Prayer. again with his brother, also appeared on the New York Times Best Seller list. In 2013, he founded Kendrick Brothers Productions with his brothers, Stephen and Shannon.',
-  yearOfBirth: 1970,
-  yearOfDeath:'',
-},
-imageUrl: 'img/facingTheGiants.jpg'
-},
-{
-title: 'Corageous',
-description: 'As law enforcement officers, Adam Mitchell, Nathan Hayes, and their partners are confident and focused. They willingly stand up to the worst the streets have to offer. Yet at the end of the day, they face a challenge that none of them are truly prepared to tackle: fatherhood. They know that God desires to turn the hearts of fathers to their children, but their children are beginning to drift further and further away from them. When tragedy hits home, these men are left wrestling with their hopes, their fears, their faith, and their fathering. Can a new found urgency help these dads draw closer to God ... and to their children? COURAGEOUS is the fourth release of Sherwood Pictures, the movie making ministry of Sherwood Church in Albany, Georgia.',
-genres: ['drama'],
-director: {
-  name: 'Alex Kendrick',
-  bio: 'former associate pastor at Sherwood Baptist Church, in Albany, Georgia, founded Sherwood Pictures, which produced Flywheel (2003), Facing the Giants (2006), Fireproof (2008), and Courageous (2011). Co-author of several best-selling books, including The Love Dare. Author of New York Times Best Seller The Resolution for Men and The Battle Plan for Prayer. again with his brother, also appeared on the New York Times Best Seller list. In 2013, he founded Kendrick Brothers Productions with his brothers, Stephen and Shannon.',
-  yearOfBirth: 1970,
-  yearOfDeath:'',
-},
-imageUrl: 'img/courageous.jpg'
-},
-{
-title: 'Paul, Apostle of Christ',
-description: 'The story covers Paul going from the most infamous persecutor of Christians to Jesus Christ\'s most influential apostle.',
-genres: ['adventure', 'biography', 'drama'],
-director: {
-  name: 'Andrew Hyatt',
-  bio: 'Andrew Hyatt is the award-winning writer/director of "Paul, Apostle of Christ", "Full of Grace", "The Last Light", and "The Frozen". Hyatt\'s passion is in the creation of content that is deeply personal, seeking to tell stories that delve deeper into the drama of the human condition. Exploring good and evil, truth and beauty.',
-  yearOfBirth: 1982,
-  yearOfDeath:'',
-},
-imageUrl: 'img/paulTheApostleOfChrist.jpg'
-},
-{
-title: 'Full of Grace',
-description: 'Follows Mary of Nazareth in her last earthly days as she helps the fractious early Church regain their original encounter with The Lord.',
-genres: ['drama', 'history'],
-director: {
-  name: 'Andrew Hyatt',
-  bio: 'Andrew Hyatt is the award-winning writer/director of "Paul, Apostle of Christ", "Full of Grace", "The Last Light", and "The Frozen". Hyatt\'s passion is in the creation of content that is deeply personal, seeking to tell stories that delve deeper into the drama of the human condition. Exploring good and evil, truth and beauty.' ,
-  yearOfBirth: 1982,
-  yearOfDeath:'',
-},
-imageUrl: 'img/fullOfGrace'
-},
-{
-title: 'The Passion of the Christ',
-description: 'Depicts the final twelve hours in the life of Jesus of Nazareth, on the day of his crucifixion in Jerusalem.',
-genres: ['drama'],
-director: {
-  name: 'Mel Gibson',
-  bio: 'Mel Columcille Gerard Gibson was born January 3, 1956 in Peekskill, New York, USA, as the sixth of eleven children of Hutton Gibson, a railroad brakeman, and Anne Patricia (Reilly) Gibson (who died in December of 1990). His mother was Irish, from County Longford, while his American-born father is of mostly Irish descent.',
-  yearOfBirth: 1956,
-  yearOfDeath:'',
-},
-imageUrl: 'img/thePassionOfChrist.jpg'
-},
-{
-title: 'Bird',
-description: 'The troubled life and career of the jazz musician, Charlie "Bird" Parker.',
-genres: ['biography', 'drama', 'music'],
-director: {
-  name: 'Clint Eastwood',
-  bio: 'Clint Eastwood was born May 31, 1930 in San Francisco, the son of Clinton Eastwood Sr., a manufacturing executive for Georgia-Pacific Corporation, and Ruth Wood, a housewife turned IBM operator. He had a comfortable, middle-class upbringing in nearby Piedmont.',
-  yearOfBirth: 1930,
-  yearOfDeath:'',
-},
-imageUrl: 'img/bird.jpg'
-},
-{
-title: 'Round Midnight',
-description: 'A troubled, but talented musician flees the US to escape his problems, finding refuge and support in Paris.',
-genres: ['drama', 'music'],
-director: {
-  name: 'Bertrand Tavernier',
-  bio: 'Bertrand Tavernier was a law student that preferred write film criticisms. He also wrote a few books about American movies. Then his first film won a few awards in France and abroad and established his reputation.',
-  yearOfBirth: 1941,
-  yearOfDeath:'',
-},
-imageUrl: 'img/roundMidnight.jpg'
-},
-{
-title: 'Chasing Trane: The John Coltrane Documentary',
-description: 'The film explores the global power and impact of the music of John Coltrane and reveals the passions, experiences and forces that shaped his life and revolutionary sounds.',
-genres: ['documentary', 'biography', 'music'],
-director: {
-  name: 'John Scheinfeld',
-  bio: 'From pop culture to politics, sports to world religions, Venice and Toronto film festivals to PBS, Emmy®, Grammy® and Writers Guild Award nominee John Scheinfeld is a critically-acclaimed documentary filmmaker with a broad range of subjects and productions to his credit.',
-  yearOfBirth:'' ,
-  yearOfDeath:'',
-},
-imageUrl: 'img/Coltrane.jpg'
-}
-];
+// delete a user from the user list (Mongoose)
+app.delete('/users/:username', function(req, res) {
+  Users.findOneAndDelete({username : req.params.username})
+  .then(function(user) {
+    if(!user) {
+      res.status(400).send(req.params.username + ' was not found.');
+    }
+    else {
+      res.status(200).send(req.params.username + ' was deleted.');
+    }
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
-let Users = [
-{
-name: 'Mike',
-id: 1,
-username: 'mikedietz',
-password: 'test8test',
-email: 'here@there.com',
-dob: '11.11.1919',
-favoriteMovies : [ 'War Room', 'Bird', 'Round Midnight' ]
-},
-{
-name: 'Quark',
-id: 2,
-username: 'peterquark',
-password: 'peter8quark',
-email: 'peter@quark.com',
-dob: '12.12.2012',
-favoriteMovies : ['Facing The Giant','Paul, the Apostle of Christ']
-},
-{
-name: 'Quantino',
-id: 3,
-username: 'quantinto',
-password: 'quantanto',
-email: 'quant@quint.com',
-dob: '22.11.1918',
-favoriteMovies : ['Bird']
-}
-];
+// remove movie in list of favoriteMovies of a user selected by username (Mongoose)
+app.delete('/users/:username/favoritemovies/:id', function(req,res) {
+  Users.update({username : req.params.username}, {
+    $pull: {favoritemovies : req.params.id}
+  },
+  {new : true}, // returns updated document
+  function(err, updatedfavoritemovies) {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error' + err);
+    }
+    else {
+      res.json(updatedfavoritemovies)
+    }
+  });
+});
 
+// remove movie in list of favoriteMovies of a user selected by username (Mongoose)
+/*app.delete('/users/:username/favoritemovies/:id', function(req,res) {
+  Users.findOneAndDelete({username : req.params.username}, {
+    $pull: {favoritemovies : req.params.ObjectId}
+  },
+  {new : true}, // returns updated document
+  function(err, updatedfavoritemovies) {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error' + err);
+    }
+    else {
+      res.json(updatedfavoritemovies)
+    }
+  });
+});
+
+*/
 app.listen(3000, () => {
   console.log('This app is listening on port 3000.');
 });
