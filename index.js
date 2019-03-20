@@ -1,8 +1,10 @@
-const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const uuid = require('uuid');
-const mongoose = require('mongoose');
+const express = require('express'),
+      morgan = require('morgan'),
+      bodyParser = require('body-parser'),
+      uuid = require('uuid'),
+      mongoose = require('mongoose'),
+      passport = require('passport');
+
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
@@ -10,7 +12,11 @@ const Users = Models.User;
 
 const app = express();
 
+require('./passport');
+
 mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true});
+
+var auth = require('./auth')(app);
 
 // body parser needed for POST request that use json files
 app.use(bodyParser.json());
@@ -39,19 +45,18 @@ app.use(function (err, req, res, next) {
 //});
 
 // return json with all movies (mongoose)
-app.get('/movies', function(req, res) {
+app.get('/movies', passport.authenticate('jwt', {session: false}), function(req, res) {
   Movies.find()
   .then(function(movies) {
   res.status(201).json(movies);
-  })
-  .catch(function(err) {
+  }).catch(function(err) {
     console.log(err);
-    res.status(500),send('Error ' + err);
+    res.status(500).send('Error ' + err);
   });
 });
 
 // return json of a single movie selected by title (mongoose)
-app.get('/movies/:title', function(req, res) {
+app.get('/movies/:title', passport.authenticate('jwt', {session: false}), function(req, res) {
   Movies.findOne({title: req.params.title})
   .then(function(movie) {
     res.json(movie);
@@ -63,7 +68,7 @@ app.get('/movies/:title', function(req, res) {
 });
 
 // get movie's genre by title (mongoose)
-app.get('/movies/:title/genre', function(req, res) {
+app.get('/movies/:title/genre', passport.authenticate('jwt', {session: false}), function(req, res) {
   Movies.findOne({title: req.params.title})
   .then(function(movie) {
     res.json(movie.genre);
@@ -75,7 +80,7 @@ app.get('/movies/:title/genre', function(req, res) {
 });
 
 // get movie description by title (mongoose)
-app.get('/movies/:title/description', function(req, res) {
+app.get('/movies/:title/description', passport.authenticate('jwt', {session: false}), function(req, res) {
   Movies.findOne({title: req.params.title})
   .then(function(movie) {
     res.json(movie.description);
@@ -87,7 +92,7 @@ app.get('/movies/:title/description', function(req, res) {
 });
 
 // get data of director by name (mongoose)
-app.get('/movies/directors/:name', function(req, res) {
+app.get('/movies/directors/:name', passport.authenticate('jwt', {session: false}), function(req, res) {
   Movies.findOne({'director.name': req.params.name})
   .then(function(movie) {
     res.json(movie.director);
@@ -101,7 +106,7 @@ app.get('/movies/directors/:name', function(req, res) {
 // USERS //
 
 //get all users (mongoose)
-app.get('/users', function(req, res) {
+app.get('/users', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.find()
   .then(function(users) {
     res.status(201).json(users);
@@ -113,7 +118,7 @@ app.get('/users', function(req, res) {
 });
 
 // get a user's data by username (name, id, username, password, email, dob)
-app.get('/users/:username', function(req, res) {
+app.get('/users/:username', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.findOne({username: req.params.username})
   .then(function(user){
     res.json(user);
@@ -125,7 +130,7 @@ app.get('/users/:username', function(req, res) {
 });
 
 // get a user's data by id
-app.get('/users/:id', function(req, res) {
+app.get('/users/:id', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.findById({_id: req.params.id})
   .then(function(user){
     res.json(user);
@@ -137,11 +142,11 @@ app.get('/users/:id', function(req, res) {
 });
 
 // new user registration (mongoose)
-app.post('/users', function(req, res) {
+app.post('/users', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.findOne({username: req.body.username})
   .then(function(user) {
     if(user) {
-      return res.status(400).send('The username ' + req.body.username + ' already exists.');
+      return res.status(400).send('The username ' + req.body.Username + ' already exists.');
     }
     else {
       Users
@@ -153,12 +158,12 @@ app.post('/users', function(req, res) {
         favoritemovies: req.body.favoritemovies
       })
       .then(function(user) {
-        res.status(201).json(user)
+        res.status(201).json(user);
       })
       .catch(function(error){
         console.error(error);
         res.status(500).send('Error: ' + error);
-      })
+      });
     }
   })
   .catch(function(error) {
@@ -168,7 +173,7 @@ app.post('/users', function(req, res) {
 });
 
 // update user info (username, password, email, dob) by id (Mongoose)
-app.put('/users/:username', function(req, res) {
+app.put('/users/:username', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.update({username : req.params.username}, {$set:
   {
     username : req.body.username,
@@ -183,24 +188,24 @@ app.put('/users/:username', function(req, res) {
       res.status(500).send('Error: ' + err);
     }
     else {
-      res.json(updatedUser)
+      res.json(updatedUser);
     }
-  })
+  });
 });
 
 // get a user's list of favorite movies by username (mongoose)
-app.get('/users/:username/favoritemovies', function(req,res) {
+app.get('/users/:username/favoritemovies', passport.authenticate('jwt', {session: false}), function(req,res) {
   Users.findOne({username: req.params.username})
   .then(function(user) {
     res.json(user.favoritemovies);
   })
   .catch(function(err) {
-    res.status(500).send('There is an error with your request. Please check your entry ' + req.params.username + '.')
+    res.status(500).send('There is an error with your request. Please check your entry ' + req.params.username + '.');
   });
 });
 
 // add movie by id to a user's list of favorite movies (Mongoose)
-app.put('/users/:username/favoritemovies/:id', function(req, res) {
+app.put('/users/:username/favoritemovies/:id', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.findOneAndUpdate({username : req.params.username}, {
     $push: {favoritemovies : req.params.id}
   },
@@ -211,13 +216,13 @@ app.put('/users/:username/favoritemovies/:id', function(req, res) {
       res.status(500).send('Error' + err);
     }
     else {
-      res.json(updatedlist)
+      res.json(updatedlist);
     }
   });
 });
 
 // delete a user from the user list (Mongoose)
-app.delete('/users/:username', function(req, res) {
+app.delete('/users/:username', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.findOneAndDelete({username : req.params.username})
   .then(function(user) {
     if(!user) {
@@ -234,7 +239,7 @@ app.delete('/users/:username', function(req, res) {
 });
 
 // remove movie in list of favoriteMovies of a user selected by username (Mongoose)
-app.delete('/users/:username/favoritemovies/:id', function(req,res) {
+app.delete('/users/:username/favoritemovies/:id', passport.authenticate('jwt', {session: false}), function(req,res) {
   Users.update({username : req.params.username}, {
     $pull: {favoritemovies : req.params.id}
   },
@@ -245,29 +250,11 @@ app.delete('/users/:username/favoritemovies/:id', function(req,res) {
       res.status(500).send('Error' + err);
     }
     else {
-      res.json(updatedfavoritemovies)
+      res.json(updatedfavoritemovies);
     }
   });
 });
 
-// remove movie in list of favoriteMovies of a user selected by username (Mongoose)
-/*app.delete('/users/:username/favoritemovies/:id', function(req,res) {
-  Users.findOneAndDelete({username : req.params.username}, {
-    $pull: {favoritemovies : req.params.ObjectId}
-  },
-  {new : true}, // returns updated document
-  function(err, updatedfavoritemovies) {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error' + err);
-    }
-    else {
-      res.json(updatedfavoritemovies)
-    }
-  });
-});
-
-*/
 app.listen(3000, () => {
   console.log('This app is listening on port 3000.');
 });

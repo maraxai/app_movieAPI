@@ -4,12 +4,18 @@
   "description": "created 23 February 2019\r part of Career Foundry Full-Stack Web Developer Course, AII assignment\r after completion of all 10 steps this will be a server-side building block for an RESTful API, created with\r JavaScript, Node.js, Express and MongoDB",
   "main": "index.js",
   "dependencies": {
+    "@types/jsonwebtoken": "^8.3.2",
     "@types/morgan": "^1.7.35",
+    "@types/passport": "^1.0.0",
     "@types/uuid": "^3.4.4",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.19",
     "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "request": "^2.88.0",
     "uuid": "^3.3.2"
   },
