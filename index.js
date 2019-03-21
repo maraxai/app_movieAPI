@@ -14,7 +14,8 @@ const app = express();
 
 require('./passport');
 
-mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true});
+//mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://AdminMike:test4thisDB@mdmovies-nhncn.mongodb.net/moviesDB?retryWrites=true', {useNewUrlParser: true});
 
 var auth = require('./auth')(app);
 
