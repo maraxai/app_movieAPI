@@ -32,12 +32,10 @@ app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
-// CORS implementation (Cross-Origin  Resource Sharing)
+
+// CORS implementation (Cross-Origin Resource Sharing)
 const cors = require('cors');
 app.use(cors());
-
-//create list of allowed domains that have access
-var allowedOrigins = ['http:localhost:3000', 'http://testsite.com'];
 
 // create a list of allowed domains
 app.use(cors({
@@ -50,6 +48,12 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+
+//create list of allowed domains that are allowed to have access to your app
+var allowedOrigins = ['http:localhost:3000'];
+
+const validator = require('express-validator');
+app.use(validator());
 
   ///////////////
  // REQUESTS //
@@ -161,8 +165,22 @@ app.get('/users/id/:id', passport.authenticate('jwt', {session: false}), functio
 
 // new user registration (mongoose)
 app.post('/users', function(req, res) {
-  //var hashedPassword = Users.hashPassword(req.body.password);
-  Users.findOne({username: req.body.username})
+  // validation for this POST request
+  req.checkBody('username', 'Username is required').notEmpty();
+  req.checkBody('username', 'Username can only contain alphanumeric characters.').isAlphanumeric();
+  req.checkBody('password', 'Password is required').notEmpty();
+  req.checkBody('Email', 'Email is required').notEmpty();
+  req.checkBody('Email', 'Email does not appear to be valid').isEmail();
+
+  // check the validation object for errors
+  var errors = req.validationErrors();
+
+  if(errors) {
+    return res.status(422).json({errors: errors});
+  }
+
+  var hashedPassword = Users.hashPassword(req.body.password);
+  Users.findOne({username: req.body.username}) //check if username already exists
   .then(function(user) {
     if(user) {
       return res.status(400).send('The username ' + req.body.Username + ' already exists.');
@@ -171,7 +189,7 @@ app.post('/users', function(req, res) {
       Users
       .create({
         username: req.body.username,
-        password: req.body.password,
+        password: hashedPassword,
         email: req.body.email,
         birthday: req.body.birthday,
         favoritemovies: req.body.favoritemovies
@@ -193,10 +211,24 @@ app.post('/users', function(req, res) {
 
 // update user info (username, password, email, dob) by id (Mongoose)
 app.put('/users/:username', passport.authenticate('jwt', {session: false}), function(req, res) {
+  // validation for this PUT request
+  req.checkBody('username', 'username is required').notEmpty();
+  req.checkBody('username', 'Username can contain only alphanumeric characters.').isAlphanumeric();
+  req.checkBody('password', 'password is required').notEmpty();
+  req.checkBody('email', 'email is required').notEmpty();
+  req.checkBody('email', 'email does not appear to be valid').isEmail();
+
+  // check validation object for errors
+  var errors = req.validationErrors();
+
+  if (errors) {
+    return res.status(422).json({errors: errors});
+  }
+
   Users.update({username : req.params.username}, {$set:
   {
     username : req.body.username,
-    password : req.body.password,
+    password : hashedPassword,
     email : req.body.email,
     birthday : req.body.birthday
   }},
@@ -224,6 +256,7 @@ app.get('/users/:username/favoritemovies', passport.authenticate('jwt', {session
 });
 
 // add movie by id to a user's list of favorite movies (Mongoose)
+
 app.put('/users/:username/favoritemovies/:id', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.findOneAndUpdate({username : req.params.username}, {
     $push: {favoritemovies : req.params.id}
@@ -274,6 +307,7 @@ app.delete('/users/:username/favoritemovies/:id', passport.authenticate('jwt', {
   });
 });
 
-app.listen(3000, () => {
-  console.log('This app is listening on port 3000.');
+var port = process.env.PORT || 3000;
+app.listen(port, '0.0.0.0', function() {
+  console.log("Vous ecoutez en port 3000");
 });
