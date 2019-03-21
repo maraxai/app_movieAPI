@@ -32,6 +32,24 @@ app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
+// CORS implementation (Cross-Origin  Resource Sharing)
+const cors = require('cors');
+app.use(cors());
+
+//create list of allowed domains that have access
+var allowedOrigins = ['http:localhost:3000', 'http://testsite.com'];
+
+// create a list of allowed domains
+app.use(cors({
+  origin: function(origin, callback) {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1) {
+      var message = 'The CORS policy for this application does not allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
   ///////////////
  // REQUESTS //
@@ -130,7 +148,7 @@ app.get('/users/:username', passport.authenticate('jwt', {session: false}), func
 });
 
 // get a user's data by id
-app.get('/users/:id', passport.authenticate('jwt', {session: false}), function(req, res) {
+app.get('/users/id/:id', passport.authenticate('jwt', {session: false}), function(req, res) {
   Users.findById({_id: req.params.id})
   .then(function(user){
     res.json(user);
@@ -142,7 +160,8 @@ app.get('/users/:id', passport.authenticate('jwt', {session: false}), function(r
 });
 
 // new user registration (mongoose)
-app.post('/users', passport.authenticate('jwt', {session: false}), function(req, res) {
+app.post('/users', function(req, res) {
+  //var hashedPassword = Users.hashPassword(req.body.password);
   Users.findOne({username: req.body.username})
   .then(function(user) {
     if(user) {

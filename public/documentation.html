@@ -167,9 +167,11 @@
         </td>
       </tr>
       <tr class="even">
-        <td>get user data (username, password, email, birthday, favoritemovies) by id </td>
+        <td>get user data (username, password, email, birthday, favoritemovies) by id<br>
+          (comment: To avoid conflicts with the GET request 'get user data by username',<br>
+           this enpoint has been changed to users/id/.)</td>
         <td>GET</td>
-        <td>/users/:id</td>
+        <td>/users/id/:id</td>
         <td></td>
         <td>JSON file, displaying selected user's information:<br>
           {<br>
