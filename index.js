@@ -62,9 +62,9 @@ app.use(validator());
 // MOVIES //
 
 // ?????routes to index.html on root level
-//app.get('/', function(req, res) {
-//  res.send(index.html);
-//});
+app.get('/', function(req, res) {
+  res.send(index.html);
+});
 
 // return json with all movies (mongoose)
 app.get('/movies', passport.authenticate('jwt', {session: false}), function(req, res) {
