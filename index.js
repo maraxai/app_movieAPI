@@ -51,7 +51,7 @@ app.use(cors({
 }));
 
 //create list of allowed domains that are allowed to have access to your app
-var allowedOrigins = ['http:localhost:3000'];
+var allowedOrigins = *;
 
 const validator = require('express-validator');
 app.use(validator());
