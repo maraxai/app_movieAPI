@@ -62,7 +62,7 @@ app.use(validator());
 
 // MOVIES //
 
-// ?????routes to index.html on root level
+// routes to index.html on root level
 app.get('/', function(req, res) {
   res.send(index.html);
 });
