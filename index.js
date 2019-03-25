@@ -14,6 +14,9 @@ const app = express();
 
 require('./passport');
 
+// make environmental variables available with .env
+require('dotenv').config(); 
+
 //mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true});
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
 
