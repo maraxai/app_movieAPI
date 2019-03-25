@@ -15,12 +15,13 @@ const app = express();
 require('./passport');
 
 //mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://AdminMike:test4thisDB@mdmovies-nhncn.mongodb.net/moviesDB?retryWrites=true', {useNewUrlParser: true});
-
-var auth = require('./auth')(app);
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
 
 // body parser needed for POST request that use json files
 app.use(bodyParser.json());
+
+// authorization (note: body-parser has to come before auth!)
+var auth = require('./auth')(app);
 
 // morgan log of requests
 app.use(morgan('common'));
@@ -226,6 +227,8 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}), func
     return res.status(422).json({errors: errors});
   }
 
+  var hashedPassword = Users.hashPassword(req.body.password);
+
   Users.update({username : req.params.username}, {$set:
   {
     username : req.body.username,
@@ -310,5 +313,5 @@ app.delete('/users/:username/favoritemovies/:id', passport.authenticate('jwt', {
 
 var port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', function() {
-  console.log("Vous ecoutez en port 3000");
+  console.log(`Listening on ${port}`);
 });
