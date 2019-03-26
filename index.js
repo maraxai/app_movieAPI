@@ -19,7 +19,7 @@ require('./passport');
 dotenv.config();
 
 //mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true});
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://AdminMike:test4thisDB@mdmovies-nhncn.mongodb.net/moviesDB?retryWrites=true', {useNewUrlParser: true});
 
 // body parser needed for POST request that use json files
 app.use(bodyParser.json());
