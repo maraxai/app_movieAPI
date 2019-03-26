@@ -3,7 +3,8 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       uuid = require('uuid'),
       mongoose = require('mongoose'),
-      passport = require('passport');
+      passport = require('passport'),
+      dotenv = require('dotenv');
 
 const Models = require('./models.js');
 
@@ -14,8 +15,8 @@ const app = express();
 
 require('./passport');
 
-// make environmental variables available with .env
-require('dotenv').config(); 
+// make environmental variables available with .env, 
+dotenv.config();
 
 //mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true});
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
