@@ -29,7 +29,7 @@ userSchema.statics.hashPassword = function(password) {
 };
 
 userSchema.methods.validatePassword = function(password) {
-  return bcrypt.compare(password, this.password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 var Movie = mongoose.model('Movie', movieSchema);
