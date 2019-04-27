@@ -44,6 +44,7 @@ const cors = require('cors');
 app.use(cors());
 
 // create a list of allowed domains
+/*
 app.use(cors({
   origin: function(origin, callback) {
     if(!origin) return callback(null, true);
@@ -57,6 +58,7 @@ app.use(cors({
 
 //create list of allowed domains that are allowed to have access to your app
 var allowedOrigins = '*';
+*/
 
 const validator = require('express-validator');
 app.use(validator());
