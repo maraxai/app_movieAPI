@@ -8,6 +8,7 @@
     "@types/morgan": "^1.7.35",
     "@types/passport": "^1.0.0",
     "@types/uuid": "^3.4.4",
+    "axios": "^0.18.0",
     "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
@@ -18,13 +19,21 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.19",
     "morgan": "^1.9.1",
+    "parcel-bundler": "^1.12.3",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "request": "^2.88.0",
     "uuid": "^3.3.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "sass": "^1.19.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
