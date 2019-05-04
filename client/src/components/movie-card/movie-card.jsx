@@ -1,4 +1,6 @@
 import React from 'react';
+//import MovieView from '../movie-view/movie-view';
+
 // export state-less class component
 export class MovieCard extends React.Component {
   render() {

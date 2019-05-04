@@ -1,25 +1,38 @@
 import React from 'react';
+import { MainView } from '../main-view/main-view';
+import { MovieCard } from '../movie-card/movie-card';
 
 // exports the stateful class component which in inherited from the React component
 export class MovieView extends React.Component {
   // constructer function, super refers to the 'Super' object of the React component
   // 'this' refers to the function's object, which is internally mutable
-  constructor() {
-    super();
-    this.state = {};
-    this.pageChange = this.pageChange.bind(this);
-  }
+  constructor(props) {
+    super(props);
+    this.state = {view: MovieView}
+    this.ReturnToMainView = this.ReturnToMainView.bind(this);
+    };
 
-  pageChange() {
-     return <a href="../main-view/main-view">Go back to Main View</a>;
- }
+  ReturnToMainView () {
+    this.setState({view: MainView});
+   }
 
-  // render function displays the props
+    // render function displays the props
   render() {
-    const { movie, pageChange } = this.props;
+    const { movie } = this.props;
 
     if (!movie) {
-      return null};
+      return null;
+    }
+
+    if (this.state.view == MainView) {
+      return (
+        <div className="movie-view">
+          <MainView />
+        </div>
+      )
+    } else {
+      <MovieView />
+    }
 
     return (
     <div className="movie-view">
@@ -40,7 +53,7 @@ export class MovieView extends React.Component {
         <div className="label">Director</div>
         <div className="value">{movie.director.name}</div>
       </div>
-      <button onClick={this.pageChange}>Back to Main View</button>
+      <button onClick={this.ReturnToMainView}>Back to Main View</button>
     </div>
     );
   }

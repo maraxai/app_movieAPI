@@ -27423,7 +27423,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-//import MovieView from '../movie-view/movie-view';
 // export state-less class component
 var MovieCard =
 /*#__PURE__*/
@@ -27467,9 +27466,7 @@ exports.MovieView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _mainView = require("../main-view/main-view");
-
-var _movieCard = require("../movie-card/movie-card");
+var _mainView = _interopRequireDefault(require("../main-view/main-view"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27506,7 +27503,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieView).call(this, props));
     _this.state = {
-      view: MovieView
+      movie: null,
+      currentView: MovieView
     };
     _this.ReturnToMainView = _this.ReturnToMainView.bind(_assertThisInitialized(_this));
     return _this;
@@ -27516,7 +27514,8 @@ function (_React$Component) {
     key: "ReturnToMainView",
     value: function ReturnToMainView() {
       this.setState({
-        view: _mainView.MainView
+        currentView: _mainView.default,
+        movie: false
       });
     } // render function displays the props
 
@@ -27529,14 +27528,7 @@ function (_React$Component) {
         return null;
       }
 
-      if (this.state.view == _mainView.MainView) {
-        return _react.default.createElement("div", {
-          className: "movie-view"
-        }, _react.default.createElement(_mainView.MainView, null));
-      } else {
-        _react.default.createElement(MovieView, null);
-      }
-
+      ;
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("div", {
@@ -27566,9 +27558,11 @@ function (_React$Component) {
         className: "label"
       }, "Director"), _react.default.createElement("div", {
         className: "value"
-      }, movie.director.name)), _react.default.createElement("button", {
+      }, movie.director.name)), _react.default.createElement("div", {
+        className: "backToMainView"
+      }, _react.default.createElement("button", {
         onClick: this.ReturnToMainView
-      }, "Back to Main View"));
+      }, "Back to Main View"), "//", _react.default.createElement(this.state.currentView, null)));
     }
   }]);
 
@@ -27576,13 +27570,13 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieView = MovieView;
-},{"react":"../../node_modules/react/index.js","../main-view/main-view":"components/main-view/main-view.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../main-view/main-view":"components/main-view/main-view.jsx"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MainView = void 0;
+exports.default = exports.MainView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -27691,6 +27685,8 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.MainView = MainView;
+var _default = MainView;
+exports.default = _default;
 },{"react":"../../node_modules/react/index.js","axios":"../../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"../../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -27808,9 +27804,6 @@ function (_React$Component) {
 
   _createClass(MyFlixApplication, [{
     key: "render",
-    //  constructor(props) {
-    //    super(props);
-    //  }
     value: function render() {
       return _react.default.createElement(_mainView.MainView, null);
     }
@@ -27852,7 +27845,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49499" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53943" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -28028,4 +28021,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
-//# sourceMappingURL=/src.78399e21.js.map
+//# sourceMappingURL=/index.js.map

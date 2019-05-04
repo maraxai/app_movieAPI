@@ -2,11 +2,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MainView } from './components/main-view/main-view';
+//import { MovieView } from './components/movie-view/movie-view';
+
 // reminder that we need to bundle './index.scss'
 import './index.scss';
 
 // class component for app
 class MyFlixApplication extends React.Component {
+//  constructor(props) {
+//    super(props);
+//  }
+
   render() {
     return (
       <MainView />

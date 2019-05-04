@@ -11,10 +11,11 @@ export class MainView extends React.Component {
   // applies constructor function including object reference to 'prototype' object through 'this'
   constructor() {
     super();
+
       this.state = {
         movies: null,
         selectedMovie: null
-    };
+      };
   }
 
   //one of the 'hooks' available in a React component
