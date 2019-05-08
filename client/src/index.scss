@@ -1,5 +1,10 @@
-$color: orange;
+$font-color-grey1: #433e4c;
 
-.my-flix {
-  color: $color;
+.flix-view {
+  color: $font-color-grey1;
+  background-color: #f5f5f5;
+}
+
+.header {
+  font-size: 2em;
 }

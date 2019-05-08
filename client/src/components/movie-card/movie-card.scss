@@ -1,0 +1,11 @@
+$margin : 20;
+$bg-color-orange : #f27230;
+
+.Group {
+  margin : $margin;
+  background-color: $bg-color-orange;
+}
+
+Card.Title {
+  font-size: 2em;
+}

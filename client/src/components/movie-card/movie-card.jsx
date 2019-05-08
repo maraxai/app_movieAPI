@@ -1,5 +1,10 @@
 import React from 'react';
-//import MovieView from '../movie-view/movie-view';
+import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
+// make it pretty
+import './movie-card.scss'
 
 // export state-less class component
 export class MovieCard extends React.Component {
@@ -9,7 +14,21 @@ export class MovieCard extends React.Component {
     const { movie, onClick } = this.props;
     // returns the movie title
     return (
-      <div onClick={() => onClick(movie)} className='movie-card'>{movie.title}</div>
+      <Card bg="light" style={{ width: '50rem' }}>
+        <Card.Img style={{ width: '200px'}} variant="top" src={movie.imagePath} />
+        <Card.Body>
+          <Card.Title>{movie.title}</Card.Title>
+          <Card.Text>{movie.description}</Card.Text>
+          <Button onClick={() => onClick(movie)} variant="outline-secondary" size="sm">Open</Button>
+        </Card.Body>
+      </Card>
     );
   }
 }
+
+MovieCard.propTypes={
+  movie: PropTypes.shape({
+    title: PropTypes.string
+  }).isRequired,
+  onClick: PropTypes.func.isRequired
+};
