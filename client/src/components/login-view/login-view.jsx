@@ -25,7 +25,7 @@ export function LoginView(props) {
   };
 
     return (
-      <Form>
+      <Form className='m-5 p-5'>
         <Form.Group controlId="formBasicText">
           <Form.Label>Username</Form.Label>
           <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Enter Username" />
@@ -45,4 +45,4 @@ export function LoginView(props) {
   LoginView.propTypes = {
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    };
+  }; 

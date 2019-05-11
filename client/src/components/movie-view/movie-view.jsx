@@ -28,32 +28,38 @@ export class MovieView extends React.Component {
     }
 
   return (
+    // React Bootstrap Component Container
     <Container>
       <Row>
-        <Col>Title</Col>
-        <Col id="title">{movie.title}</Col>
       </Row>
       <Row>
-        <Col>Description</Col>
+        <Col lg={1} md={1} sm={1} xs={1} className="label">Title:</Col>
+        <Col>{movie.title}</Col>
+        <Col></Col>
+      </Row>
+      <Row>
+        <Col lg={2} md={1} sm={1} xs={1} className="label">Description:</Col>
         <Col>{movie.description}</Col>
-      </Row>
-      <Row>
         <Col>
-        <img width="150px" className="movie-poster" src={movie.imagePath} />
+          <img className="movie-poster" src={movie.imagePath} />
         </Col>
       </Row>
       <Row>
-        <Col>Genre</Col>
+        <Col lg={2} md={1} sm={1} xs={1} className="label">Genre:</Col>
         <Col>{movie.genre.name}</Col>
+        <Col></Col>
       </Row>
       <Row>
-        <Col>Director</Col>
+        <Col lg={2} md={1} sm={1} xs={1} className="label">Director:</Col>
         <Col>{movie.director.name}</Col>
+        <Col></Col>
       </Row>
       <Row>
         <Col>
-        <Button variant="outline-secondary" size="sm" onClick={() => onClick()}>Back to Main View</Button>
+          <Button variant="outline-secondary" size="sm" onClick={() => onClick()}>Back to Main View</Button>
         </Col>
+      </Row>
+      <Row>
       </Row>
     </Container>
     );

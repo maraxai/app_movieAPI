@@ -14,9 +14,9 @@ export class MovieCard extends React.Component {
     const { movie, onClick } = this.props;
     // returns the movie title
     return (
-      <Card bg="light" style={{ width: '50rem' }}>
-        <Card.Img style={{ width: '200px'}} variant="top" src={movie.imagePath} />
+      <Card bg="light" style={{ width: '90%' }}>
         <Card.Body>
+          <Card.Img style={{ width: '30%' }} variant="top" src={movie.imagePath} />
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>{movie.description}</Card.Text>
           <Button onClick={() => onClick(movie)} variant="outline-secondary" size="sm">Open</Button>

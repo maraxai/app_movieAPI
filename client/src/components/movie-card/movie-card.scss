@@ -1,11 +1,16 @@
-$margin : 20;
-$bg-color-orange : #f27230;
+$font-color-grey1: #433e4c;
+$font-color-grey2: #23399e;
+$background-color: #cbd5f7;
 
-.Group {
-  margin : $margin;
-  background-color: $bg-color-orange;
+.card {
+  display: flex;
+  justify-content: center;
+
+  color : $font-color-grey1;
+//margin-left: 3em;
 }
 
-Card.Title {
+.card-title {
   font-size: 2em;
+  color: $font-color-grey2;
 }

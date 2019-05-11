@@ -11,9 +11,9 @@ export default class MyFlixApplication extends React.Component {
 
   render() {
     return (
-      <div className='flix-view'><img src="../../img/flavicon_md_2.png" />
+      <div className='flix-view'><img src="../../img/MD_logo_abstract.png" />
       <p className="header">
-        <span>[logo image]</span> <span>movie collection</span> <span>login/logout</span> <span>registration</span>
+        <span>[logo image]</span> <span>myFlix movie app</span> <span>login/logout</span> <span>registration</span>
       </p>
       <MainView />
       </div>

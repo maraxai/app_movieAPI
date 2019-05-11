@@ -29660,7 +29660,9 @@ function LoginView(props) {
     props.onLoggedIn(username);
   };
 
-  return _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
+  return _react.default.createElement(_Form.default, {
+    className: "m-5 p-5"
+  }, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicText"
   }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
     type: "text",
@@ -29741,60 +29743,70 @@ function RegistrationView(props) {
       password = _useState4[0],
       setPassword = _useState4[1];
 
+  var _useState5 = (0, _react.useState)(''),
+      _useState6 = _slicedToArray(_useState5, 2),
+      email = _useState6[0],
+      setEmail = _useState6[1];
+
+  var _useState7 = (0, _react.useState)(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      birthday = _useState8[0],
+      setBirthday = _useState8[1];
+
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     console.log(username, password);
     /* send a request to the server for authentication */
 
-    /* then call this.props.onLoggedIn(username) */
+    /* then call this.props.onSignedIn(username) */
 
-    props.onLoggedIn(username);
+    props.onSignedIn(username);
   };
 
-  return _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
-    controlId: "formBasicText"
-  }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
-    type: "text",
-    value: username,
-    onChange: function onChange(e) {
-      return setUsername(e.target.value);
-    },
-    placeholder: "Enter Username"
-  }), _react.default.createElement(_Form.default.Text, {
-    className: "text-muted"
-  }, "Type your username here.")), _react.default.createElement(_Form.default.Group, {
-    controlId: "formBasicPassword"
-  }, _react.default.createElement(_Form.default.Label, null, "your password"), _react.default.createElement(_Form.default.Control, {
-    type: "password",
-    value: password,
-    onChange: function onChange(e) {
-      return setPassword(e.target.value);
-    },
-    placeholder: "Password"
-  })), _react.default.createElement(_Form.default.Group, {
-    controlId: "formBasicEmail"
-  }, _react.default.createElement(_Form.default.Label, null, "email adress"), _react.default.createElement(_Form.default.Control, {
-    type: "email",
-    value: email,
-    onChange: function onChange(e) {
-      return setEmail(e.target.value);
-    },
-    placeholder: "Enter Email"
-  })), _react.default.createElement(_Form.default.Group, {
-    controlId: "formBasicDate"
-  }, _react.default.createElement(_Form.default.Label, null, "Your birthday"), _react.default.createElement(_Form.default.Control, {
-    type: "date",
-    value: birthday,
-    onChange: function onChange(e) {
-      return setBirthday(e.target.value);
-    },
-    placeholder: "Enter Birthday"
-  })), _react.default.createElement(_Button.default, {
-    type: "button",
-    variant: "outline-secondary",
-    size: "sm",
-    onClick: handleSubmit
-  }, "Submit"));
+  return (// React Bootstrap Component Form
+    _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
+      controlId: "formBasicText"
+    }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
+      type: "text",
+      value: username,
+      onChange: function onChange(e) {
+        return setUsername(e.target.value);
+      },
+      placeholder: "Enter Username"
+    })), _react.default.createElement(_Form.default.Group, {
+      controlId: "formBasicPassword"
+    }, _react.default.createElement(_Form.default.Label, null, "your password"), _react.default.createElement(_Form.default.Control, {
+      type: "password",
+      value: password,
+      onChange: function onChange(e) {
+        return setPassword(e.target.value);
+      },
+      placeholder: "Password"
+    })), _react.default.createElement(_Form.default.Group, {
+      controlId: "formBasicEmail"
+    }, _react.default.createElement(_Form.default.Label, null, "email adress"), _react.default.createElement(_Form.default.Control, {
+      type: "email",
+      value: email,
+      onChange: function onChange(e) {
+        return setEmail(e.target.value);
+      },
+      placeholder: "Enter Email"
+    })), _react.default.createElement(_Form.default.Group, {
+      controlId: "formBasicDate"
+    }, _react.default.createElement(_Form.default.Label, null, "Your birthday"), _react.default.createElement(_Form.default.Control, {
+      type: "date",
+      value: birthday,
+      onChange: function onChange(e) {
+        return setBirthday(e.target.value);
+      },
+      placeholder: "Enter Birthday"
+    })), _react.default.createElement(_Button.default, {
+      type: "button",
+      variant: "outline-secondary",
+      size: "sm",
+      onClick: handleSubmit
+    }, "Submit"))
+  );
 }
 
 RegistrationView.propTypes = {
@@ -30032,15 +30044,15 @@ function (_React$Component) {
       return _react.default.createElement(_Card.default, {
         bg: "light",
         style: {
-          width: '50rem'
+          width: '90%'
         }
-      }, _react.default.createElement(_Card.default.Img, {
+      }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Img, {
         style: {
-          width: '200px'
+          width: '30%'
         },
         variant: "top",
         src: movie.imagePath
-      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.title), _react.default.createElement(_Card.default.Text, null, movie.description), _react.default.createElement(_Button.default, {
+      }), _react.default.createElement(_Card.default.Title, null, movie.title), _react.default.createElement(_Card.default.Text, null, movie.description), _react.default.createElement(_Button.default, {
         onClick: function onClick() {
           return _onClick(movie);
         },
@@ -30238,19 +30250,42 @@ function (_React$Component) {
         return null;
       }
 
-      return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, null, "Title"), _react.default.createElement(_Col.default, {
-        id: "title"
-      }, movie.title)), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, null, "Description"), _react.default.createElement(_Col.default, null, movie.description)), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, null, _react.default.createElement("img", {
-        width: "150px",
-        className: "movie-poster",
-        src: movie.imagePath
-      }))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, null, "Genre"), _react.default.createElement(_Col.default, null, movie.genre.name)), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, null, "Director"), _react.default.createElement(_Col.default, null, movie.director.name)), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, null, _react.default.createElement(_Button.default, {
-        variant: "outline-secondary",
-        size: "sm",
-        onClick: function onClick() {
-          return _onClick();
-        }
-      }, "Back to Main View"))));
+      return (// React Bootstrap Component Container
+        _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+          lg: 1,
+          md: 1,
+          sm: 1,
+          xs: 1,
+          className: "label"
+        }, "Title:"), _react.default.createElement(_Col.default, null, movie.title), _react.default.createElement(_Col.default, null)), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+          lg: 2,
+          md: 1,
+          sm: 1,
+          xs: 1,
+          className: "label"
+        }, "Description:"), _react.default.createElement(_Col.default, null, movie.description), _react.default.createElement(_Col.default, null, _react.default.createElement("img", {
+          className: "movie-poster",
+          src: movie.imagePath
+        }))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+          lg: 2,
+          md: 1,
+          sm: 1,
+          xs: 1,
+          className: "label"
+        }, "Genre:"), _react.default.createElement(_Col.default, null, movie.genre.name), _react.default.createElement(_Col.default, null)), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+          lg: 2,
+          md: 1,
+          sm: 1,
+          xs: 1,
+          className: "label"
+        }, "Director:"), _react.default.createElement(_Col.default, null, movie.director.name), _react.default.createElement(_Col.default, null)), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, null, _react.default.createElement(_Button.default, {
+          variant: "outline-secondary",
+          size: "sm",
+          onClick: function onClick() {
+            return _onClick();
+          }
+        }, "Back to Main View"))), _react.default.createElement(_Row.default, null))
+      );
     }
   }]);
 
@@ -30365,7 +30400,7 @@ function (_React$Component) {
       this.setState({
         selectedMovie: movie
       });
-    } // when user is logged in, user is set
+    } // when a user logs in, he is set to state
 
   }, {
     key: "onLoggedIn",
@@ -30406,29 +30441,35 @@ function (_React$Component) {
       var _this3 = this;
 
       // the state has to been initialized before data is initially loaded
+      // refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
       var _this$state = this.state,
           movies = _this$state.movies,
           selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
-          register = _this$state.register;
-      if (!user && register === false) return _react.default.createElement(_loginView.LoginView, {
-        onClick: function onClick() {
-          return _this3.register();
-        },
-        onLoggedIn: function onLoggedIn(user) {
-          return _this3.onLoggedIn(user);
-        }
-      });
-      if (register) return _react.default.createElement(_registrationView.RegistrationView, {
-        onClick: function onClick() {
-          return _this3.alreadyMember();
-        },
-        onSignedIn: function onSignedIn(user) {
-          return _this3.onSignedIn(user);
-        }
-      }); // if there is no user, the LoginView is displayed (or in other words: as long as there is no user, the LoginView is returned)
+          register = _this$state.register; // if there is no user logged in, either LoginView or RegistrationView is displayed; RegistrationView IF user (who will log-in) is
+      // not registered OR LoginView if user is registered
+
+      if (!user) {
+        if (!register) return _react.default.createElement(_registrationView.RegistrationView, {
+          onClick: function onClick() {
+            return _this3.register();
+          },
+          onSignedIn: function onSignedIn(user) {
+            return _this3.onSignedIn(user);
+          }
+        });
+        if (register) return _react.default.createElement(_loginView.LoginView, {
+          onClick: function onClick() {
+            return _this3.register();
+          },
+          onLoggedIn: function onLoggedIn(user) {
+            return _this3.onLoggedIn(user);
+          }
+        });
+      } // if there is no user, the LoginView is displayed (or in other words: as long as there is no user, the LoginView is returned)
       //if(!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
       //before the movies have been loaded
+
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -30516,10 +30557,10 @@ function (_React$Component) {
       return _react.default.createElement("div", {
         className: "flix-view"
       }, _react.default.createElement("img", {
-        src: "../../img/flavicon_md_2.png"
+        src: "../../img/MD_logo_abstract.png"
       }), _react.default.createElement("p", {
         className: "header"
-      }, _react.default.createElement("span", null, "[logo image]"), " ", _react.default.createElement("span", null, "movie collection"), " ", _react.default.createElement("span", null, "login/logout"), " ", _react.default.createElement("span", null, "registration")), _react.default.createElement(_mainView.MainView, null));
+      }, _react.default.createElement("span", null, "[logo image]"), " ", _react.default.createElement("span", null, "myFlix movie app"), " ", _react.default.createElement("span", null, "login/logout"), " ", _react.default.createElement("span", null, "registration")), _react.default.createElement(_mainView.MainView, null));
     }
   }]);
 
@@ -30560,7 +30601,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50140" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60726" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

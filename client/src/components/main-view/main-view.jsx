@@ -51,10 +51,10 @@ export class MainView extends React.Component {
     });
   }
 
-  // when user is logged in, user is set
+  // when a user logs in, he is set to state
   onLoggedIn(user) {
     this.setState({
-      user
+      user : user
     });
   }
 
@@ -83,11 +83,15 @@ export class MainView extends React.Component {
   // the render function displays the data
   render() {
   // the state has to been initialized before data is initially loaded
+  // refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
   const { movies, selectedMovie, user, register } = this.state;
 
-  if (!user && register === false) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-
-  if (register) return <RegistrationView onClick={() => this.alreadyMember()} onSignedIn={user => this.onSignedIn(user)} />
+  // if there is no user logged in, either LoginView or RegistrationView is displayed; RegistrationView IF user (who will log-in) is
+  // not registered OR LoginView if user is registered
+  if (!user) {
+    if (!register) return <RegistrationView onClick={() => this.register()} onSignedIn={user => this.onSignedIn(user)} />
+    if (register) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
+  }
 
     // if there is no user, the LoginView is displayed (or in other words: as long as there is no user, the LoginView is returned)
     //if(!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
