@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MainView } from './components/main-view/main-view';
+import { LoginView } from './components/login-view/login-view';
 
 // reminder that we need to bundle './index.scss'
 import './index.scss';
@@ -13,7 +14,7 @@ export default class MyFlixApplication extends React.Component {
     return (
       <div className='flix-view'><img src="../../img/MD_logo_abstract.png" />
       <p className="header">
-        <span>[logo image]</span> <span>myFlix movie app</span> <span>login/logout</span> <span>registration</span>
+        <span>[logo image]</span> <span>myFlix movie app</span> <button>Login</button> <span></span><button>Registration</button> 
       </p>
       <MainView />
       </div>

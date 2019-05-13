@@ -30517,6 +30517,8 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _mainView = require("./components/main-view/main-view");
 
+var _loginView = require("./components/login-view/login-view");
+
 require("./index.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -30560,7 +30562,7 @@ function (_React$Component) {
         src: "../../img/MD_logo_abstract.png"
       }), _react.default.createElement("p", {
         className: "header"
-      }, _react.default.createElement("span", null, "[logo image]"), " ", _react.default.createElement("span", null, "myFlix movie app"), " ", _react.default.createElement("span", null, "login/logout"), " ", _react.default.createElement("span", null, "registration")), _react.default.createElement(_mainView.MainView, null));
+      }, _react.default.createElement("span", null, "[logo image]"), " ", _react.default.createElement("span", null, "myFlix movie app"), " ", _react.default.createElement("button", null, "Login"), " ", _react.default.createElement("span", null), _react.default.createElement("button", null, "Registration")), _react.default.createElement(_mainView.MainView, null));
     }
   }]);
 
@@ -30573,7 +30575,7 @@ var container = document.getElementsByClassName('app-container')[0]; //render th
 // also: (<MyFlixApplication />, container)
 
 _reactDom.default.render(_react.default.createElement(MyFlixApplication), container);
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./index.scss":"index.scss"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./components/login-view/login-view":"components/login-view/login-view.jsx","./index.scss":"index.scss"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -30601,7 +30603,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60726" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52830" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

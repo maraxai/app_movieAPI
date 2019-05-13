@@ -1,6 +1,4 @@
-$font-color-grey1: #433e4c;
-$font-color-grey2: #23399e;
-$background-color: #cbd5f7;
+@import 'variables.scss'; 
 
 .flix-view {
   color: $font-color-grey1;
