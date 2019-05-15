@@ -52,10 +52,15 @@ export class MainView extends React.Component {
   }
 
   // when a user logs in, he is set to state
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user : user
+      user : authData.user.username
     });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.username);
+    this.getMovies(authData.token)
   }
 
   //when user is registered, he does not need to register any more
@@ -80,6 +85,21 @@ export class MainView extends React.Component {
     });
   }
 
+  getMovies(token) {
+    axios.get('https://stark-headland-48507.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      //assign the result to the state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   // the render function displays the data
   render() {
   // the state has to been initialized before data is initially loaded
@@ -89,8 +109,8 @@ export class MainView extends React.Component {
   // if there is no user logged in, either LoginView or RegistrationView is displayed; RegistrationView IF user (who will log-in) is
   // not registered OR LoginView if user is registered
   if (!user) {
-    if (!register) return <RegistrationView onClick={() => this.register()} onSignedIn={user => this.onSignedIn(user)} />
     if (register) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
+    if (!register) return <RegistrationView onClick={() => this.register()} onSignedIn={user => this.onSignedIn(user)} />
   }
 
     // if there is no user, the LoginView is displayed (or in other words: as long as there is no user, the LoginView is returned)

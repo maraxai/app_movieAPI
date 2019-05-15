@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 // for API GET requests of http client handler axios
 import axios from 'axios'
@@ -19,9 +19,20 @@ export function LoginView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, password);
-    /* send a request to the server for authentication */
-    /* then call this.props.onLoggedIn(username) */
-    props.onLoggedIn(username);
+    /* send a request to the server for authentication - Pass As Params*/
+    axios.post('https://stark-headland-48507.herokuapp.com/login', null, {
+      params: {
+      username: username,
+      password: password
+      }
+    })
+    .then(reponse => {
+      const data = reponse.data;
+      props.onLoggedIn(data)
+    })
+    .catch(e => {
+      console.log('no such user')
+    });
   };
 
     return (
@@ -32,11 +43,13 @@ export function LoginView(props) {
           <Form.Text className="text-muted">
           Type your username here.
         </Form.Text>
+
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
         </Form.Group>
+
         <Button type="button" variant="outline-secondary" size="sm" onClick={handleSubmit}>Submit</Button>
       </Form>
     );
@@ -45,4 +58,4 @@ export function LoginView(props) {
   LoginView.propTypes = {
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-  }; 
+  };

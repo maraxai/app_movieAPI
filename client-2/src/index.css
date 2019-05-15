@@ -1,13 +1,24 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import 'variables.scss';
+
+.flix-view {
+  color: $font-color-grey1;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2em;
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: 10px 10px 5px #aaaaaa;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.header {
+  color: $font-color-grey2;
+  font-size: 1.5em;
+  padding: 1em;
+}
+
+.label {
+  color: $font-color-grey2;
 }
