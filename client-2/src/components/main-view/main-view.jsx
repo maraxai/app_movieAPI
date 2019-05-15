@@ -30,18 +30,13 @@ export class MainView extends React.Component {
 
   //life-cycle method, once react component is mounted, the http client axios GETS the db data
   componentDidMount() {
-    //fill in https://stark-headland-48507.herokuapp.com for '<my-api-endpoint>'?
-    // axios uses promises
-    axios.get('https://stark-headland-48507.herokuapp.com/movies')
-      .then(response => {
-        // assign the result to the state
-        this.setState({
-          movies : response.data
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
       });
-    })
-      .catch(function (error) {
-        console.log(error);
-    });
+      this.getMovies(accessToken);
+    }
   }
 
   // changes to MovieView of selected movie
@@ -109,8 +104,8 @@ export class MainView extends React.Component {
   // if there is no user logged in, either LoginView or RegistrationView is displayed; RegistrationView IF user (who will log-in) is
   // not registered OR LoginView if user is registered
   if (!user) {
-    return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-
+    if (register) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
+    if (!register) return <RegistrationView onClick={() => this.register()} onSignedIn={user => this.onSignedIn(user)} />
   }
 
     // if there is no user, the LoginView is displayed (or in other words: as long as there is no user, the LoginView is returned)
