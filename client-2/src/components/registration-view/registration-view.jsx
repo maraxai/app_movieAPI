@@ -18,11 +18,22 @@ export function RegistrationView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    /* send a request to the server for authentication */
-    /* then call this.props.onSignedIn(username) */
-    props.onSignedIn(username);
-    };
+    console.log(username, password, email, birthday);
+    /* send a request to the server for authentication - Pass As Params*/
+    axios.post('https://stark-headland-48507.herokuapp.com/users', {
+      username: username,
+      password: password,
+      email: email,
+      birthday: birthday
+    })
+    .then(reponse => {
+      const data = reponse.data;
+      props.onLoggedIn(data)
+    })
+    .catch(e => {
+      console.log('registration failed, please try again')
+    });
+  };
 
     return (
       // React Bootstrap Component Form
