@@ -4,6 +4,7 @@ const express = require('express'),
       uuid = require('uuid'),
       mongoose = require('mongoose'),
       passport = require('passport'),
+      cors = require('cors'),
       dotenv = require('dotenv');
 
 const Models = require('./models.js');
