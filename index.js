@@ -24,6 +24,10 @@ mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 // body parser needed for POST request that use json files
 app.use(bodyParser.json());
 
+// CORS implementation (Cross-Origin Resource Sharing)
+const cors = require('cors');
+app.use(cors());
+
 // authorization (note: body-parser has to come before auth!)
 var auth = require('./auth')(app);
 
@@ -39,27 +43,7 @@ app.use(function (err, req, res, next) {
   res.status(500).send('Something went wrong!');
 });
 
-// CORS implementation (Cross-Origin Resource Sharing)
-const cors = require('cors');
-app.use(cors());
-
-// create a list of allowed domains
-/*
-app.use(cors({
-  origin: function(origin, callback) {
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1) {
-      var message = 'The CORS policy for this application does not allow access from origin ' + origin;
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
-}));
-
-//create list of allowed domains that are allowed to have access to your app
-var allowedOrigins = '*';
-*/
-
+// validation for form entries
 const validator = require('express-validator');
 app.use(validator());
 
