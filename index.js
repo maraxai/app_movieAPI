@@ -175,7 +175,7 @@ app.post('/users', function(req, res) {
   Users.findOne({username: req.body.username}) //check if username already exists
   .then(function(user) {
     if(user) {
-      return res.status(400).send('The username ' + req.body.Username + ' already exists.');
+      return res.status(400).send('The username ' + req.body.username + ' already exists.');
     }
     else {
       Users
