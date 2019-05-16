@@ -32,6 +32,7 @@ export function RegistrationView(props) {
     })
     .catch(e => {
       console.log('registration failed, please try again')
+      console.log(e.message);
     });
   };
 
