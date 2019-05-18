@@ -4,7 +4,8 @@ const express = require('express'),
       uuid = require('uuid'),
       mongoose = require('mongoose'),
       passport = require('passport'),
-      dotenv = require('dotenv');
+      dotenv = require('dotenv'),
+      cors = require('cors');
 
 const Models = require('./models.js');
 
@@ -25,7 +26,6 @@ mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 app.use(bodyParser.json());
 
 // CORS implementation (Cross-Origin Resource Sharing)
-const cors = require('cors');
 app.use(cors());
 
 // authorization (note: body-parser has to come before auth!)

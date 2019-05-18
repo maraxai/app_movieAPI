@@ -26,9 +26,10 @@ export function RegistrationView(props) {
       email: email,
       birthday: birthday
     })
-    .then(reponse => {
-      const data = reponse.data;
-      props.onLoggedIn(data)
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/');
     })
     .catch(e => {
       console.log('registration failed, please try again')

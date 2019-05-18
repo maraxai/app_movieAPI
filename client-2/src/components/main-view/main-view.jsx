@@ -104,8 +104,7 @@ export class MainView extends React.Component {
   // if there is no user logged in, either LoginView or RegistrationView is displayed; RegistrationView IF user (who will log-in) is
   // not registered OR LoginView if user is registered
   if (!user) {
-    if (register) return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-    if (!register) return <RegistrationView onClick={() => this.register()} onSignedIn={user => this.onSignedIn(user)} />
+    return <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
   }
 
     // if there is no user, the LoginView is displayed (or in other words: as long as there is no user, the LoginView is returned)
