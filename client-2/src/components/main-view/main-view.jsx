@@ -22,7 +22,7 @@ export class MainView extends React.Component {
       //initiates the state for designated properties upon page load
       this.state = {
         movies: null,
-        selectedMovie: null,
+        selectedMovieId: null,
         user: null,
         register: false
       };
@@ -37,12 +37,27 @@ export class MainView extends React.Component {
       });
       this.getMovies(accessToken);
     }
+  //implement hash-routing
+  window.addEventListener('hashchange', this.handleNewHash, false);
+
+  this.handleNewHash();
+  }
+
+  //parses the hash
+  handleNewHash = () => {
+    const movieId = window.location.hash.replace(/^#V?|V$/g,'').split('/');
+
+    this.setState({
+      selectedMovieId: movieId[0]
+    });
   }
 
   // changes to MovieView of selected movie
   onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
+    window.location.hash='#' + movie._id;
+
+      this.setState({
+      selectedMovie: movie._id
     });
   }
 
@@ -76,7 +91,7 @@ export class MainView extends React.Component {
   // switches from MovieView back to MainView
   backToMainView() {
     this.setState({
-      selectedMovie: null
+      selectedMovieId: null
     });
   }
 
@@ -99,7 +114,7 @@ export class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { movies, selectedMovie, user, register } = this.state;
+  const { movies, selectedMovieId, user, register } = this.state;
 
   // if there is no user logged in, either LoginView or RegistrationView is displayed; RegistrationView IF user (who will log-in) is
   // not registered OR LoginView if user is registered
@@ -123,7 +138,7 @@ export class MainView extends React.Component {
 
     return (
       <div className="main-view">
-        {selectedMovie ? <MovieView movie={selectedMovie} onClick={() => this.backToMainView()} /> : movies.map(movie => (
+        {selectedMovieId ? <MovieView movie={selectedMovieId} onClick={() => this.backToMainView()} /> : movies.map(movie => (
           <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
         ))}
         </div>
