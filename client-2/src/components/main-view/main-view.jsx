@@ -5,6 +5,7 @@ import React from 'react';
 import axios from 'axios';
 
 //imports the designated components from the files wherein they reside
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -37,12 +38,9 @@ export class MainView extends React.Component {
       });
       this.getMovies(accessToken);
     }
-  //implement hash-routing
-  window.addEventListener('hashchange', this.handleNewHash, false);
-
-  this.handleNewHash();
   }
 
+/*
   //parses the hash
   handleNewHash = () => {
     const movieId = window.location.hash.replace(/^#V?|V$/g,'').split('/');
@@ -51,7 +49,8 @@ export class MainView extends React.Component {
       selectedMovieId: movieId[0]
     });
   }
-
+*/
+/*
   // changes to MovieView of selected movie
   onMovieClick(movie) {
     window.location.hash='#' + movie._id;
@@ -60,6 +59,7 @@ export class MainView extends React.Component {
       selectedMovie: movie._id
     });
   }
+*/
 
   // when a user logs in, he is set to state
   onLoggedIn(authData) {
@@ -87,13 +87,14 @@ export class MainView extends React.Component {
       register: true
     })
   }
-
+/*
   // switches from MovieView back to MainView
   backToMainView() {
     this.setState({
       selectedMovieId: null
     });
   }
+*/
 
   getMovies(token) {
     axios.get('https://stark-headland-48507.herokuapp.com/movies', {
@@ -114,34 +115,24 @@ export class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { movies, selectedMovieId, user, register } = this.state;
+  const { movies, user } = this.state;
 
-  // if there is no user logged in, either LoginView or RegistrationView is displayed; RegistrationView IF user (who will log-in) is
-  // not registered OR LoginView if user is registered
-  if (!user) {
-    return (
-      <div>
-        <LoginView onClick={() => this.register()} onLoggedIn={user => this.onLoggedIn(user)} />
-        <RegistrationView onClick={() => this.register()} onSignedIn={user => this.onSignedIn(user)} />
-    </div>
-    )
-  }
-
-    // if there is no user, the LoginView is displayed (or in other words: as long as there is no user, the LoginView is returned)
-    //if(!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+  // if there is no user logged in, LoginView is displayed
 
     //before the movies have been loaded
     if (!movies) return <div className="main-view" />;
 
     //<div className="login-view"><LoginView user={user} onClick={user => this.onLoggedIn(user)}/></div>
 
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
     return (
-      <div className="main-view">
-        {selectedMovieId ? <MovieView movie={selectedMovieId} onClick={() => this.backToMainView()} /> : movies.map(movie => (
-          <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-        ))}
+      <Router>
+        <div className="main-view">
+        <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
+        <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
         </div>
+      </Router>
     );
   }
 }

@@ -6,9 +6,12 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 
 // make it pretty
 import './movie-view.scss'
+
+import { Link } from 'react-router-dom';
 
 // exports the stateful class component which in inherited from the React component
 export class MovieView extends React.Component {
@@ -21,47 +24,30 @@ export class MovieView extends React.Component {
 
     // render function displays the props
   render() {
-    const { movie, onClick } = this.props;
+    const { movie } = this.props;
 
     if (!movie) {
       return null;
     }
 
-  return (
-    // React Bootstrap Component Container
-    <Container>
-      <Row>
-      </Row>
-      <Row>
-        <Col lg={1} md={1} sm={1} xs={1} className="label">Title:</Col>
-        <Col>{movie.title}</Col>
-        <Col></Col>
-      </Row>
-      <Row>
-        <Col lg={2} md={1} sm={1} xs={1} className="label">Description:</Col>
-        <Col>{movie.description}</Col>
-        <Col>
-          <img className="movie-poster" src={movie.imagePath} />
-        </Col>
-      </Row>
-      <Row>
-        <Col lg={2} md={1} sm={1} xs={1} className="label">Genre:</Col>
-        <Col>{movie.genre.name}</Col>
-        <Col></Col>
-      </Row>
-      <Row>
-        <Col lg={2} md={1} sm={1} xs={1} className="label">Director:</Col>
-        <Col>{movie.director.name}</Col>
-        <Col></Col>
-      </Row>
-      <Row>
-        <Col>
-          <Button variant="outline-secondary" size="sm" onClick={() => onClick()}>Back to Main View</Button>
-        </Col>
-      </Row>
-      <Row>
-      </Row>
-    </Container>
+    return (
+      // React Bootstrap Component Card
+      <Card style={{ width: '80%' }}>
+        <Card.Body>
+          <Card.Img style={{ width: '50%' }} variant="top" src={movie.imagePath} />
+          <Card.Title>{movie.title}</Card.Title>
+          <Card.Text>{movie.description}</Card.Text>
+          <Link to={'/'}>
+            <Button variant="link">Back to Movie List</Button>
+          </Link>
+          <Link to={`/directors/${movie.director.name}`}>
+            <Button variant="link">Director</Button>
+          </Link>
+          <Link to={`/genres/${movie.genre.name}`}>
+            <Button variant="link">Genre</Button>
+          </Link>
+        </Card.Body>
+      </Card>
     );
   }
 }
