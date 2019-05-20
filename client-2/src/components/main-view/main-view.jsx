@@ -5,11 +5,17 @@ import React from 'react';
 import axios from 'axios';
 
 //imports the designated components from the files wherein they reside
+import Button from 'react-bootstrap/Button';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { ProfileView } from '../profile-view/profile-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+
+import { Link } from 'react-router-dom';
 
 // make it pretty
 import './main-view.scss'
@@ -22,7 +28,7 @@ export class MainView extends React.Component {
 
       //initiates the state for designated properties upon page load
       this.state = {
-        movies: null,
+        movies: [],
         selectedMovieId: null,
         user: null,
         register: false
@@ -39,27 +45,6 @@ export class MainView extends React.Component {
       this.getMovies(accessToken);
     }
   }
-
-/*
-  //parses the hash
-  handleNewHash = () => {
-    const movieId = window.location.hash.replace(/^#V?|V$/g,'').split('/');
-
-    this.setState({
-      selectedMovieId: movieId[0]
-    });
-  }
-*/
-/*
-  // changes to MovieView of selected movie
-  onMovieClick(movie) {
-    window.location.hash='#' + movie._id;
-
-      this.setState({
-      selectedMovie: movie._id
-    });
-  }
-*/
 
   // when a user logs in, he is set to state
   onLoggedIn(authData) {
@@ -87,14 +72,6 @@ export class MainView extends React.Component {
       register: true
     })
   }
-/*
-  // switches from MovieView back to MainView
-  backToMainView() {
-    this.setState({
-      selectedMovieId: null
-    });
-  }
-*/
 
   getMovies(token) {
     axios.get('https://stark-headland-48507.herokuapp.com/movies', {
@@ -124,12 +101,22 @@ export class MainView extends React.Component {
 
     //<div className="login-view"><LoginView user={user} onClick={user => this.onLoggedIn(user)}/></div>
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
     return (
       <Router>
         <div className="main-view">
-        <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
+        <h1>Hello {user}!</h1>
+        <Link to={`/users/:username${user}`}>
+          <Button variant="link">Your Profile</Button>
+        </Link>
+        <Route exact path="/" render={() => {
+          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+          return movies.map(m => <MovieCard key={m._id} movie={m} />)
+          }
+        }/>
+        <Route path="/directors/:name" render={({match}) => <DirectorView director={movies.find(movie => movie.director.name === match.params.name).director}/>}
+ />
+        <Route path="/register" render={() => <RegistrationView />} />
         <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
         </div>
       </Router>
