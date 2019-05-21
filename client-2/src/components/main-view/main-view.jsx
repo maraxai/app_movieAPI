@@ -107,7 +107,10 @@ export class MainView extends React.Component {
         <div className="main-view">
         <h1>Hello {user}!</h1>
         <Link to={`/users/:username${user}`}>
-          <Button variant="link">Your Profile</Button>
+
+        </Link>
+        <Link to={`/profile`}>
+          <Button variant="link">Your test Profile</Button>
         </Link>
         <Route exact path="/" render={() => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -118,6 +121,7 @@ export class MainView extends React.Component {
         <Route path="/genres/:name" render={({match}) => <GenreView genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
         <Route path="/register" render={() => <RegistrationView />} />
         <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+        <Route path="/profile" render={({user}) => <ProfileView user={user}/>} />
         </div>
       </Router>
     );
