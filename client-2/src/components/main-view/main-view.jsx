@@ -107,10 +107,15 @@ export class MainView extends React.Component {
         <div className="main-view">
         <h1>Hello {user}!</h1>
         <Link to={`/users/:username${user}`}>
-
         </Link>
         <Link to={`/profile`}>
-          <Button variant="link">Your test Profile</Button>
+          <Button variant="link">Your Profile</Button>
+        </Link>
+        <Link to={`/register`}>
+          <Button variant="link">Register</Button>
+        </Link>
+        <Link to={`/login`}>
+          <Button variant="link">Login</Button>
         </Link>
         <Route exact path="/" render={() => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -127,3 +132,5 @@ export class MainView extends React.Component {
     );
   }
 }
+// message: 'users' is not defined failed to compile this should work but doesn't;
+//<Route path="/users/:username" render={({match}) => <ProfileView user={users.find(user => user.username === match.params.username).user}/>} />
