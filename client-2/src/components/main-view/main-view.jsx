@@ -44,6 +44,7 @@ export class MainView extends React.Component {
         user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
+      this.getUser(accessToken);
     }
   }
 
@@ -108,8 +109,9 @@ export class MainView extends React.Component {
     .then(response => {
       //assign the result to the state
       this.setState({
-        user: localStorage.getItem('user')
+        user: response.data
       });
+      console.log(user);
     })
     .catch(function (error) {
       console.log(error);

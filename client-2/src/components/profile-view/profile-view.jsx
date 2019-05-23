@@ -9,12 +9,16 @@ import { Link } from 'react-router-dom'
 import './profile-view.scss'
 
 export class ProfileView extends React.Component {
+//  constructor() {
+//    super()
+//    this.user =  this.state.user
+//  }
 
   render() {
-    //const { user } = this.state;
+  //  const { user } = this.state
 
     return (
-      /*
+/*
       <Card bg="light" style={{ width: '90%' }}>
       <Card.Body>
       <Card.Title>{user.username}</Card.Title>
@@ -26,7 +30,7 @@ export class ProfileView extends React.Component {
       </Link>
       </Card.Body>
       </Card>
-      */
+*/
       <p>test</p>
   )
   }
