@@ -24,12 +24,12 @@ export function RegistrationView(props) {
       username: username,
       password: password,
       email: email,
-      birthday: birthday
+      birthday: birthday,
     })
     .then(response => {
       const data = response.data;
       console.log(data);
-      window.open('/');
+
     })
     .catch(e => {
       console.log('registration failed, please try again')
