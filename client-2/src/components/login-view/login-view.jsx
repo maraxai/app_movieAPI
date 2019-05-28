@@ -26,10 +26,11 @@ export function LoginView(props) {
     })
     .then(reponse => {
       const data = reponse.data;
-      props.onLoggedIn(data)
+      props.login(data)
     })
     .catch(e => {
       console.log('no such user')
+      alert('Please try again or user is not registered.')
     });
   };
 
