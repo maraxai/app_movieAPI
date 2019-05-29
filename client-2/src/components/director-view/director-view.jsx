@@ -8,6 +8,15 @@ import { Link } from 'react-router-dom'
 // make it pretty
 import './director-view.scss'
 
+const MoviesOfDirector = (props) => {
+  const rows = props.moviesByDirector.map((row, index) => {
+    return <li key={index}>{row.title}</li>;
+  });
+  return <ul>{rows}</ul>;
+};
+
+
+
 export class DirectorView extends React.Component {
   constructor() {
     super();
@@ -17,7 +26,7 @@ export class DirectorView extends React.Component {
   render() {
 
     // destructuring - assign 'movie' and 'onClick' as this components object
-    const { director } = this.props;
+    const { director, movie } = this.props;
     //<Card.Img style={{ width: '30%' }} variant="top" src={movie.imagePath} />
 
     if (!director) return null;
@@ -29,8 +38,10 @@ export class DirectorView extends React.Component {
           <Card.Text>born: {director.birth}</Card.Text>
           <Card.Text>{director.death}</Card.Text>
           <Card.Text>{director.bio}</Card.Text>
+          <Card.Subtitle>Movies directed by {director.name}:</Card.Subtitle>
+          <MoviesOfDirector moviesByDirector={movie} />
           <Link to={`/`}>
-            <Button variant="link">Back</Button>
+            <Button variant="outline-secondary">Back</Button>
           </Link>
         </Card.Body>
       </Card>

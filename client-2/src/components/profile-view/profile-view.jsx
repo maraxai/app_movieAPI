@@ -19,12 +19,12 @@ export class ProfileView extends React.Component {
       password: null,
       email: null,
       birthday: null,
-      userData: null,
+      userdata: null,
       usernameForm: null,
       passwordForm: null,
       emailForm: null,
       birthdayForm: null,
-      favoriteMovies: []
+      favoritemovies: []
   };
 }
 
@@ -59,13 +59,14 @@ export class ProfileView extends React.Component {
 
   //handle the changes
   handleChange(e) {
-    this.setState( {[e.target.name]: e} )
+    this.setState( {[e.target.name]: e.target.value} )
   }
 
   //update user data
   updateProfile(e) {
     e.preventDefault();
-    axios.put(`https://stark-headland-48507.herokuapp.com/users${localStorage.getItem('user')}`, {
+    console.log(this.state.username);
+    axios.put(`https://stark-headland-48507.herokuapp.com/users/${localStorage.getItem('user')}`, {
       username: this.state.usernameForm,
       password: this.state.passwordForm,
       email: this.state.emailForm,
@@ -77,7 +78,7 @@ export class ProfileView extends React.Component {
       console.log(response);
       alert('Updated!');
       //update localStorage
-      localStorage.setItem('user', this.state.username);
+      localStorage.setItem('user', this.state.usernameForm);
       // call getUser() to dusplay changed userdata after submission
       this.getUser(localStorage.getItem('token'));
       // reset form after submitting data
@@ -129,7 +130,6 @@ export class ProfileView extends React.Component {
           <span>&nbsp;</span>
           <Button type="button" variant="outline-secondary" size="sm" onClick={this.deleteProfile}>Delete Account</Button>
           </Card.Body>
-          </Card>
 
           <h2>Change your Profile Data:</h2>
 
@@ -154,8 +154,9 @@ export class ProfileView extends React.Component {
               <Form.Control type="date" name={birthdayForm} onChange={e => this.handleChange(e)}  />
             </Form.Group>
 
-            <Button type="button" variant="outline-secondary" size="sm" onClick={this.updateProfile}>Update</Button>
+            <Button type="button" variant="outline-secondary" size="sm" onClick={e => this.updateProfile(e)}>Update</Button>
           </Form>
+          </Card>
       </div>
     )
   }

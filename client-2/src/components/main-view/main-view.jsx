@@ -6,6 +6,7 @@ import axios from 'axios';
 
 //imports the designated components from the files wherein they reside
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -33,7 +34,7 @@ export class MainView extends React.Component {
         user: null,
         register: false,
         token: null,
-        profiledata : []
+        profiledata : [],
       };
   }
 
@@ -48,7 +49,6 @@ export class MainView extends React.Component {
       console.log(user);
       this.getMovies(accessToken);
       this.getUser(user, accessToken);
-      console.log(user + '  ' + user.birthday);
     }
   }
 
@@ -72,21 +72,6 @@ export class MainView extends React.Component {
 
     window.open('/', '_self');
   }
-
-  //when user is registered, he does not need to register any more
-//  onSignedIn(user) {
-//    this.setState({
-//      user: user,
-//      //register: false
-//    });
-//  }
-
-  //RegistrationView is not working
-//  register() {
-//    this.setState({
-//      register: true
-//    })
-//  }
 
   getMovies(token) {
     axios.get('https://stark-headland-48507.herokuapp.com/movies', {
@@ -114,7 +99,6 @@ export class MainView extends React.Component {
       this.setState({
        profiledata : profiledata
       });
-      console.log('getUser in main-view logs:' +  this.birthday);
     })
     .catch(function (error) {
       console.log(error);
@@ -124,7 +108,7 @@ export class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { movies, user, username, password, email, birthday, token, profiledata } = this.state;
+  const { movies, user, username, password, email, birthday, token, profiledata, testdata } = this.state;
 
   // if there is no user logged in, LoginView is displayed
 
@@ -133,36 +117,35 @@ export class MainView extends React.Component {
 
     //<div className="login-view"><LoginView user={user} onClick={user => this.login(user)}/></div>
 
-
     return (
       <Router>
         <div className="main-view">
-        <h1>Hello {user}!</h1>
-        <h1>your email: {this.state.email}</h1>
-
-        <Link to={`/profile`}>
-          <Button variant="link">Your Profile</Button>
-        </Link>
-        <Link to={`/register`}>
-          <Button variant="link">Register</Button>
-        </Link>
-        <Link to={`/login`}>
-          <Button variant="link">Login</Button>
-        </Link>
-        <Link to={`/logout`}>
-          <Button variant="link" onClick={this.logout}>Logout</Button>
-        </Link>
-        <Route exact path="/" render={() => {
-          if (!user) return <LoginView login={user => this.login(user)} />
-          return movies.map(m => <MovieCard key={m._id} movie={m} />)
-          }
-        }/>
-        <Route path="/directors/:name" render={({match}) => <DirectorView director={movies.find(movie => movie.director.name === match.params.name).director}/>} />
-        <Route path="/genres/:name" render={({match}) => <GenreView genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
-        <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
-        <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-        <Route path="/profile" render={({user}) => <ProfileView profiledata={profiledata}/>} />
-        <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
+          <Navbar bg="warning" expand="lg">
+          <Navbar.Brand >Hello {user}!</Navbar.Brand>
+          <Link to={`/profile`}>
+            <Button variant="link">Your Profile</Button>
+          </Link>
+          <Link to={`/register`}>
+            <Button variant="link">Register</Button>
+          </Link>
+          <Link to={`/login`}>
+            <Button variant="link">Login</Button>
+          </Link>
+          <Link to={`/logout`}>
+            <Button variant="link" onClick={this.logout}>Logout</Button>
+          </Link>
+          </Navbar >
+          <Route exact path="/" render={() => {
+            if (!user) return <LoginView login={user => this.login(user)} />
+            return movies.map(m => <MovieCard key={m._id} movie={m} />)
+            }
+          }/>
+          <Route path="/directors/:name" render={({match}) => <DirectorView movie={movies.filter(movie => movie.director.name === match.params.name)} director={movies.find(movie => movie.director.name === match.params.name).director}/>} />
+          <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
+          <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
+          <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+          <Route path="/profile" render={({user}) => <ProfileView profiledata={profiledata}/>} />
+          <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
       </Router>
     );
