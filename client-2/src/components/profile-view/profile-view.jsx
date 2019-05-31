@@ -24,7 +24,8 @@ export class ProfileView extends React.Component {
       passwordForm: null,
       emailForm: null,
       birthdayForm: null,
-      favoritemovies: []
+      favoritemovies: [],
+      movies: []
   };
 }
 
@@ -109,8 +110,26 @@ export class ProfileView extends React.Component {
       });
     }
 
+    showFavMovies() {
+      var favMovieList = [];
+      console.log(this.state.favoritemovies);
+      const favMoviesTitles = this.state.movies.filter(x => this.state.favoritemovies.includes(x._id)).map(x => x.title);
+        console.log(this.state.movies.title);
+
+      if (favMoviesTitles.length == 0) {
+        return <p>{'You have not added any movies yet.'}</p>
+      }
+      else {
+      const rows = this.state.favMovieTitles.map((movie, index) => {
+        return <li key={index}>{movie}</li>
+      });
+      return <ul>{rows}</ul>
+      }
+    }
+
+
   render() {
-    const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm } = this.state
+    const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm, movies } = this.state
 
     if(!userdata) return null;
 
@@ -123,7 +142,7 @@ export class ProfileView extends React.Component {
           <Card.Text>Password: {this.state.password}</Card.Text>
           <Card.Text>Email: {this.state.email}</Card.Text>
           <Card.Text>Birthday: {this.state.birthday}</Card.Text>
-          <Card.Text>Favorite Movies: {this.state.favoritemovies}</Card.Text>
+          <Card.Text>Favorite Movies: {this.showFavMovies()}</Card.Text>
           <Link to={`/`}>
           <Button variant="outline-secondary" size="sm">Back</Button>
           </Link>
@@ -136,22 +155,22 @@ export class ProfileView extends React.Component {
           <Form className="changeProfileData">
             <Form.Group controlId="formBasicText">
               <Form.Label>Your Username</Form.Label>
-              <Form.Control type="text" name={usernameForm} onChange={e => this.handleChange(e)}/>
+              <Form.Control type="text" name="usernameForm" onChange={e => this.handleChange(e)}/>
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>your password</Form.Label>
-              <Form.Control type="password" name={passwordForm} onChange={e => this.handleChange(e)}/>
+              <Form.Control type="password" name="passwordForm" onChange={e => this.handleChange(e)}/>
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
               <Form.Label>email adress</Form.Label>
-              <Form.Control type="email" name={emailForm} onChange={e => this.handleChange(e)}/>
+              <Form.Control type="email" name="emailForm" onChange={e => this.handleChange(e)}/>
             </Form.Group>
 
-            <Form.Group controlId="formBasicBirthdate">
+            <Form.Group controlId="formBasicBirthday">
               <Form.Label>Your birthday</Form.Label>
-              <Form.Control type="date" name={birthdayForm} onChange={e => this.handleChange(e)}  />
+              <Form.Control type="date" name="birthdayForm" onChange={e => this.handleChange(e)}  />
             </Form.Group>
 
             <Button type="button" variant="outline-secondary" size="sm" onClick={e => this.updateProfile(e)}>Update</Button>

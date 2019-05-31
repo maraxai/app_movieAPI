@@ -108,7 +108,7 @@ export class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { movies, user, username, password, email, birthday, token, profiledata, testdata } = this.state;
+  const { movies, user, username, password, email, birthday, token, profiledata } = this.state;
 
   // if there is no user logged in, LoginView is displayed
 
@@ -144,7 +144,7 @@ export class MainView extends React.Component {
           <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-          <Route path="/profile" render={({user}) => <ProfileView profiledata={profiledata}/>} />
+          <Route path="/profile" render={({user}) => <ProfileView movies={movies} />} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
       </Router>

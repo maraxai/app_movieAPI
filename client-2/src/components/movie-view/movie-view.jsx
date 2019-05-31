@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import InputGroup from 'react-bootstrap/InputGroup';
+
 
 // make it pretty
 import './movie-view.scss'
@@ -32,9 +34,9 @@ export class MovieView extends React.Component {
 
     return (
       // React Bootstrap Component Card
-      <Card style={{ width: '80%' }}>
+      <Card style={{ width: '100%' }}>
         <Card.Body>
-          <Card.Img style={{ width: '50%' }} variant="top" src={movie.imagePath} />
+          <Card.Img style={{ width: '20%' }} variant="top" src={movie.imagePath} />
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>{movie.description}</Card.Text>
           <Link to={'/'}>
@@ -45,12 +47,16 @@ export class MovieView extends React.Component {
           </Link><span>&nbsp;</span>
           <Link to={`/genres/${movie.genre.name}`}>
             <Button variant="outline-secondary">Genre</Button>
-          </Link>
+          </Link><span>&nbsp;</span><br />
         </Card.Body>
       </Card>
     );
   }
 }
+//<div class="custom-control custom-checkbox">
+//<input type="checkbox" className="custom-control-input" id="favoritemovie"  />
+//<label class="custom-control-label" for="favoritemovie">Favorite Movie</label>
+//</div>
 
 MovieView.propTypes={
   movie: PropTypes.shape({

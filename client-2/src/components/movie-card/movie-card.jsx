@@ -16,9 +16,9 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
     // returns the movie title
     return (
-      <Card bg="light" style={{ width: '90%' }}>
+      <Card bg="light" style={{ width: '100%' }}>
         <Card.Body>
-          <Card.Img style={{ width: '30%' }} variant="top" src={movie.imagePath} />
+          <Card.Img style={{ width: '10%' }} variant="top" src={movie.imagePath} />
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>{movie.description}</Card.Text>
           <Link to={`/movies/${movie._id}`}>
