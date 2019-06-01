@@ -144,7 +144,7 @@ export class MainView extends React.Component {
           <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-          <Route path="/profile" render={({user}) => <ProfileView movies={movies} />} />
+          <Route path="/profile" render={() => <ProfileView movies={movies} />} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
       </Router>

@@ -10,6 +10,18 @@ import axios from 'axios';
 // make it pretty
 import './profile-view.scss'
 
+  // displays favorite movies' ids, commented block is attempt to display titles instead of ids
+  const ShowFavMovies = (props) => {
+    //following console.log returns 'undefined', i.e. the array 'movies' is not available; see main-view <Route path="/profile">
+    //console.log(props.movies.title)
+    //const movieTitles = props.movies.map(movie => props.favoriteMoviesIds.includes(movie._id).map(movie.title));
+
+    const rows = props.favoriteMoviesIds.map((row, index) => {
+      return <li key={index}>{row}</li>;
+    });
+    return <ul>{rows}</ul>;
+  };
+
 export class ProfileView extends React.Component {
   constructor() {
     super();
@@ -110,13 +122,15 @@ export class ProfileView extends React.Component {
       });
     }
 
-    showFavMovies() {
+    // does not work! attempt to display user's favorite movies as titles and not ids, instead <ShowFavMovies />
+    /*showFavMovies() {
       var favMovieList = [];
       console.log(this.state.favoritemovies);
       const favMoviesTitles = this.state.movies.filter(x => this.state.favoritemovies.includes(x._id)).map(x => x.title);
-        console.log(this.state.movies.title);
+        console.log('movies[0]: ' + this.state.movies);
+        console.log('favMoviesTitles: ' + favMoviesTitles);
 
-      if (favMoviesTitles.length == 0) {
+      if (favMoviesTitles.length === 0) {
         return <p>{'You have not added any movies yet.'}</p>
       }
       else {
@@ -126,12 +140,40 @@ export class ProfileView extends React.Component {
       return <ul>{rows}</ul>
       }
     }
+    */
 
+/*
+  dateFormat () {
+      var day = this.state.birthday.getDate();
+      var month = this.state.birthday.getMonth();
+      var year = this.state.birthday.getFullYear();
+    var dateFormat_us = month + '/' + day + '/' + year;
+    console.log(dateFormat_us);
+    return dateFormat_us;
+    }
+*/
+/*
+const ChangeDateFormat = (props) => {
+        var day = props.birthday.getDate();
+        var month = props.birthday.getMonth();
+        var year = props.birthday.getFullYear();
+      var dateFormat_us = month + '/' + day + '/' + year;
+      console.log(dateFormat_us);
+      return dateFormat_us;
+      }
+};
+*/
 
   render() {
     const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm, movies } = this.state
 
     if(!userdata) return null;
+
+    // does not work
+    //<Card.Text>Favorite Movies: {this.showFavMovies()}</Card.Text>
+      // does not work
+    //<Card.Text>Birthday: {this.dateFormat()}</Card.Text>
+    //<ChangeDateFormat birthday={this.state.birthday}/>
 
     return (
       <div className="profile-view">
@@ -139,10 +181,11 @@ export class ProfileView extends React.Component {
           <Card.Body>
           <Card.Title>Profile Data:</Card.Title>
           <Card.Text>Username: {this.state.username}</Card.Text>
-          <Card.Text>Password: {this.state.password}</Card.Text>
+          <Card.Text>Password:********</Card.Text>
           <Card.Text>Email: {this.state.email}</Card.Text>
           <Card.Text>Birthday: {this.state.birthday}</Card.Text>
-          <Card.Text>Favorite Movies: {this.showFavMovies()}</Card.Text>
+          <Card.Text>Your Favorite Movie List:</Card.Text>
+          <ShowFavMovies favoriteMoviesIds={this.state.favoritemovies} movies={this.state.movies}/>
           <Link to={`/`}>
           <Button variant="outline-secondary" size="sm">Back</Button>
           </Link>

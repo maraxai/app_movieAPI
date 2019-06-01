@@ -48,15 +48,15 @@ export class MovieView extends React.Component {
           <Link to={`/genres/${movie.genre.name}`}>
             <Button variant="outline-secondary">Genre</Button>
           </Link><span>&nbsp;</span><br />
+          <div class="custom-control custom-checkbox">
+          <input type="checkbox" className="custom-control-input" id="favoritemovie"  />
+          <label class="custom-control-label" for="favoritemovie">Add to Your Favorite Movie List</label>
+          </div>
         </Card.Body>
       </Card>
     );
   }
 }
-//<div class="custom-control custom-checkbox">
-//<input type="checkbox" className="custom-control-input" id="favoritemovie"  />
-//<label class="custom-control-label" for="favoritemovie">Favorite Movie</label>
-//</div>
 
 MovieView.propTypes={
   movie: PropTypes.shape({
