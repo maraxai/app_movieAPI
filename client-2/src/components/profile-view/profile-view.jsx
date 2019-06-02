@@ -10,18 +10,6 @@ import axios from 'axios';
 // make it pretty
 import './profile-view.scss'
 
-  // displays favorite movies' ids, commented block is attempt to display titles instead of ids
-  const ShowFavMovies = (props) => {
-    //following console.log returns 'undefined', i.e. the array 'movies' is not available; see main-view <Route path="/profile">
-    //console.log(props.movies.title)
-    //const movieTitles = props.movies.map(movie => props.favoriteMoviesIds.includes(movie._id).map(movie.title));
-
-    const rows = props.favoriteMoviesIds.map((row, index) => {
-      return <li key={index}>{row}</li>;
-    });
-    return <ul>{rows}</ul>;
-  };
-
 export class ProfileView extends React.Component {
   constructor() {
     super();
@@ -31,12 +19,12 @@ export class ProfileView extends React.Component {
       password: null,
       email: null,
       birthday: null,
+      favoritemovies: [],
       userdata: null,
       usernameForm: null,
       passwordForm: null,
       emailForm: null,
       birthdayForm: null,
-      favoritemovies: [],
       movies: []
   };
 }
@@ -165,7 +153,10 @@ const ChangeDateFormat = (props) => {
 */
 
   render() {
-    const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm, movies } = this.state
+    const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm } = this.state
+    const { movies } = this.props;
+    const favoriteMoviesList = movies.filter(m => favoritemovies.includes(m._id));
+    //const favorites = movies.filter(movie => favoritemovies.indexOf(movie._id) > -1)
 
     if(!userdata) return null;
 
@@ -185,7 +176,15 @@ const ChangeDateFormat = (props) => {
           <Card.Text>Email: {this.state.email}</Card.Text>
           <Card.Text>Birthday: {this.state.birthday}</Card.Text>
           <Card.Text>Your Favorite Movie List:</Card.Text>
-          <ShowFavMovies favoriteMoviesIds={this.state.favoritemovies} movies={this.state.movies}/>
+          <div className="fav-movies-links">Your favorite movies:</div>
+          <Card.Text>{
+            favoriteMoviesList.map(m => (
+              <Link key={m._id} to={`/movies/${m._id}`}>
+              <div className='fav-movies-link'><Button variant="link">{m.title}</Button></div>
+              </Link>
+            ))
+          }
+          </Card.Text>
           <Link to={`/`}>
           <Button variant="outline-secondary" size="sm">Back</Button>
           </Link>

@@ -24,13 +24,14 @@ export class MovieView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //favoritemovies: this.state.favoritemovies
+      favoritemovies: [],
+      movies: []
     }
+    //this.handleOnClick = this.handleOnClick.bind(this);
+    //  this.handleAddMovie = this.handleAddMovie.bind(this);
+    //  this.handleRemoveMovie = this.handleRemoveMovie.bind(this);
   };
 
-//this.handleOnClick = this.handleOnClick.bind(this);
-  //  this.handleAddMovie = this.handleAddMovie.bind(this);
-  //  this.handleRemoveMovie = this.handleRemoveMovie.bind(this);
 
   //update user data
   updateProfile(e) {
