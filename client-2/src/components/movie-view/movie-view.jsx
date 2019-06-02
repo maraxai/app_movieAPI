@@ -27,7 +27,9 @@ export class MovieView extends React.Component {
     }
   };
 
-
+    this.handleOnClick = this.handleOnClick.bind(this);
+    this.handleAddMovie = this.handleAddMovie.bind(this);
+    this.handleRemoveMovie = this.handleRemoveMovie.bind(this);
 
   //update user data
   updateProfile(e) {
@@ -64,6 +66,9 @@ export class MovieView extends React.Component {
         favoritemovies.push(movie._id) : this.state.favoritemovies
       });
       alert('You added this movie to your list of favorite movies.')
+      return (
+        <Button variant="outline-secondary" size="sm" onClick={this.handleOnClick} className="toggle-fav-movie-status">Add To Your Favorite Movie List</Button><br />
+      )
     }
 
    // removes movie to favoritemovies list
@@ -71,7 +76,10 @@ export class MovieView extends React.Component {
      this.setState({
        favoritemovies.filter(id => id !== movie._id) : this.state.favoritemovies
      });
-         alert('You removed this movie from your list of favorite movies.')
+     alert('You removed this movie from your list of favorite movies.');
+     return (
+       <Button variant="secondary" size="sm" onClick={this.handleOnClick} className="toggle-fav-movie-status">Remove from your Favorite Movie List</Button><br />
+     )
     }
 
     // event handler for clickOn event button when adding/removing a movie to favoritemovies
