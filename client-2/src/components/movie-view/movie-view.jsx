@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import InputGroup from 'react-bootstrap/InputGroup';
 
+import axios from 'axios';
 
 // make it pretty
 import './movie-view.scss'
@@ -19,18 +20,64 @@ import { Link } from 'react-router-dom';
 export class MovieView extends React.Component {
   // constructer function, super refers to the 'Super' object of the React component
   // 'this' refers to the function's object, which is internally mutable
-  constructor() {
-    super();
-    this.state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      favoritemovies: this.state.favoritemovies
+    }
   };
 
-    // render function displays the props
+
+
+  //update user data
+  updateProfile(e) {
+    e.preventDefault();
+    console.log(this.state.username);
+    axios.put(`https://stark-headland-48507.herokuapp.com/users/${localStorage.getItem('user')}`, {
+      favoritemovies: this.state.favoritemovies
+    }, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+    })
+    .then(response => {
+      console.log(response);
+      alert('Movie added!');
+      //update localStorage
+      localStorage.setItem('user', this.state.favoritemovies);
+      this.getUser(localStorage.getItem('token'));
+    })
+    .catch(e => {
+      console.log('error, the movie has not been added, try again');
+      alert('please check, error');
+    });
+  };
+    // note: favoritemovies is added as 'state' ; see constructor()
   render() {
     const { movie } = this.props;
 
     if (!movie) {
       return null;
     }
+
+    // adds movie to favoritemovies list
+    handleAddMovie() {
+      this.setState({
+        favoritemovies.push(movie._id) : this.state.favoritemovies
+      });
+      alert('You added this movie to your list of favorite movies.')
+    }
+
+   // removes movie to favoritemovies list
+   handleRemoveMovie() {
+     this.setState({
+       favoritemovies.filter(id => id !== movie._id) : this.state.favoritemovies
+     });
+         alert('You removed this movie from your list of favorite movies.')
+    }
+
+    // event handler for clickOn event button when adding/removing a movie to favoritemovies
+   handleOnClick(event) {
+      users.favoritemovies.includes(this.props.movie._id) ? this.handleAddMovie() : this.handleRemoveMovie();
+   }
 
     return (
       // React Bootstrap Component Card
@@ -40,16 +87,21 @@ export class MovieView extends React.Component {
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>{movie.description}</Card.Text>
           <Link to={'/'}>
-            <Button variant="outline-secondary">Back to Movie List</Button>
+            <Button variant="outline-secondary" size="sm">Back to Movie List</Button>
           </Link><span>&nbsp;</span>
           <Link to={`/directors/${movie.director.name}`}>
-            <Button variant="outline-secondary">Director</Button>
+            <Button variant="outline-secondary" size="sm">Director</Button>
           </Link><span>&nbsp;</span>
           <Link to={`/genres/${movie.genre.name}`}>
-            <Button variant="outline-secondary">Genre</Button>
-          </Link><span>&nbsp;</span><br />
+            <Button variant="outline-secondary" size="sm">Genre</Button>
+          </Link><span>&nbsp;</span>
+          // this should be a toggle button, IF movie is not in the array users.favoritemovies, onClick event adds the movie to array users.favoritemovies and checkbox is 'checked'
+          //IF movie is is in the array users.favoritemovie, onClick event removes the movie from users.favoritemovies and checkbox is 'un-checked'
+          // in addition the label of the toggle button changes according to true false
+          // onClick={this.}
+          <Button variant="secondary" size="sm" onClick={this.handleOnClick} className="toggle-fav-movie-status">Add To Your Favorite Movie List</Button><br />
           <div class="custom-control custom-checkbox">
-          <input type="checkbox" className="custom-control-input" id="favoritemovie"  />
+          <input type="checkbox" className="custom-control-input" id="favoritemovie" />
           <label class="custom-control-label" for="favoritemovie">Add to Your Favorite Movie List</label>
           </div>
         </Card.Body>
@@ -57,6 +109,8 @@ export class MovieView extends React.Component {
     );
   }
 }
+
+
 
 MovieView.propTypes={
   movie: PropTypes.shape({

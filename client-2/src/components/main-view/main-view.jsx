@@ -104,6 +104,7 @@ export class MainView extends React.Component {
       console.log(error);
     });
   }
+  
   // the render function displays the data
   render() {
   // the state has to been initialized before data is initially loaded
