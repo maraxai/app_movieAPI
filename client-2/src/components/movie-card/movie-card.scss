@@ -1,4 +1,4 @@
-@import '../../variables.scss'; 
+@import '../../variables.scss';
 
 .card {
   display: flex;
@@ -11,4 +11,14 @@
 .card-title {
   font-size: 2em;
   color: $font-color-grey2;
+}
+
+.favme {
+    cursor: pointer;
+    font-size: 28px;
+    color: #ccc;
+
+    &.active {
+        color: red;
+    }
 }

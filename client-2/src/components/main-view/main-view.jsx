@@ -1,10 +1,10 @@
-// import the react library
+// creates variable React with React module, as a part of the React library
 import React from 'react';
 
-// manages HTTP requests
+// manages HTTP client requests
 import axios from 'axios';
 
-//imports the designated components from the files wherein they reside
+//imports the designated components from the files wherein they reside, bootstrap, router and app-specific ones
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -52,7 +52,7 @@ export class MainView extends React.Component {
     }
   }
 
-  // when a user logs in, he is set to state
+  // when a user logs in, he is 'set to state'
   login(authData) {
     console.log(authData);
     this.setState({
@@ -65,14 +65,15 @@ export class MainView extends React.Component {
     window.open('/','_self');
   }
 
-  // when a user logs in, he is set to state
+  // upon logout, localStorage is cleared
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
+    // switches to login view
     window.open('/', '_self');
   }
 
+  // GET request for movies data with token authorization
   getMovies(token) {
     axios.get('https://stark-headland-48507.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}`}
@@ -88,6 +89,7 @@ export class MainView extends React.Component {
     });
   }
 
+  // GET request for user data with token authorization
   getUser(token) {
     axios.get('https://stark-headland-48507.herokuapp.com/users', {
       headers: { Authorization: `Bearer ${token}`}
@@ -104,19 +106,16 @@ export class MainView extends React.Component {
       console.log(error);
     });
   }
-  // the render function displays the data
+  // the render function displays the data, must-part of class component
   render() {
   // the state has to been initialized before data is initially loaded
-  // refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
+  // ES6 refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
   const { movies, user, username, password, email, birthday, token, profiledata } = this.state;
-
-  // if there is no user logged in, LoginView is displayed
 
     //before the movies have been loaded
     if (!movies) return <div className="main-view" />;
 
-    //<div className="login-view"><LoginView user={user} onClick={user => this.login(user)}/></div>
-
+    // return statement contains routes to views/components
     return (
       <Router>
         <div className="main-view">
@@ -151,5 +150,3 @@ export class MainView extends React.Component {
     );
   }
 }
-// message: 'users' is not defined failed to compile this should work but doesn't;
-//<Route path="/users/:username" render={({match}) => <ProfileView user={users.find(user => user.username === match.params.username).user}/>} />
