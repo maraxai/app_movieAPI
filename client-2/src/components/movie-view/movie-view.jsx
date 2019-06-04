@@ -112,11 +112,12 @@ export class MovieView extends React.Component {
           IF movie is is in the array users.favoritemovie, onClick event removes the movie from users.favoritemovies and checkbox is 'un-checked'
            in addition the label of the toggle button changes according to true false
           */}
-          <FavMovieButton /><br />
-          <div class="custom-control custom-checkbox">
+          {/*<FavMovieButton /><br />*/}
+          {/*<div class="custom-control custom-checkbox">
           <input type="checkbox" className="custom-control-input" id="favoritemovie" />
           <label class="custom-control-label" for="favoritemovie">Add to Your Favorite Movie List</label>
           </div>
+          */}
         </Card.Body>
       </Card>
     );

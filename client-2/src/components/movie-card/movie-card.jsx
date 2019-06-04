@@ -36,7 +36,7 @@ export class MovieCard extends React.Component {
     if (!this.state.fav) {
       this.addToFavMovieList(this.props.movie._id);
     } else {
-      this.removeFromFavMovieList();
+      this.removeFromFavMovieList(this.props.movie._id);
     }
   }
 
@@ -56,6 +56,7 @@ export class MovieCard extends React.Component {
       fav: true
     });
     this.props.addToFavMovieList(id);
+    const favoritemovies = localStorage.setItem('favoritemovies')
   })
   .catch(e => {
     console.log(e);

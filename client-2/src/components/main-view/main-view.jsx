@@ -36,20 +36,44 @@ export class MainView extends React.Component {
         token: null,
         profiledata : [],
       };
+      this.addToFavMovieList = this.addToFavMovieList.bind(this);
+      this.removeFromFavMovieList = this.removeFromFavMovieList.bind(this);
   }
 
-  //life-cycle method, once react component is mounted, the http client axios GETS the db data
+    //life-cycle method, once react component is mounted, the http client axios GETS the db data
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       let user = localStorage.getItem('user');
       this.setState({
-      user : user
+      user : localStorage.getItem('user')
       });
       console.log(user);
       this.getMovies(accessToken);
-      this.getUser(user, accessToken);
+      this.getUser(localStorage.getItem("user"), accessToken);
     }
+  }
+
+  addToFavMovieList(movie) {
+    //https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
+    let favorites = this.state.profiledata.favoritemovies;
+    if (favorites.indexOf(movie) < 0) {
+      favorites.push(movie);
+    }
+
+     let profiledata = {...this.state.profiledata};
+    profiledata.favoritemovies = favorites;
+    this.setState({profiledata});
+  }
+
+  removeFromFavMovieList(id) {
+    let currFavorites = this.state.profiledata.favoritemovies;
+    let favorites = currFavorites.filter(mId => {
+      return mId !== id
+    });
+    let profiledata = {...this.state.profiledata};
+    profiledata.favoritemovies = favorites;
+    this.setState({profiledata});
   }
 
   // when a user logs in, he is 'set to state'
@@ -136,14 +160,17 @@ export class MainView extends React.Component {
           </Navbar >
           <Route exact path="/" render={() => {
             if (!user) return <LoginView login={user => this.login(user)} />
-            return movies.map(m => <MovieCard key={m._id} movie={m} />)
+            return movies.map(m => <MovieCard key={m._id} movie={m}
+              addToFavorites={this.addToFavorites}
+              removeFromFavorites={this.removeFromFavorites}
+            />)
             }
           }/>
           <Route path="/directors/:name" render={({match}) => <DirectorView movie={movies.filter(movie => movie.director.name === match.params.name)} director={movies.find(movie => movie.director.name === match.params.name).director}/>} />
           <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-          <Route path="/profile" render={() => <ProfileView movies={movies} />} />
+          <Route path="/profile" render={() => <ProfileView movies={movies} profiledata={profiledata}/>} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
       </Router>
