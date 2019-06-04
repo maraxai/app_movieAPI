@@ -34,7 +34,7 @@ export class MainView extends React.Component {
         user: null,
         register: false,
         token: null,
-        profiledata : [],
+        profiledata : {},
       };
       this.addToFavMovieList = this.addToFavMovieList.bind(this);
       this.removeFromFavMovieList = this.removeFromFavMovieList.bind(this);
@@ -64,7 +64,7 @@ export class MainView extends React.Component {
      let profiledata = {...this.state.profiledata};
     profiledata.favoritemovies = favorites;
     this.setState({profiledata});
-  }
+    }
 
   removeFromFavMovieList(id) {
     let currFavorites = this.state.profiledata.favoritemovies;
@@ -74,6 +74,8 @@ export class MainView extends React.Component {
     let profiledata = {...this.state.profiledata};
     profiledata.favoritemovies = favorites;
     this.setState({profiledata});
+
+
   }
 
   // when a user logs in, he is 'set to state'
@@ -126,7 +128,7 @@ export class MainView extends React.Component {
        profiledata : profiledata
       });
     })
-    .catch(function (error) {
+    .catch(error => {
       console.log(error);
     });
   }
@@ -170,7 +172,7 @@ export class MainView extends React.Component {
           <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-          <Route path="/profile" render={() => <ProfileView movies={movies} profiledata={profiledata}/>} />
+          <Route path="/profile" render={() => <ProfileView movies={movies} profiledata={profiledata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
       </Router>
