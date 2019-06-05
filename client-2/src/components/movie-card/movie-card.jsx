@@ -35,17 +35,14 @@ export class MovieCard extends React.Component {
     toggleClick = true;
     if (!this.state.fav) {
       this.addToFavMovieList(this.props.movie._id);
-      const fav = localStorage.setItem('fav', true);
     } else {
-      this.removeFromFavMovieList(this.props.movie._id);
-      const fav = localStorage.setItem('fav', false);
+      this.removeFromFavMovieList();
     }
   }
 
   addToFavMovieList(id) {
   const user = localStorage.getItem('user');
   const token = localStorage.getItem('token');
-  const fav = localStorage.getItem('fav');
   axios
   .put(`https://stark-headland-48507.herokuapp.com/users/${user}/favoritemovies/${id}`,
     {},
@@ -59,8 +56,6 @@ export class MovieCard extends React.Component {
       fav: true
     });
     this.props.addToFavMovieList(id);
-    const favoritemovies = localStorage.setItem('favoritemovies', favoritemovies.id);
-    const fav = localStorage.setItem('fav', true);
   })
   .catch(e => {
     console.log(e);
@@ -71,7 +66,6 @@ export class MovieCard extends React.Component {
 removeFromFavMovieList() {
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    const fav = localStorage.getItem('fav');
     const id = this.props.movie._id
     axios
         .delete(`https://stark-headland-48507.herokuapp.com/users/${user}/favoritemovies/${id}`,
@@ -86,8 +80,6 @@ removeFromFavMovieList() {
           });
           this.props.removeFromFavMovieList(id);
           const favoritemovies = localStorage.setItem('favoritemovies', favoritemovies.id);
-          const fav = localStorage.setItem('fav', false);
-
         })
         .catch(e => {
           console.log(e);

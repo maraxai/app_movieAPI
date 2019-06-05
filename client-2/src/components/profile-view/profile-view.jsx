@@ -160,12 +160,7 @@ const ChangeDateFormat = (props) => {
     //const favorites = movies.filter(movie => favoritemovies.indexOf(movie._id) > -1)
 
     if(!userdata) return null;
-
-    // does not work
-    //<Card.Text>Favorite Movies: {this.showFavMovies()}</Card.Text>
-      // does not work
-    //<Card.Text>Birthday: {this.dateFormat()}</Card.Text>
-    //<ChangeDateFormat birthday={this.state.birthday}/>
+    console.log(userdata)
 
     return (
       <div className="profile-view">

@@ -30,11 +30,10 @@ export class MainView extends React.Component {
       //initiates the state for designated properties upon page load
       this.state = {
         movies: [],
-        selectedMovieId: null,
         user: null,
         register: false,
         token: null,
-        profiledata : {},
+        userdata : {},
         favorite: [],
         favoritemovies: [],
         favorites: []
@@ -59,24 +58,27 @@ export class MainView extends React.Component {
 
   addToFavMovieList(movie) {
     //https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
-    let favorites = this.state.profiledata.favoritemovies;
+    let favorites = this.state.userdata.favoritemovies;
+    console.log('Greetings from ' + this.state.user)
     if (favorites.indexOf(movie) < 0) {
       favorites.push(movie);
     }
 
-     let profiledata = {...this.state.profiledata};
-    profiledata.favoritemovies = favorites;
-    this.setState({profiledata});
+     let userdata = {...this.state.userdata};
+    userdata.favoritemovies = favorites;
+    console.log(favorites)
+    this.setState({userdata});
     }
 
   removeFromFavMovieList(id) {
-    let currFavorites = this.state.profiledata.favoritemovies;
+    let currFavorites = this.state.userdata.favoritemovies;
+    console.log('greetings from ' + this.state.userdata.email)
     let favorites = currFavorites.filter(mId => {
       return mId !== id
     });
-    let profiledata = {...this.state.profiledata};
-    profiledata.favoritemovies = favorites;
-    this.setState({profiledata});
+    let userdata = {...this.state.userdata};
+    userdata.favoritemovies = favorites;
+    this.setState({userdata});
 
 
   }
@@ -119,16 +121,17 @@ export class MainView extends React.Component {
   }
 
   // GET request for user data with token authorization
-  getUser(token) {
-    axios.get('https://stark-headland-48507.herokuapp.com/users', {
+  getUser(user, token) {
+    let username = localStorage.getItem('user');
+    axios.get(`https://stark-headland-48507.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
 
-      const profiledata = response.data;
+      const userdata = response.data;
       //assign the result to the state
       this.setState({
-       profiledata : profiledata
+       userdata : response.data
       });
     })
     .catch(error => {
@@ -139,7 +142,7 @@ export class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // ES6 refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { movies, user, username, password, email, birthday, token, profiledata, favoritemovies } = this.state;
+  const { movies, user, username, password, email, birthday, token, userdata, favoritemovies } = this.state;
 
     //before the movies have been loaded
     if (!movies) return <div className="main-view" />;
@@ -166,6 +169,7 @@ export class MainView extends React.Component {
           <Route exact path="/" render={() => {
             if (!user) return <LoginView login={user => this.login(user)} />
             return movies.map(m => <MovieCard key={m._id} movie={m}
+              userdata={userdata}
               favorite={favoritemovies.indexOf(m._id) > -1}
               addToFavMovieList={this.addToFavMovieList}
               removeFromFavMovieList={this.removeFromFavMovieList}
@@ -176,7 +180,7 @@ export class MainView extends React.Component {
           <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-          <Route path="/profile" render={() => <ProfileView movies={movies} profiledata={profiledata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
+          <Route path="/profile" render={() => <ProfileView movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
       </Router>
