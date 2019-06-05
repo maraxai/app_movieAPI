@@ -11,8 +11,8 @@ import axios from 'axios';
 import './profile-view.scss'
 
 export class ProfileView extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       username: null,
@@ -25,7 +25,8 @@ export class ProfileView extends React.Component {
       passwordForm: null,
       emailForm: null,
       birthdayForm: null,
-      movies: []
+      movies: [],
+      favorite: []
   };
 }
 
@@ -154,7 +155,7 @@ const ChangeDateFormat = (props) => {
 
   render() {
     const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm } = this.state
-    const { movies } = this.props;
+    const { movies, favoriteMovies, favorites } = this.props;
     const favoriteMoviesList = movies.filter(m => favoritemovies.includes(m._id));
     //const favorites = movies.filter(movie => favoritemovies.indexOf(movie._id) > -1)
 

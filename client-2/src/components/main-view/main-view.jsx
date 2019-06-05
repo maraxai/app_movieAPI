@@ -35,6 +35,9 @@ export class MainView extends React.Component {
         register: false,
         token: null,
         profiledata : {},
+        favorite: [],
+        favoritemovies: [],
+        favorites: []
       };
       this.addToFavMovieList = this.addToFavMovieList.bind(this);
       this.removeFromFavMovieList = this.removeFromFavMovieList.bind(this);
@@ -136,7 +139,7 @@ export class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // ES6 refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { movies, user, username, password, email, birthday, token, profiledata } = this.state;
+  const { movies, user, username, password, email, birthday, token, profiledata, favoritemovies } = this.state;
 
     //before the movies have been loaded
     if (!movies) return <div className="main-view" />;
@@ -163,8 +166,9 @@ export class MainView extends React.Component {
           <Route exact path="/" render={() => {
             if (!user) return <LoginView login={user => this.login(user)} />
             return movies.map(m => <MovieCard key={m._id} movie={m}
-              addToFavorites={this.addToFavorites}
-              removeFromFavorites={this.removeFromFavorites}
+              favorite={favoritemovies.indexOf(m._id) > -1}
+              addToFavMovieList={this.addToFavMovieList}
+              removeFromFavMovieList={this.removeFromFavMovieList}
             />)
             }
           }/>

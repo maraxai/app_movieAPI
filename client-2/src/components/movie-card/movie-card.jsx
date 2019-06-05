@@ -28,7 +28,6 @@ export class MovieCard extends React.Component {
       this.setState({
         fav: this.props.favorite
       });
-      const fav = localStorage.setItem('fav');
     }
   }
 
@@ -46,7 +45,6 @@ export class MovieCard extends React.Component {
   addToFavMovieList(id) {
   const user = localStorage.getItem('user');
   const token = localStorage.getItem('token');
-  const favoritemovies = localStorage.getItem('favoritemovies');
   const fav = localStorage.getItem('fav');
   axios
   .put(`https://stark-headland-48507.herokuapp.com/users/${user}/favoritemovies/${id}`,
@@ -62,7 +60,7 @@ export class MovieCard extends React.Component {
     });
     this.props.addToFavMovieList(id);
     const favoritemovies = localStorage.setItem('favoritemovies', favoritemovies.id);
-    const fav = localStorage.setItem('fav', false);
+    const fav = localStorage.setItem('fav', true);
   })
   .catch(e => {
     console.log(e);
@@ -73,7 +71,6 @@ export class MovieCard extends React.Component {
 removeFromFavMovieList() {
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    const favoritemovies = localStorage.getItem('favoritemovies');
     const fav = localStorage.getItem('fav');
     const id = this.props.movie._id
     axios
