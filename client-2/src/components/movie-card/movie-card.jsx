@@ -79,7 +79,7 @@ removeFromFavMovieList() {
             fav: false
           });
           this.props.removeFromFavMovieList(id);
-          const favoritemovies = localStorage.setItem('favoritemovies', favoritemovies.id);
+
         })
         .catch(e => {
           console.log(e);

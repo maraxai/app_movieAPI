@@ -59,20 +59,17 @@ export class MainView extends React.Component {
   addToFavMovieList(movie) {
     //https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
     let favorites = this.state.userdata.favoritemovies;
-    console.log('Greetings from ' + this.state.user)
     if (favorites.indexOf(movie) < 0) {
       favorites.push(movie);
     }
 
-     let userdata = {...this.state.userdata};
+    let userdata = {...this.state.userdata};
     userdata.favoritemovies = favorites;
-    console.log(favorites)
     this.setState({userdata});
     }
 
   removeFromFavMovieList(id) {
     let currFavorites = this.state.userdata.favoritemovies;
-    console.log('greetings from ' + this.state.userdata.email)
     let favorites = currFavorites.filter(mId => {
       return mId !== id
     });
