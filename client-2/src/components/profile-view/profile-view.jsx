@@ -30,6 +30,7 @@ export class ProfileView extends React.Component {
   };
 }
 
+  // lifecyle component to mount
   componentDidMount() {
     //authentication
     let accessToken = localStorage.getItem('token');
@@ -38,7 +39,7 @@ export class ProfileView extends React.Component {
     }
   }
 
-  //get user
+  //get user by GET axios GET request and setState
   getUser(token) {
     let username = localStorage.getItem('user');
     axios.get(`https://stark-headland-48507.herokuapp.com/users/${username}`, {
@@ -111,48 +112,6 @@ export class ProfileView extends React.Component {
       });
     }
 
-    // does not work! attempt to display user's favorite movies as titles and not ids, instead <ShowFavMovies />
-    /*showFavMovies() {
-      var favMovieList = [];
-      console.log(this.state.favoritemovies);
-      const favMoviesTitles = this.state.movies.filter(x => this.state.favoritemovies.includes(x._id)).map(x => x.title);
-        console.log('movies[0]: ' + this.state.movies);
-        console.log('favMoviesTitles: ' + favMoviesTitles);
-
-      if (favMoviesTitles.length === 0) {
-        return <p>{'You have not added any movies yet.'}</p>
-      }
-      else {
-      const rows = this.state.favMovieTitles.map((movie, index) => {
-        return <li key={index}>{movie}</li>
-      });
-      return <ul>{rows}</ul>
-      }
-    }
-    */
-
-/*
-  dateFormat () {
-      var day = this.state.birthday.getDate();
-      var month = this.state.birthday.getMonth();
-      var year = this.state.birthday.getFullYear();
-    var dateFormat_us = month + '/' + day + '/' + year;
-    console.log(dateFormat_us);
-    return dateFormat_us;
-    }
-*/
-/*
-const ChangeDateFormat = (props) => {
-        var day = props.birthday.getDate();
-        var month = props.birthday.getMonth();
-        var year = props.birthday.getFullYear();
-      var dateFormat_us = month + '/' + day + '/' + year;
-      console.log(dateFormat_us);
-      return dateFormat_us;
-      }
-};
-*/
-
   render() {
     const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm } = this.state
     const { movies, favoriteMovies, favorites } = this.props;
@@ -189,7 +148,7 @@ const ChangeDateFormat = (props) => {
           </Card.Body>
 
           <h2>Change your Profile Data:</h2>
-
+          // form for user data update
           <Form className="changeProfileData">
             <Form.Group controlId="formBasicText">
               <Form.Label>Your Username</Form.Label>

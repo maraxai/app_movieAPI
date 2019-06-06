@@ -1,4 +1,4 @@
-// creates variable React with React module, as a part of the React library
+// creates variable React with react module, as a part of the React library
 import React from 'react';
 
 // manages HTTP client requests
@@ -15,7 +15,7 @@ import { MovieView } from '../movie-view/movie-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-
+// creates links
 import { Link } from 'react-router-dom';
 
 // make it pretty
@@ -29,6 +29,7 @@ export class MainView extends React.Component {
 
       //initiates the state for designated properties upon page load
       this.state = {
+        fav: '',
         movies: [],
         user: null,
         register: false,
@@ -38,6 +39,8 @@ export class MainView extends React.Component {
         favoritemovies: [],
         favorites: []
       };
+
+      // change functions to ES6 and no explict binding is necessary
       this.addToFavMovieList = this.addToFavMovieList.bind(this);
       this.removeFromFavMovieList = this.removeFromFavMovieList.bind(this);
   }
@@ -48,7 +51,8 @@ export class MainView extends React.Component {
     if (accessToken !== null) {
       let user = localStorage.getItem('user');
       this.setState({
-      user : localStorage.getItem('user')
+      user : localStorage.getItem('user'),
+      fav: this.state.fav
       });
       console.log(user);
       this.getMovies(accessToken);
@@ -56,6 +60,7 @@ export class MainView extends React.Component {
     }
   }
 
+  // event handler will add movie to favoritemovies
   addToFavMovieList(movie) {
     //https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
     let favorites = this.state.userdata.favoritemovies;
@@ -67,7 +72,7 @@ export class MainView extends React.Component {
     userdata.favoritemovies = favorites;
     this.setState({userdata});
     }
-
+  // event handler will remove added movie from favoritemovies
   removeFromFavMovieList(id) {
     let currFavorites = this.state.userdata.favoritemovies;
     let favorites = currFavorites.filter(mId => {
@@ -139,7 +144,7 @@ export class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // ES6 refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { movies, user, username, password, email, birthday, token, userdata, favoritemovies } = this.state;
+  const { movies, user, username, password, email, birthday, token, userdata} = this.state;
 
     //before the movies have been loaded
     if (!movies) return <div className="main-view" />;
@@ -167,7 +172,7 @@ export class MainView extends React.Component {
             if (!user) return <LoginView login={user => this.login(user)} />
             return movies.map(m => <MovieCard key={m._id} movie={m}
               userdata={userdata}
-              favorite={favoritemovies.indexOf(m._id) > -1}
+              favorite={userdata.favoritemovies.indexOf(m._id) > -1}
               addToFavMovieList={this.addToFavMovieList}
               removeFromFavMovieList={this.removeFromFavMovieList}
             />)

@@ -23,6 +23,7 @@ export class MovieCard extends React.Component {
     this.toggleClass = this.toggleClass.bind(this);
   }
 
+  // lifecycle prevents error messages that could be caused by delay of state update due to synchronous behavior
   componentDidUpdate(prevProps) {
     if (this.props.favorite !== prevProps.favorite) {
       this.setState({
@@ -31,6 +32,7 @@ export class MovieCard extends React.Component {
     }
   }
 
+  // toggle manages adding and removing of the selected movie from list
   toggleClass() {
     toggleClick = true;
     if (!this.state.fav) {
@@ -40,6 +42,7 @@ export class MovieCard extends React.Component {
     }
   }
 
+  // adds the selected movie._id to user.favoritemovies by axios PUT request
   addToFavMovieList(id) {
   const user = localStorage.getItem('user');
   const token = localStorage.getItem('token');
@@ -56,13 +59,14 @@ export class MovieCard extends React.Component {
       fav: true
     });
     this.props.addToFavMovieList(id);
+    console.log('fav: ' + this.state.fav)
   })
   .catch(e => {
     console.log(e);
   });
 }
 
-
+  // removes the selected movie._id form user.favoritemovies by axios DELETE request
 removeFromFavMovieList() {
     const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
@@ -79,7 +83,7 @@ removeFromFavMovieList() {
             fav: false
           });
           this.props.removeFromFavMovieList(id);
-
+          console.log('fav: ' + this.state.fav)
         })
         .catch(e => {
           console.log(e);
@@ -88,9 +92,9 @@ removeFromFavMovieList() {
 
   render() {
 
-    // destructuring - assign 'movie' and 'onClick' as this components object
+    // destructuring - assign 'movie' and 'onClick' as this component's object
     const { movie } = this.props;
-    // returns the movie title
+    // returns the movie's data
     return (
       <Card bg="light" style={{ width: '100%' }}>
         <Card.Body>

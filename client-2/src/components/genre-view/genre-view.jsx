@@ -1,3 +1,4 @@
+//import of modules
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -6,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import './genre-view.scss';
 
+// function component that creates a list with all movies of this particular genre
 const MoviesOfGenre = (props) => {
   const rows = props.movieByGenre.map((row, index) => {
     return <li key={index}>{row.title}</li>
@@ -13,9 +15,10 @@ const MoviesOfGenre = (props) => {
   return <ul>{rows}</ul>
 }
 
+// class component for genre of the selected movie
 export class GenreView extends React.Component {
   render() {
-    const { genre, movie, test } = this.props;
+    const { genre, movie } = this.props;
 
     return (
       <div>
