@@ -170,9 +170,9 @@ export class MainView extends React.Component {
           </Navbar >
           <Route exact path="/" render={() => {
             if (!user) return <LoginView login={user => this.login(user)} />
-            return movies.map(m => <MovieCard key={m._id} movie={m}
+            if (userdata.favoritemovies) return movies.map(m => <MovieCard key={m._id} movie={m}
               userdata={userdata}
-              favorite={userdata.favoritemovies.indexOf(m._id) > -1}
+              favorite={ userdata.favoritemovies.indexOf(m._id) > -1 }
               addToFavMovieList={this.addToFavMovieList}
               removeFromFavMovieList={this.removeFromFavMovieList}
             />)

@@ -130,7 +130,6 @@ export class ProfileView extends React.Component {
           <Card.Text>Password:********</Card.Text>
           <Card.Text>Email: {this.state.email}</Card.Text>
           <Card.Text>Birthday: {this.state.birthday}</Card.Text>
-          <Card.Text>Your Favorite Movie List:</Card.Text>
           <div className="fav-movies-links">Your favorite movies:</div>
           <Card.Text>{
             favoriteMoviesList.map(m => (
@@ -148,7 +147,7 @@ export class ProfileView extends React.Component {
           </Card.Body>
 
           <h2>Change your Profile Data:</h2>
-          // form for user data update
+          {/* form for user data update*/}
           <Form className="changeProfileData">
             <Form.Group controlId="formBasicText">
               <Form.Label>Your Username</Form.Label>
