@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MainView } from '../main-view/main-view';
 import { MovieCard } from '../movie-card/movie-card';
-import { FavMovieButton } from '../button/toggleButton';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
