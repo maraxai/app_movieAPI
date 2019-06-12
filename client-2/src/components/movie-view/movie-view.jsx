@@ -1,6 +1,58 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { MainView } from '../main-view/main-view';
+import MainView from '../main-view/main-view';
+import { MovieCard } from '../movie-card/movie-card';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import InputGroup from 'react-bootstrap/InputGroup';
+
+
+function MovieView(props) {
+  const { movies, movieId } = props;
+
+  if (!movies || !movies.length) return null;
+
+  const movie = movies.find(m => m._id == movieId);
+
+  return (
+    <div className="movie-view">
+        <div className="movie-imagepath">{movie.imagePath}</div>
+        <div className="movie-title">{movie.title}</div>
+        <div className="movie-description">{movie.description}</div>
+
+        // React Bootstrap Component Card
+        <Card style={{ width: '100%' }}>
+          <Card.Body>
+            <Card.Img style={{ width: '20%' }} variant="top" src={movie.imagePath} />
+            <Card.Title>{movie.title}</Card.Title>
+            <Card.Text>{movie.description}</Card.Text>
+            <Link to={'/'}>
+              <Button variant="outline-secondary" size="sm">Back to Movie List</Button>
+            </Link><span>&nbsp;</span>
+            <Link to={`/directors/${movie.director.name}`}>
+              <Button variant="outline-secondary" size="sm">Director</Button>
+            </Link><span>&nbsp;</span>
+            <Link to={`/genres/${movie.genre.name}`}>
+              <Button variant="outline-secondary" size="sm">Genre</Button>
+            </Link><span>&nbsp;</span>
+          </Card.Body>
+        </Card>
+
+    </div>
+
+  )
+}
+
+/*
+import PropTypes from 'prop-types';
+import MainView from '../main-view/main-view';
 import { MovieCard } from '../movie-card/movie-card';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -16,7 +68,7 @@ import './movie-view.scss'
 import { Link } from 'react-router-dom';
 
 // exports the stateful class component which in inherited from the React component
-export class MovieView extends React.Component {
+class MovieView extends React.Component {
   // constructer function, super refers to the 'Super' object of the React component
   // 'this' refers to the function's object, which is internally mutable
   constructor(props) {
@@ -54,6 +106,7 @@ export class MovieView extends React.Component {
    const { movie } = this.props;
 
 
+
    if (!movie) {
      return null;
    }
@@ -89,3 +142,5 @@ MovieView.propTypes={
     director: PropTypes.shape({name: PropTypes.string}).isRequired
   }).isRequired
 };
+*/
+export default connect(({movies}) => ({movies}))(MovieView);

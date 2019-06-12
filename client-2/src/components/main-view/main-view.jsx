@@ -1,18 +1,25 @@
 // creates variable React with react module, as a part of the React library
 import React from 'react';
-
 // manages HTTP client requests
 import axios from 'axios';
+
+import { connect } from 'react-redux';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+// import the action setMovies
+import { setMovies } from '../../actions/actions'
+
+import MoviesList from '../movies-list/movies-list';
+import MovieView from '../movie-view/movie-view';
 
 //imports the designated components from the files wherein they reside, bootstrap, router and app-specific ones
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-import { ProfileView } from '../profile-view/profile-view';
+import ProfileView  from '../profile-view/profile-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 // creates links
@@ -22,12 +29,12 @@ import { Link } from 'react-router-dom';
 import './main-view.scss'
 
 // exports the stateful class component which is inherited from the 'prototype' react componentDidMount
-export class MainView extends React.Component {
+class MainView extends React.Component {
   // applies constructor function including object reference to 'prototype' object through 'this'
   constructor() {
     super();
 
-      //initiates the state for designated properties upon page load
+      //initiates the state for *designated properties upon page load
       this.state = {
         fav: '',
         movies: [],
@@ -73,10 +80,10 @@ export class MainView extends React.Component {
     this.setState({userdata});
     }
   // event handler will remove added movie from favoritemovies
-  removeFromFavMovieList(id) {
+  removeFromFavMovieList(movieId) {
     let currFavorites = this.state.userdata.favoritemovies;
     let favorites = currFavorites.filter(mId => {
-      return mId !== id
+      return mId !== movieId
     });
     let userdata = {...this.state.userdata};
     userdata.favoritemovies = favorites;
@@ -113,11 +120,14 @@ export class MainView extends React.Component {
     })
     .then(response => {
       //assign the result to the state
-      this.setState({
-        movies: response.data
-      });
+      // this.setState({
+      // movies: response.data
+      // });
+     this.props.setMovies(response.data);
+     console.log(response.data)
+
     })
-    .catch(function (error) {
+    .catch(error => {
       console.log(error);
     });
   }
@@ -170,14 +180,19 @@ export class MainView extends React.Component {
           </Navbar >
           <Route exact path="/" render={() => {
             if (!user) return <LoginView login={user => this.login(user)} />
-            if (userdata.favoritemovies) return movies.map(m => <MovieCard key={m._id} movie={m}
-              userdata={userdata}
-              favorite={ userdata.favoritemovies.indexOf(m._id) > -1 }
-              addToFavMovieList={this.addToFavMovieList}
-              removeFromFavMovieList={this.removeFromFavMovieList}
-            />)
-            }
-          }/>
+            return <MoviesList
+                  userdata={userdata}
+                  addToFavMovieList={this.addToFavMovieList}
+                  removeFromFavMovieList={this.removeFromFavMovieList}
+                />
+              }
+            }/>
+            <Route exact path="/movies"
+              render={() =>  <MoviesList
+                addToFavMovieList={this.addToFavMovieList}
+                removeFromFavMovieList={this.removeFromFavMovieList}
+                userdata={userdata}
+                /> }/>
           <Route path="/directors/:name" render={({match}) => <DirectorView movie={movies.filter(movie => movie.director.name === match.params.name)} director={movies.find(movie => movie.director.name === match.params.name).director}/>} />
           <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
@@ -189,3 +204,13 @@ export class MainView extends React.Component {
     );
   }
 }
+
+export default connect(null, { setMovies } )(MainView);
+
+
+
+//          return <MoviesList
+//            userdata={userdata}
+//            addToFavMovieList={this.addToFavMovieList}
+//            removeFromFavMovieList={this.removeFromFavMovieList}
+//          />

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { MainView } from '../main-view/main-view';
+import MainView from '../main-view/main-view';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import axios from 'axios';
 // make it pretty
 import './profile-view.scss'
 
-export class ProfileView extends React.Component {
+class ProfileView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -114,6 +114,7 @@ export class ProfileView extends React.Component {
 
   render() {
     const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm } = this.state
+    console.log(favoritemovies, '!!favoritemovies')
     const { movies, favoriteMovies, favorites } = this.props;
     const favoriteMoviesList = movies.filter(m => favoritemovies.includes(m._id));
     //const favorites = movies.filter(movie => favoritemovies.indexOf(movie._id) > -1)
@@ -176,3 +177,5 @@ export class ProfileView extends React.Component {
     )
   }
 }
+
+export default connect(({ movies }) => ({ movies }) )(ProfileView);

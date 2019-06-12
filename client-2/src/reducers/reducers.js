@@ -6,7 +6,7 @@ A reducer takes a previous state and an action and returns a new state.
 import { combineReducers } from 'redux';
 
 //add additional actions UPDATE_PROFILE, DELETE_PROFILE, see end of file
-import { SET_MOVIES, SET_FILTER, SET_SORT_COLUMN { /* ,UPDATE_PROFILE, DELETE_PROFILE */ } } from '../actions/actions';
+import { SET_MOVIES, SET_FILTER, SET_SORT_COLUMN, LOG_TEST, UPDATE_PROFILE, DELETE_PROFILE } from '../actions/actions';
 
 // this reducer shows the movies
 function movies(state = [], action) {
@@ -30,18 +30,29 @@ function visibilityFilter(state = '', action) {
 // this reducer changes the sorting order of the movies
 function sortColumn(state = [], action) {
   switch (action.type) {
-    case SET_MOVIES:
+    case SET_SORT_COLUMN:
       return action.value;
     default:
       return state;
   }
 }
 
-// 'combined reducer' groups all that sum
-const moviesApp = combinedReducers({
+// this is a test reducers
+function logTest(state = 'initial text', action) {
+  switch (action.type) {
+    case LOG_TEST:
+      return action.value = 'Hi! Greetings from the action logTest. Text is written in the reducer, NOT in the action, this is not the initial state/text.';
+    default:
+      return state;
+  }
+}
+
+// 'combined reducer' groups all single reducers
+const moviesApp = combineReducers({
   visibilityFilter,
   sortColumn,
-  movies
+  movies,
+  logTest
 });
 
 /* additional reducers
@@ -60,6 +71,18 @@ function removeProfile(state = [], action) {
   switch (action.type) {
     case DELETE_PROFILE:
       return action.value;
+    default:
+      return state;
+  }
+}
+
+//a 'one-switch reducer could perhaps look like this; verify!'
+function profile(state = [], action) {
+  switch (action.type) {
+    case DELETE_PROFILE:
+      return action.value;
+      case UPDATE_PROFILE:
+        return action.value;
     default:
       return state;
   }

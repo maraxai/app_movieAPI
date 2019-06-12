@@ -12,6 +12,9 @@ export const SET_MOVIES = 'SET_MOVIES';
 export const SET_FILTER = 'SET_FILTERS';
 // sets sort filter
 export const SET_SORT_COLUMN = 'SET_SORT_COLUMN';
+// log for testing
+export const LOG_TEST = 'LOG_TEST';
+
 
 /* additional actions, check if correctly
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
@@ -31,6 +34,10 @@ export function setFilter(value) {
 //
 export function setSortColumn(value) {
   return {type: SET_SORT_COLUMN, value};
+}
+
+export function logTest(text) {
+  return {type: LOG_TEST, text: 'test'};
 }
 
 /*
