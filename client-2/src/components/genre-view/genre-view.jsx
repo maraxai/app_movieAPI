@@ -2,6 +2,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
@@ -18,7 +19,8 @@ const MoviesOfGenre = (props) => {
 // class component for genre of the selected movie
 export class GenreView extends React.Component {
   render() {
-    const { genre, movie } = this.props;
+    const { genre, movies } = this.props;
+    const gen = movies.find(m => m.genre.name == genre).genre
 
     return (
       <div>
@@ -27,7 +29,7 @@ export class GenreView extends React.Component {
             <Card.Title>Genre: {genre.name}</Card.Title>
             <Card.Text>{genre.description}</Card.Text>
             <Card.Subtitle>Movies of the category {genre.name}:</Card.Subtitle>
-            <MoviesOfGenre movieByGenre={movie}/>
+            <MoviesOfGenre movieByGenre={movies}/>
             <Link to={`/`}>
               <Button variant="outline-secondary">Back</Button>
             </Link>
@@ -37,3 +39,5 @@ export class GenreView extends React.Component {
     );
   }
 }
+
+export default connect(({movies}) => ({movies}))(GenreView);

@@ -183,8 +183,9 @@ class MainView extends React.Component {
             return <MoviesList  />
               }
             }/>
-          <Route path="/directors/:name" render={({match}) => <DirectorView movie={movies.filter(movie => movie.director.name === match.params.name)} director={movies.find(movie => movie.director.name === match.params.name).director}/>} />
-          <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
+
+          <Route path="/directors/:name" render={({match}) => <DirectorView movies={movies} director={match.params.name}/>} />
+          <Route path="/genres/:name" render={({match}) => <GenreView movies={movies} genre={match.params.name}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
           <Route path="/movies/:id" render={({match}) => <MovieView id={match.params.id} />} />
           <Route path="/profile" render={() => <ProfileView fav={fav} movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />

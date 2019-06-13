@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom'
 
@@ -15,8 +16,6 @@ const MoviesOfDirector = (props) => {
   return <ul>{rows}</ul>;
 };
 
-
-
 export class DirectorView extends React.Component {
   constructor() {
     super();
@@ -26,10 +25,11 @@ export class DirectorView extends React.Component {
   render() {
 
     // destructuring - assign 'movie' and 'onClick' as this components object
-    const { director, movie } = this.props;
+    const { director, movies } = this.props;
     //<Card.Img style={{ width: '30%' }} variant="top" src={movie.imagePath} />
 
     if (!director) return null;
+    const dir = movies.find(m => m.director.name == director).director
 
     return (
       <Card bg="light" style={{ width: '90%' }}>
@@ -39,7 +39,7 @@ export class DirectorView extends React.Component {
           <Card.Text>{director.death}</Card.Text>
           <Card.Text>{director.bio}</Card.Text>
           <Card.Subtitle>Movies directed by {director.name}:</Card.Subtitle>
-          <MoviesOfDirector moviesByDirector={movie} />
+          <MoviesOfDirector moviesByDirector={movies} />
           <Link to={`/`}>
             <Button variant="outline-secondary">Back</Button>
           </Link>
@@ -58,3 +58,5 @@ DirectorView.propTypes = {
     Movies: PropTypes.array
   }).isRequired
 };
+
+export default connect(({movies}) => ({movies}))(DirectorView)
