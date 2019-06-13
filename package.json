@@ -1,4 +1,4 @@
-{
+react{
   "name": "app_movieAPI",
   "version": "1.0.0",
   "description": "created 23 February 2019\r part of Career Foundry Full-Stack Web Developer Course, AII assignment\r after completion of all 10 steps this will be a server-side building block for an RESTful API, created with\r JavaScript, Node.js, Express and MongoDB",
@@ -27,8 +27,6 @@
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.0.3",
-    "redux": "^4.0.1",
     "request": "^2.88.0",
     "uuid": "^3.3.2"
   },

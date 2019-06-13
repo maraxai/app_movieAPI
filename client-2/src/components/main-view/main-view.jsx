@@ -70,26 +70,26 @@ class MainView extends React.Component {
   // event handler will add movie to favoritemovies
   addToFavMovieList(movie) {
     //https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
+    let userdata = {...this.state.userdata};
+    userdata.favoritemovies = favorites;
+
+    this.setState({userdata});
+
     let favorites = this.state.userdata.favoritemovies;
     if (favorites.indexOf(movie) < 0) {
       favorites.push(movie);
     }
+  }
 
-    let userdata = {...this.state.userdata};
-    userdata.favoritemovies = favorites;
-    this.setState({userdata});
-    }
   // event handler will remove added movie from favoritemovies
-  removeFromFavMovieList(movieId) {
-    let currFavorites = this.state.userdata.favoritemovies;
-    let favorites = currFavorites.filter(mId => {
-      return mId !== movieId
-    });
+  removeFromFavMovieList(id) {
     let userdata = {...this.state.userdata};
     userdata.favoritemovies = favorites;
+
     this.setState({userdata});
 
-
+    let currFavorites = this.state.userdata.favoritemovies;
+    let favorites = currFavorites.filter(mId => mId !== id);
   }
 
   // when a user logs in, he is 'set to state'
@@ -154,7 +154,7 @@ class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // ES6 refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { movies, user, username, password, email, birthday, token, userdata} = this.state;
+  const { fav, favorite, favorites, movies, user, username, password, email, birthday, token, userdata} = this.state;
 
     //before the movies have been loaded
     if (!movies) return <div className="main-view" />;
@@ -180,24 +180,14 @@ class MainView extends React.Component {
           </Navbar >
           <Route exact path="/" render={() => {
             if (!user) return <LoginView login={user => this.login(user)} />
-            return <MoviesList
-                  userdata={userdata}
-                  addToFavMovieList={this.addToFavMovieList}
-                  removeFromFavMovieList={this.removeFromFavMovieList}
-                />
+            return <MoviesList  />
               }
             }/>
-            <Route exact path="/movies"
-              render={() =>  <MoviesList
-                addToFavMovieList={this.addToFavMovieList}
-                removeFromFavMovieList={this.removeFromFavMovieList}
-                userdata={userdata}
-                /> }/>
           <Route path="/directors/:name" render={({match}) => <DirectorView movie={movies.filter(movie => movie.director.name === match.params.name)} director={movies.find(movie => movie.director.name === match.params.name).director}/>} />
           <Route path="/genres/:name" render={({match}) => <GenreView movie={movies.filter(movie => movie.genre.name === match.params.name)} genre={movies.find(movie => movie.genre.name === match.params.name).genre}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
-          <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-          <Route path="/profile" render={() => <ProfileView movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
+          <Route path="/movies/:id" render={({match}) => <MovieView id={match.params.id} />} />
+          <Route path="/profile" render={() => <ProfileView fav={fav} movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
       </Router>
@@ -206,11 +196,3 @@ class MainView extends React.Component {
 }
 
 export default connect(null, { setMovies } )(MainView);
-
-
-
-//          return <MoviesList
-//            userdata={userdata}
-//            addToFavMovieList={this.addToFavMovieList}
-//            removeFromFavMovieList={this.removeFromFavMovieList}
-//          />

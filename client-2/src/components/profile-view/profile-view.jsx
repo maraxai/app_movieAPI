@@ -115,8 +115,9 @@ class ProfileView extends React.Component {
   render() {
     const { userdata, username, password, email, birthday, favoritemovies, usernameForm, passwordForm, emailForm, birthdayForm } = this.state
     console.log(favoritemovies, '!!favoritemovies')
-    const { movies, favoriteMovies, favorites } = this.props;
+    const { movies, favoriteMovies, favorite } = this.props;
     const favoriteMoviesList = movies.filter(m => favoritemovies.includes(m._id));
+    console.log(favoritemovies)
     //const favorites = movies.filter(movie => favoritemovies.indexOf(movie._id) > -1)
 
     if(!userdata) return null;

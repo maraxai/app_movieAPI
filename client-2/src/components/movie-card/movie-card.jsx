@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-
+import { setMovies } from '../../actions/actions';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -44,6 +44,7 @@ export class MovieCard extends React.Component {
 
   // adds the selected movie._id to user.favoritemovies by axios PUT request
   addToFavMovieList(id) {
+    console.log(id)
   const user = localStorage.getItem('user');
   const token = localStorage.getItem('token');
   axios
