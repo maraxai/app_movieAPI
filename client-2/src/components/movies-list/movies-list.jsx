@@ -24,13 +24,19 @@ const mapStateToProps = state => {
 };
 
 function MoviesList(props) {
-  const { movies } = props;
+  const { movies, addToFavMovieList, removeFromFavMovieList, userdata } = props;
+  const favorite = userdata.favoritemovies || [];
 
   if (!movies) return <div className="main-view" />;
 
   return <div className="movies-list">
     <VisibilityFilterInput />
-    {movies.map(m => <MovieCard key={m._id} movie={m} />)}
+    {movies.map(m => <MovieCard
+      key={m._id}
+      movie={m}
+      addToFavMovieList={addToFavMovieList}
+      removeFromFavMovieList={removeFromFavMovieList}
+      favorite={favorite.indexOf(m._id) > -1}/>)}
   </div>;
 }
 

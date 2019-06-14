@@ -154,7 +154,7 @@ class MainView extends React.Component {
   render() {
   // the state has to been initialized before data is initially loaded
   // ES6 refracturing extracts the properties of the props/state (instead of this.state.user, you can use user)
-  const { fav, favorite, favorites, movies, user, username, password, email, birthday, token, userdata} = this.state;
+  const { addToFavMovieList, removeFromMovieList, fav, favorite, favorites, movies, user, username, password, email, birthday, token, userdata} = this.state;
 
     //before the movies have been loaded
     if (!movies) return <div className="main-view" />;
@@ -180,7 +180,11 @@ class MainView extends React.Component {
           </Navbar >
           <Route exact path="/" render={() => {
             if (!user) return <LoginView login={user => this.login(user)} />
-            return <MoviesList  />
+            return <MoviesList
+            addToFavMovieList={this.addToFavMovieList}
+            removeFromFavMovieList={this.removeFromFavMovieList}
+            userdata={userdata}
+            />
               }
             }/>
 
@@ -188,7 +192,7 @@ class MainView extends React.Component {
           <Route path="/genres/:name" render={({match}) => <GenreView movies={movies} genre={match.params.name}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
           <Route path="/movies/:id" render={({match}) => <MovieView id={match.params.id} />} />
-          <Route path="/profile" render={() => <ProfileView fav={fav} movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
+          <Route path="/profile" render={() => <ProfileView movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
       </Router>
