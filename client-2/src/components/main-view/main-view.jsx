@@ -70,26 +70,27 @@ class MainView extends React.Component {
   // event handler will add movie to favoritemovies
   addToFavMovieList(movie) {
     //https://stackoverflow.com/questions/43040721/how-to-update-nested-state-properties-in-react
-    let userdata = {...this.state.userdata};
-    userdata.favoritemovies = favorites;
-
-    this.setState({userdata});
-
     let favorites = this.state.userdata.favoritemovies;
     if (favorites.indexOf(movie) < 0) {
       favorites.push(movie);
     }
-  }
 
-  // event handler will remove added movie from favoritemovies
-  removeFromFavMovieList(id) {
     let userdata = {...this.state.userdata};
     userdata.favoritemovies = favorites;
 
     this.setState({userdata});
 
+  }
+
+  // event handler will remove added movie from favoritemovies
+  removeFromFavMovieList(id) {
     let currFavorites = this.state.userdata.favoritemovies;
     let favorites = currFavorites.filter(mId => mId !== id);
+
+    let userdata = {...this.state.userdata};
+    userdata.favoritemovies = favorites;
+
+    this.setState({userdata});
   }
 
   // when a user logs in, he is 'set to state'

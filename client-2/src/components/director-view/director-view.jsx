@@ -27,7 +27,7 @@ export class DirectorView extends React.Component {
   render() {
 
     // destructuring - assign 'movie' and 'onClick' as this components object
-    const { test, director, movies } = this.props
+    const { director, movies } = this.props
     console.log(director);
     console.log(movies);
     //<Card.Img style={{ width: '30%' }} variant="top" src={movie.imagePath} />

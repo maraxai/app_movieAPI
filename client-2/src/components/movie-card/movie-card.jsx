@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { setMovies } from '../../actions/actions';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -18,7 +17,7 @@ export class MovieCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-  //    fav: props.favorite
+      fav: props.favorite
     };
     this.toggleClass = this.toggleClass.bind(this);
   }
@@ -27,7 +26,7 @@ export class MovieCard extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.favorite !== prevProps.favorite) {
       this.setState({
-      //  fav: this.props.favorite
+        fav: this.props.favorite
       });
     }
   }
@@ -59,7 +58,7 @@ export class MovieCard extends React.Component {
     this.setState({
       fav: true
     });
-//    this.props.addToFavMovieList(id);
+    this.props.addToFavMovieList(id);
 //    console.log('fav: ' + this.state.fav)
   })
   .catch(e => {
@@ -83,7 +82,7 @@ removeFromFavMovieList() {
           this.setState({
             fav: false
           });
-  //        this.props.removeFromFavMovieList(id);
+          this.props.removeFromFavMovieList(id);
   //        console.log('fav: ' + this.state.fav)
         })
         .catch(e => {
