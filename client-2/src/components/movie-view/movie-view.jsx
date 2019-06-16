@@ -16,11 +16,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 function MovieView(props) {
   const { movies, id } = props;
-  console.log(movies)
 
   if (!movies || !movies.length) return null;
 
   const movie = movies.find(m => m._id == id);
+  console.log(movies)
 
   return (
     <div className="movie-view">

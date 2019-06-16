@@ -20,8 +20,8 @@ import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import ProfileView  from '../profile-view/profile-view';
-import { DirectorView } from '../director-view/director-view';
-import { GenreView } from '../genre-view/genre-view';
+import  DirectorView  from '../director-view/director-view';
+import GenreView from '../genre-view/genre-view';
 // creates links
 import { Link } from 'react-router-dom';
 
@@ -189,8 +189,8 @@ class MainView extends React.Component {
               }
             }/>
 
-          <Route path="/directors/:name" render={({match}) => <DirectorView movies={movies} director={match.params.name}/>} />
-          <Route path="/genres/:name" render={({match}) => <GenreView movies={movies} genre={match.params.name}/>} />
+          <Route path="/directors/:name" render={({match}) => <DirectorView director={match.params.name}/>} />
+          <Route path="/genres/:name" render={({match}) => <GenreView genre={match.params.name}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
           <Route path="/movies/:id" render={({match}) => <MovieView id={match.params.id} />} />
           <Route path="/profile" render={() => <ProfileView movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />

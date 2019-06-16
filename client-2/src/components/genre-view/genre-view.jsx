@@ -18,22 +18,28 @@ const MoviesOfGenre = (props) => {
 
 // class component for genre of the selected movie
 export class GenreView extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
   render() {
     const { genre, movies } = this.props;
     console.log(genre);
     console.log(movies);
 
-    const gen = movies.find(m => m.genre.name == genre)
+    //if (!movies) return null;
+    let genreMovies = movies.filter(m => m.genre.name == genre);
+    let genreData = {...this.props.movies.genre};
 
     return (
       <div>
         <Card bg="light" style={{ width: '90%' }}>
           <Card.Body>
-            <Card.Title>Genre: {genre}</Card.Title>
+            <Card.Title>Genre: {genreData.name}</Card.Title>
             <Card.Title>Genre: {genre.name}</Card.Title>
             <Card.Text>{genre.description}</Card.Text>
             <Card.Subtitle>Movies of the category {genre.name}:</Card.Subtitle>
-            <MoviesOfGenre movieByGenre={movies}/>
+            <MoviesOfGenre movieByGenre={genreMovies}/>
             <Link to={`/`}>
               <Button variant="outline-secondary">Back</Button>
             </Link>
