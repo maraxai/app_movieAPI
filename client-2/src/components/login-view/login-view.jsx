@@ -29,8 +29,7 @@ export function LoginView(props) {
       props.login(data)
     })
     .catch(e => {
-      console.log('no such user')
-      alert('Please try again or user is not registered.')
+      alert('Login failed, please try again or register.')
     });
   };
 
