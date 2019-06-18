@@ -8,7 +8,7 @@ import VisibilityFilterInput from '../../visibility-filter-input/visibility-filt
 import { MovieCard } from '../movie-card/movie-card';
 
 const mapStateToProps = state => {
-  const { movies, visibilityFilter, sortColumn } = state;
+  const { movies, visibilityFilter, sortColumn, users } = state;
 
   let moviesToShow = movies.concat().sort((a, b) => {
     if (a[sortColumn] < b[sortColumn]) return -1;
@@ -20,12 +20,12 @@ const mapStateToProps = state => {
     moviesToShow = moviesToShow.filter(m => m.title.includes(visibilityFilter));
   }
 
-  return { movies: moviesToShow };
+  return { movies: moviesToShow, users: users };
 };
 
 function MoviesList(props) {
-  const { movies, userdata } = props;
-  const favMovies = userdata.favoritemovies || [];
+  const { movies, users } = props;
+  const favMovies = users.favoritemovies || [];
 
   if (!movies) return <div className="main-view" />;
 

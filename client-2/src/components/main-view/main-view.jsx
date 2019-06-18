@@ -122,13 +122,8 @@ class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
-      //assign the result to the state
-      // this.setState({
-      // movies: response.data
-      // });
      this.props.setMovies(response.data);
      console.log(response.data)
-
     })
     .catch(error => {
       console.log(error);
@@ -142,12 +137,8 @@ class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
-
-      const userdata = response.data;
-      //assign the result to the state
-      this.setState({
-       userdata : response.data
-      });
+    this.props.setUsers(response.data);
+    console.log(response.data)
     })
     .catch(error => {
       console.log(error);
@@ -169,16 +160,16 @@ class MainView extends React.Component {
           <Navbar bg="warning" expand="lg">
           <Navbar.Brand >Hello {user}!</Navbar.Brand>
           <Link to={`/profile`}>
-            <Button variant="link">Your Profile</Button>
+            <Button variant="link">Your profile</Button>
           </Link>
           <Link to={`/register`}>
-            <Button variant="link">Register</Button>
+            <Button variant="link">register</Button>
           </Link>
           <Link to={`/login`}>
-            <Button variant="link">Login</Button>
+            <Button variant="link">login</Button>
           </Link>
           <Link to={`/logout`}>
-            <Button variant="link" onClick={this.logout}>Logout</Button>
+            <Button variant="link" onClick={this.logout}>logout</Button>
           </Link>
           </Navbar >
           <Route exact path="/" render={() => {
@@ -203,4 +194,4 @@ class MainView extends React.Component {
   }
 }
 
-export default connect(null, { setMovies } )(MainView);
+export default connect(null, { setMovies, setUsers } )(MainView);

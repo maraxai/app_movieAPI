@@ -1,6 +1,6 @@
 // declaration of variables for modules
 import React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
@@ -117,9 +117,11 @@ removeFromFavMovieList() {
   }
 }
 
+/*
 MovieCard.propTypes={
   movie: PropTypes.shape({
     title: PropTypes.string
   }).isRequired,
   onClick: PropTypes.func.isRequired
 };
+*/

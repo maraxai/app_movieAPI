@@ -88,7 +88,7 @@ class ProfileView extends React.Component {
       document.getElementsByClassName('changeProfileData')[0].reset();
     })
     .catch(e => {
-      console.log('no update performed, error');
+      console.log('not updated, error');
       alert('please check, error');
     });
   };
@@ -179,4 +179,4 @@ class ProfileView extends React.Component {
   }
 }
 
-export default connect(({ movies }) => ({ movies }) )(ProfileView);
+export default connect(({ movies, users }) => ({ movies, users }) )(ProfileView);

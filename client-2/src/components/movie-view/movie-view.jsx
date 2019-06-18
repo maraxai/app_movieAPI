@@ -45,4 +45,4 @@ function MovieView(props) {
   )
 }
 
-export default connect( ({movies}) => ({movies}) )(MovieView);
+export default connect( ({movies, users}) => ({movies, users}) )(MovieView);
