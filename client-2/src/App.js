@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { logTest } from './actions/actions';
-
 // 'combined-reducers' with all available reducers
 import moviesApp from './reducers/reducers';
 import MainView from './components/main-view/main-view';
@@ -13,7 +11,6 @@ import MainView from './components/main-view/main-view';
 import './App.css';
 
 const store = createStore(moviesApp);
-store.dispatch(logTest());
 
 
 class App extends Component {

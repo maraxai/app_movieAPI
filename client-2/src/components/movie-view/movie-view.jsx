@@ -30,13 +30,13 @@ function MovieView(props) {
             <Card.Title>{movie.title}</Card.Title>
             <Card.Text>{movie.description}</Card.Text>
             <Link to={'/'}>
-              <Button variant="outline-secondary" size="sm">Back to Movie List</Button>
+              <Button variant="outline-secondary" size="sm">back to movie list</Button>
             </Link><span>&nbsp;</span>
             <Link to={`/directors/${movie.director.name}`}>
-              <Button variant="outline-secondary" size="sm">Director</Button>
+              <Button variant="outline-secondary" size="sm">director</Button>
             </Link><span>&nbsp;</span>
             <Link to={`/genres/${movie.genre.name}`}>
-              <Button variant="outline-secondary" size="sm">Genre</Button>
+              <Button variant="outline-secondary" size="sm">genre</Button>
             </Link><span>&nbsp;</span>
           </Card.Body>
         </Card>

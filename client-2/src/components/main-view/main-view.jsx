@@ -7,8 +7,10 @@ import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-// import the action setMovies
-import { setMovies } from '../../actions/actions'
+// import the 'action' setMovies
+import { setMovies } from '../../actions/actions';
+// import the 'action' setUsers
+import { setUsers } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import MovieView from '../movie-view/movie-view';

@@ -127,11 +127,11 @@ class ProfileView extends React.Component {
       <div className="profile-view">
         <Card bg="light" style={{ width: '90%' }}>
           <Card.Body>
-          <Card.Title>Profile Data:</Card.Title>
-          <Card.Text>Username: {this.state.username}</Card.Text>
-          <Card.Text>Password:********</Card.Text>
-          <Card.Text>Email: {this.state.email}</Card.Text>
-          <Card.Text>Birthday: {this.state.birthday}</Card.Text>
+          <Card.Title>user profile:</Card.Title>
+          <Card.Text>username: {this.state.username}</Card.Text>
+          <Card.Text>password:********</Card.Text>
+          <Card.Text>email: {this.state.email}</Card.Text>
+          <Card.Text>birthday: {this.state.birthday}</Card.Text>
           <div className="fav-movies-links">Your favorite movies:</div>
           <Card.Text>{
             favoriteMoviesList.map(m => (
@@ -145,14 +145,14 @@ class ProfileView extends React.Component {
           <Button variant="outline-secondary" size="sm">Back</Button>
           </Link>
           <span>&nbsp;</span>
-          <Button type="button" variant="outline-secondary" size="sm" onClick={this.deleteProfile}>Delete Account</Button>
+          <Button type="button" variant="outline-secondary" size="sm" onClick={this.deleteProfile}>delete account</Button>
           </Card.Body>
 
-          <h2>Change your Profile Data:</h2>
+          <h2>Change your profile data:</h2>
           {/* form for user data update*/}
           <Form className="changeProfileData">
             <Form.Group controlId="formBasicText">
-              <Form.Label>Your Username</Form.Label>
+              <Form.Label>your username</Form.Label>
               <Form.Control type="text" name="usernameForm" onChange={e => this.handleChange(e)}/>
             </Form.Group>
 
@@ -167,7 +167,7 @@ class ProfileView extends React.Component {
             </Form.Group>
 
             <Form.Group controlId="formBasicBirthday">
-              <Form.Label>Your birthday</Form.Label>
+              <Form.Label>your birthday</Form.Label>
               <Form.Control type="date" name="birthdayForm" onChange={e => this.handleChange(e)}  />
             </Form.Group>
 

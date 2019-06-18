@@ -6,7 +6,7 @@ A reducer takes a previous state and an action and returns a new state.
 import { combineReducers } from 'redux';
 
 //add additional actions UPDATE_PROFILE, DELETE_PROFILE, see end of file
-import { SET_MOVIES, SET_FILTER, SET_SORT_COLUMN, LOG_TEST, UPDATE_PROFILE, DELETE_PROFILE } from '../actions/actions';
+import { SET_MOVIES, SET_FILTER, SET_SORT_COLUMN, SET_USERS, UPDATE_PROFILE, DELETE_PROFILE } from '../actions/actions';
 
 // this reducer shows the movies
 function movies(state = [], action) {
@@ -38,10 +38,10 @@ function sortColumn(state = [], action) {
 }
 
 // this is a test reducers
-function logTest(state = 'initial text', action) {
+function users(state = [], action) {
   switch (action.type) {
-    case LOG_TEST:
-      return action.value = 'Hi! Greetings from the action logTest. Text is written in the reducer, NOT in the action, this is not the initial state/text.';
+    case SET_USERS:
+      return action.value;
     default:
       return state;
   }
@@ -52,7 +52,7 @@ const moviesApp = combineReducers({
   visibilityFilter,
   sortColumn,
   movies,
-  logTest
+  users
 });
 
 /* additional reducers
