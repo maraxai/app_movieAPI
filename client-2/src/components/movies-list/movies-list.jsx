@@ -16,8 +16,28 @@ const mapStateToProps = state => {
     return 0;
   });
 
+  //
+
   if(visibilityFilter !== '') {
-    moviesToShow = moviesToShow.filter(m => m.title.includes(visibilityFilter));
+    moviesToShow = moviesToShow.filter(m => m.title.toLowerCase().includes(visibilityFilter));
+    // these work as well:
+    // moviesToShow = moviesToShow.filter(m => m.director.name.toLowerCase().includes(visibilityFilter));
+    // moviesToShow = moviesToShow.filter(m => m.genre.name.toLowerCase().includes(visibilityFilter));
+
+    // this should be the setup for the Form.Control with the <option> tags; a 'switch' would also work
+    // but I did not get it running!
+    /*
+    var id;
+    if (id == 'cat-title') {
+      moviesToShow = moviesToShow.filter(m => m.title.toLowerCase().includes(visibilityFilter));
+    }
+    if (id == 'cat-director') {
+      moviesToShow = moviesToShow.filter(m => m.director.name.toLowerCase().includes(visibilityFilter));
+    }
+    else if (id == 'cat-genre') {
+      moviesToShow = moviesToShow.filter(m => m.genre.name.toLowerCase().includes(visibilityFilter));
+    }
+    */
   }
 
   return { movies: moviesToShow, users: users };
