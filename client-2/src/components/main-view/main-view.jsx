@@ -160,7 +160,7 @@ class MainView extends React.Component {
           <Navbar bg="warning" expand="lg">
           <Navbar.Brand >Hello {user}!</Navbar.Brand>
           <Link to={`/profile`}>
-            <Button variant="link">Your profile</Button>
+            <Button variant="link">your profile</Button>
           </Link>
           <Link to={`/register`}>
             <Button variant="link">register</Button>
@@ -189,6 +189,7 @@ class MainView extends React.Component {
           <Route path="/profile" render={() => <ProfileView movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>
+
       </Router>
     );
   }

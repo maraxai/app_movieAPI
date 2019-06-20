@@ -1,0 +1,23 @@
+.search-bar {
+  margin: 1em;
+
+}
+
+.filter-group {
+  display: flex;
+  justify-content:flex-start;
+  align-content: center;
+  align-items: center;
+}
+
+.filter-categories {
+  width: 20%
+}
+
+.filter {
+  width: 40%
+}
+
+.search-label {
+  padding: 0.5em;
+}

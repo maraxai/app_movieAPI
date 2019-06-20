@@ -28,7 +28,7 @@ function visibilityFilter(state = '', action) {
 }
 
 // this reducer changes the sorting order of the movies
-function sortColumn(state = [], action) {
+function sortColumn(state = 'title', action) {
   switch (action.type) {
     case SET_SORT_COLUMN:
       return action.value;

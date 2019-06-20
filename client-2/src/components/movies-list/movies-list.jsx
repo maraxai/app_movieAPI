@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import VisibilityFilterInput from '../../visibility-filter-input/visibility-filter-input';
+import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 import { MovieCard } from '../movie-card/movie-card';
 
 const mapStateToProps = state => {
@@ -16,28 +16,16 @@ const mapStateToProps = state => {
     return 0;
   });
 
-  //
-
-  if(visibilityFilter !== '') {
-    moviesToShow = moviesToShow.filter(m => m.title.toLowerCase().includes(visibilityFilter));
-    // these work as well:
-    // moviesToShow = moviesToShow.filter(m => m.director.name.toLowerCase().includes(visibilityFilter));
-    // moviesToShow = moviesToShow.filter(m => m.genre.name.toLowerCase().includes(visibilityFilter));
-
-    // this should be the setup for the Form.Control with the <option> tags; a 'switch' would also work
-    // but I did not get it running!
-    /*
-    var id;
-    if (id == 'cat-title') {
-      moviesToShow = moviesToShow.filter(m => m.title.toLowerCase().includes(visibilityFilter));
-    }
-    if (id == 'cat-director') {
-      moviesToShow = moviesToShow.filter(m => m.director.name.toLowerCase().includes(visibilityFilter));
-    }
-    else if (id == 'cat-genre') {
-      moviesToShow = moviesToShow.filter(m => m.genre.name.toLowerCase().includes(visibilityFilter));
-    }
-    */
+  if(visibilityFilter !== '' && sortColumn == 'director' ) {
+    moviesToShow = moviesToShow.filter(m => m.director.name.toLowerCase().includes(visibilityFilter.toLowerCase()));
+  }
+  if(visibilityFilter !== '' && sortColumn == 'genre')
+  {
+    moviesToShow = moviesToShow.filter(m => m.genre.name.toLowerCase().includes(visibilityFilter.toLowerCase()));
+  }
+  // check if even necessary because default: title
+  else if(visibilityFilter !== '' && sortColumn == 'title' ) {
+    moviesToShow = moviesToShow.filter(m => m.title.toLowerCase().includes(visibilityFilter.toLowerCase()));
   }
 
   return { movies: moviesToShow, users: users };

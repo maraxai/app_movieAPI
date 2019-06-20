@@ -22,3 +22,11 @@
 .label {
   color: $font-color-grey2;
 }
+
+.footer {
+  color: $font-color-grey2;
+  font-size: 0.75em;
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+}
