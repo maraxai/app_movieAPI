@@ -17,6 +17,7 @@ function movies(state = [], action) {
     return state;
   }
 }
+
 // this reducer changes the visibility property of the state
 function visibilityFilter(state = '', action) {
   switch (action.type) {
@@ -37,16 +38,6 @@ function sortColumn(state = 'title', action) {
   }
 }
 
-// this is a test reducers
-function users(state = [], action) {
-  switch (action.type) {
-    case SET_USERS:
-      return action.value;
-    default:
-      return state;
-  }
-}
-
 // 'combined reducer' groups all single reducers
 const moviesApp = combineReducers({
   visibilityFilter,
@@ -54,40 +45,5 @@ const moviesApp = combineReducers({
   movies,
   users
 });
-
-/* additional reducers
-// this reducer changes the profile property
-function changeProfile(state = {}, action) {
-  switch (action.type) {
-    case UPDATE_PROFILE:
-      return action.value;
-    default:
-      return state;
-  }
-}
-
-// this reducer removes a profile
-function removeProfile(state = [], action) {
-  switch (action.type) {
-    case DELETE_PROFILE:
-      return action.value;
-    default:
-      return state;
-  }
-}
-
-//a 'one-switch reducer could perhaps look like this; verify!'
-function profile(state = [], action) {
-  switch (action.type) {
-    case DELETE_PROFILE:
-      return action.value;
-      case UPDATE_PROFILE:
-        return action.value;
-    default:
-      return state;
-  }
-}
-
-*/
 
 export default moviesApp;
