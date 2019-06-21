@@ -47,7 +47,7 @@ export class MovieCard extends React.Component {
   const user = localStorage.getItem('user');
   const token = localStorage.getItem('token');
   axios
-  .put(`https://stark-headland-48507.herokuapp.com/users/${user}/favoritemovies/${id}`,
+  .put(`https://md-movie-app.herokuapp.com/users/${user}/favoritemovies/${id}`,
     {},
     {
       headers: { Authorization: `Bearer ${token}` }
@@ -72,7 +72,7 @@ removeFromFavMovieList() {
     const token = localStorage.getItem('token');
     const id = this.props.movie._id
     axios
-        .delete(`https://stark-headland-48507.herokuapp.com/users/${user}/favoritemovies/${id}`,
+        .delete(`https://md-movie-app.herokuapp.com/users/${user}/favoritemovies/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` }
           }

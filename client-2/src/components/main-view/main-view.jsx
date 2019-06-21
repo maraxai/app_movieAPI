@@ -118,7 +118,7 @@ class MainView extends React.Component {
 
   // GET request for movies data with token authorization
   getMovies(token) {
-    axios.get('https://stark-headland-48507.herokuapp.com/movies', {
+    axios.get('https://md-movie-app.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
@@ -133,7 +133,7 @@ class MainView extends React.Component {
   // GET request for user data with token authorization
   getUser(user, token) {
     let username = localStorage.getItem('user');
-    axios.get(`https://stark-headland-48507.herokuapp.com/users/${username}`, {
+    axios.get(`https://md-movie-app.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {

@@ -42,7 +42,7 @@ class ProfileView extends React.Component {
   //get user by GET axios GET request and setState
   getUser(token) {
     let username = localStorage.getItem('user');
-    axios.get(`https://stark-headland-48507.herokuapp.com/users/${username}`, {
+    axios.get(`https://md-movie-app.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}`}
     })
     .then(response => {
@@ -69,7 +69,7 @@ class ProfileView extends React.Component {
   updateProfile(e) {
     e.preventDefault();
     console.log(this.state.username);
-    axios.put(`https://stark-headland-48507.herokuapp.com/users/${localStorage.getItem('user')}`, {
+    axios.put(`https://md-movie-app.herokuapp.com/users/${localStorage.getItem('user')}`, {
       username: this.state.usernameForm,
       password: this.state.passwordForm,
       email: this.state.emailForm,
@@ -96,7 +96,7 @@ class ProfileView extends React.Component {
   //delete user
     deleteProfile(e) {
       e.preventDefault();
-      axios.delete(`https://stark-headland-48507.herokuapp.com/users/${localStorage.getItem('user')}`, {
+      axios.delete(`https://md-movie-app.herokuapp.com/users/${localStorage.getItem('user')}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
       })
       .then(response => {

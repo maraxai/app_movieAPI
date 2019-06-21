@@ -35,7 +35,7 @@ var auth = require('./auth')(app);
 app.use(morgan('common'));
 
 // documentation of API placed in public/documentation.html file
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'client-2/build')));
 
 // error handling
 app.use(function (err, req, res, next) {
@@ -51,7 +51,14 @@ app.use(validator());
  // REQUESTS //
 //////////////
 
-// MOVIES //
+// MOVIES
+
+//as instructed by Dave Ceddia
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client-2/build/index.html'));
+});
 
 // routes to index.html on root level
 app.get('/', function(req, res) {

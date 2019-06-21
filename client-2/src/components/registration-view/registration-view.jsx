@@ -20,7 +20,7 @@ export function RegistrationView(props) {
     e.preventDefault();
     console.log(username, password, email, birthday);
     /* send a request to the server for authentication - Pass As Params*/
-    axios.post('https://stark-headland-48507.herokuapp.com/users', {
+    axios.post('https://md-movie-app.herokuapp.com/users', {
       username: username,
       password: password,
       email: email,

@@ -20,7 +20,7 @@ export function LoginView(props) {
     e.preventDefault();
     console.log(username, password);
     /* send a request to the server for authentication - Pass As Params*/
-    axios.post('https://stark-headland-48507.herokuapp.com/login', {
+    axios.post('https://md-movie-app.herokuapp.com/login', {
       username: username,
       password: password
     })

@@ -38,6 +38,16 @@ function sortColumn(state = 'title', action) {
   }
 }
 
+// this is a test reducers
+function users(state = [], action) {
+  switch (action.type) {
+    case SET_USERS:
+      return action.value;
+    default:
+      return state;
+  }
+}
+
 // 'combined reducer' groups all single reducers
 const moviesApp = combineReducers({
   visibilityFilter,
