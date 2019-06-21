@@ -1,4 +1,4 @@
-react{
+{
   "name": "app_movieAPI",
   "version": "1.0.0",
   "description": "created 23 February 2019\r part of Career Foundry Full-Stack Web Developer Course, AII assignment\r after completion of all 10 steps this will be a server-side building block for an RESTful API, created with\r JavaScript, Node.js, Express and MongoDB",
