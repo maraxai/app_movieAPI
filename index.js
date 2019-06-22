@@ -35,7 +35,7 @@ var auth = require('./auth')(app);
 app.use(morgan('common'));
 
 // documentation of API placed in public/documentation.html file
-app.use(express.static(path.join(__dirname, 'client-2/build')));
+app.use(express.static(path.join(__dirname, '/client-2/build')));
 
 // error handling
 app.use(function (err, req, res, next) {
