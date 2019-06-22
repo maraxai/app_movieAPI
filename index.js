@@ -60,6 +60,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client-2/build/index.html'));
 });
 
+
 // routes to index.html on root level
 app.get('/', function(req, res) {
   res.send(index.html);
