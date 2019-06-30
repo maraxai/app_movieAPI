@@ -185,7 +185,7 @@ class MainView extends React.Component {
           <Route path="/directors/:name" render={({match}) => <DirectorView director={match.params.name}/>} />
           <Route path="/genres/:name" render={({match}) => <GenreView genre={match.params.name}/>} />
           <Route path="/register" render={() => <RegistrationView login={(user) => this.login(user)} />} />
-          <Route path="/movies/:id" render={({match}) => <MovieView id={match.params.id} />} />
+          <Route path="/mymovies/:id" render={({match}) => <MovieView id={match.params.id} />} />
           <Route path="/profile" render={() => <ProfileView movies={movies} userdata={userdata} addToFavMovieList={this.addToFavMovieList} removeFromFavMovieList={this.removeFromFavMovieList} />} />
           <Route path="/login" render={() => <LoginView login={user => this.login(user)} />} />
         </div>

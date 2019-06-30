@@ -108,7 +108,7 @@ removeFromFavMovieList() {
             </span>
           </Card.Title>
           <Card.Text>{movie.description}</Card.Text>
-          <Link to={`/movies/${movie._id}`}>
+          <Link to={`/mymovies/${movie._id}`}>
             <Button variant="outline-secondary" size="sm">read more...</Button>
           </Link>
         </Card.Body>
