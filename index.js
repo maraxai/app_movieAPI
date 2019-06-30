@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
 
 const Models = require('./models.js');
 
