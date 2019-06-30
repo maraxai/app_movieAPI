@@ -53,19 +53,6 @@ app.use(validator());
 
 // MOVIES
 
-//as instructed by Dave Ceddia
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client-2/build/index.html'));
-});
-
-
-// routes to index.html on root level
-app.get('/', function(req, res) {
-  res.send(index.html);
-});
-
 // return json with all movies (mongoose)
 app.get('/movies', passport.authenticate('jwt', {session: false}), function(req, res) {
   Movies.find()
@@ -307,6 +294,18 @@ app.delete('/users/:username/favoritemovies/:id', passport.authenticate('jwt', {
       res.json(updatedfavoritemovies);
     }
   });
+});
+
+//as instructed by Dave Ceddia
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client-2/build/index.html'));
+});
+
+// routes to index.html on root level
+app.get('/', function(req, res) {
+  res.send(index.html);
 });
 
 var port = process.env.PORT || 3000;
