@@ -1,3 +1,4 @@
+/** MainView is ready for JSDoc documentation */
 // creates variable React with react module, as a part of the React library
 import React from 'react';
 // manages HTTP client requests

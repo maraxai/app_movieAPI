@@ -1,3 +1,4 @@
+/** ProfileView is ready for JSDoc documentation */
 import React, { useState } from 'react';
 import MainView from '../main-view/main-view';
 import Card from 'react-bootstrap/Card';

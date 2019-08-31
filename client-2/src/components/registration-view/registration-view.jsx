@@ -1,15 +1,16 @@
+/** RegistrationView is ready for JSDoc documentation */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-// http client handler axios
+/** http client handler axios */
 import axios from 'axios'
 
-// make it pretty
+/** make it pretty */
 import './registration-view.scss'
 
-/* function component with the Hook useState */
+/** function component with the Hook useState */
 export function RegistrationView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');

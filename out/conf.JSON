@@ -1,0 +1,30 @@
+{
+    "plugins": [],
+    "recurseDepth": 10,
+    "source": {
+        "include": ["index.js",
+                    "models.js",
+                    "client-2/src/actions/actions.js",
+                    "client-2/src/components/director-view/director-view.jsx",
+                    "client-2/src/components/genre-view/genre-view.jsx",
+                    "client-2/src/components/login-view/login-view.jsx",
+                    "client-2/src/components/main-view/main-view.jsx",
+                    "client-2/src/components/movie-card/movie-card.jsx",
+                    "client-2/src/components/movie-view/movie-view.jsx",
+                    "client-2/src/components/profile-view/profile-view.jsx",
+                    "client-2/src/components/registration-view/registration-view.jsx",
+                    "client-2/src/components/visibility-filter-input/visibility-filter-input.jsx",
+                    "client-2/src/reducers/reducers.js"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "sourceType": "module",
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    }
+}

@@ -1,3 +1,4 @@
+/** VisibilityFilterInput is ready for JSDoc documentation */
 import React from 'react';
 import PropTypes from 'prop-types';
 // 'connect' to store

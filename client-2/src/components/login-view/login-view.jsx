@@ -1,17 +1,18 @@
+/** LoginView is ready for JSDoc documentation */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-// for API GET requests of http client handler axios
+/** for API GET requests of http client handler axios */
 import axios from 'axios'
 
-// make it pretty
+/** make it pretty */
 import './login-view.scss'
 
 
 
-/* function component with the hook useState */
+/** function component with the hook useState */
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');

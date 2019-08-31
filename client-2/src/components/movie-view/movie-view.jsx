@@ -1,3 +1,4 @@
+/** MovieView is ready for JSDoc documentation */
 import React from 'react';
 
 import { connect } from 'react-redux';

@@ -1,3 +1,4 @@
+/** GenreView is ready for JSDoc documentation */
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -7,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 import './genre-view.scss';
 
+/** @function GenreView */
 function GenreView(props) {
   const { genre, movies } = props;
   if (!movies || !movies.length) return null;

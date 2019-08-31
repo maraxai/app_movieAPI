@@ -1,3 +1,7 @@
+/** Models, say 'hi' to JSDocs! */
+/** @const mongoose represents the module 'mongoose'
+* @const bcrypt represents the module 'bcrypis'
+*/
 const mongoose = require('mongoose'),
       bcrypt = require('bcryptjs');
 
