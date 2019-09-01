@@ -1,54 +1,27 @@
-/** Index.js manages all HTTP requests  */
-
-/** @module express, a server framework for Node.js
-* @const express
-*/
 const express = require('express');
-
-/** @module morgan, an HTTP request logger middleware for node.js that generates request logs
-* @const morgan
-*/
 const morgan = require('morgan');
-
-/** @module body-parser, a parsing middleware for node.js that is needed to read HTTP POST data which is stored in req.body
-* @const body-parser
-*/
 const bodyParser = require('body-parser');
-
-/** @module uuid, which generates user ids
-* @const uuid
-*/
 const uuid = require('uuid');
-
-/** @module mongoose, an object data modeling libray (ODM) for MongoDB database
-* @const mongoose
-*/
 const mongoose = require('mongoose');
-
-/** @module password, authentication middleware for Node.js
-* @const password
-*/
 const passport = require('passport');
-
-/** @module dotenv, manages the environmental variables stored in .env
-* @const dotenv
-*/
 const dotenv = require('dotenv');
-
-/** @module cors, Express middleware that manages the CORS settings (Cross-Origin-Resource-Sharing)
-* @const cors
-*/
 const cors = require('cors');
-
-/** @module path, part of Node.js core, manages file and folder paths
-* @const path
-*/
 const path = require('path');
-
-/** @module models.js, contains the data schema for this application
-* @const Models
-*/
 const Models = require('./models.js');
+
+/**
+* @description Index.js manages all HTTP requests
+* @requires express, a server framework for Node.js
+* @requires morgan, an HTTP request logger middleware for node.js that generates request logs
+* @requires body-parser, a parsing middleware for node.js that is needed to read HTTP POST data which is stored in req.body
+* @requires uuid, which generates user ids
+* @requires mongoose, an object data modeling libray (ODM) for MongoDB database
+* @requires password, authentication middleware for Node.js
+* @requires dotenv, manages the environmental variables stored in .env
+* @requires cors, Express middleware that manages the CORS settings (Cross-Origin-Resource-Sharing)
+* @requires path, part of Node.js core, manages file and folder paths
+* @requires models.js, contains the data schema for this application
+*/
 /** @const Movies data schema for Movies object  */
 const Movies = Models.Movie;
 /** @const Users data schema for Users object  */
@@ -84,7 +57,7 @@ app.use(function (err, req, res, next) {
   res.status(500).send('Something went wrong!');
 });
 
-/** validation for form entries */
+/** @require express-validator, validation of form entries */
 const validator = require('express-validator');
 app.use(validator());
 
