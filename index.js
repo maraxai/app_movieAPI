@@ -11,6 +11,7 @@ const Models = require('./models.js');
 
 /**
 * @description Index.js manages all HTTP requests
+* @class Router
 * @requires express, a server framework for Node.js
 * @requires morgan, an HTTP request logger middleware for node.js that generates request logs
 * @requires body-parser, a parsing middleware for node.js that is needed to read HTTP POST data which is stored in req.body
